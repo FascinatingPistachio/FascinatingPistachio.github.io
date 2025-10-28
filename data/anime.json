@@ -1,0 +1,34 @@
+{
+  "anime": [
+    {
+      "title": "Dr. Stone",
+      "thumbnail": "https://i.ibb.co/bMptFwVN/60930bac0d6c0.jpg",
+      "link": ""
+    },
+    {
+      "title": "Demon Slayer",
+      "thumbnail": "https://i.ibb.co/7NRrqKF1/MV5-BMWU1-OGEw-Nm-Qt-NGM3-MS00-YTYy-LThm-Ym-Mt-N2-Fj-Yz-Qz-Nz-Nm-NTE0-Xk-Ey-Xk-Fqc-Gc-V1.jpg",
+      "link": ""
+    },
+    {
+      "title": "Death Note",
+      "thumbnail": "https://i.ibb.co/tTH2JGcg/MV5-BYTgy-ZDhm-MTEt-ZDFh-Ni00-MTc4-LTg3-Nj-Ut-YWJl-NGE5-Mzk2-Nz-Mx-Xk-Ey-Xk-Fqc-Gc-V1.jpg",
+      "link": ""
+    },
+    {
+      "title": "Gachiakuta",
+      "thumbnail": "https://i.ibb.co/XZj5cQcR/MV5-BZDU5-Zm-Ez-ODYt-MDU2-OS00-NTZi-LTk4-MWYt-YWUy-ZWUz-NGU2-ODdj-Xk-Ey-Xk-Fqc-Gc-V1.jpg",
+      "link": ""
+    },
+    {
+      "title": "Solo Leveling",
+      "thumbnail": "https://i.ibb.co/cSwpjr3R/MV5-BM2-M4-Yzdk-MTEt-Mj-Uy-Yy00-ZWY0-LWI5-ODQt-NGRk-ZWQ1-Mz-U5-MWM2-Xk-Ey-Xk-Fqc-Gc-V1.jpg",
+      "link": ""
+    },
+    {
+      "title": "High Card",
+      "thumbnail": "https://i.ibb.co/1YFRvyCC/MV5-BOTky-Mz-A2-OWIt-NDlj-My00-Yj-Rk-LWFj-NGQt-ZTcy-Mzk4-Zm-U4-Mj-I2-Xk-Ey-Xk-Fqc-Gc-V1.jpg",
+      "link": ""
+    }
+  ]
+}
