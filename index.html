@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aaron's World</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            background-color: #e8e6e3; /* Match gallery background */
+            color: #222;
+        }
+        /* Style for Info Box (matches gallery.html) */
+        .info-box {
+            background-color: white;
+            border: 2px solid #a0aec0; /* gray-500 */
+            border-radius: 0; /* No rounded corners */
+            padding: 1.5rem; /* p-6 */
+        }
+        /* Style for Nav Link / Button (matches gallery.html) */
+        .nav-link {
+            display: inline-block;
+            background-color: #e2e8f0; /* gray-200 */
+            color: #2d3748; /* gray-800 */
+            font-weight: 600; /* font-semibold */
+            padding-top: 0.5rem; /* py-2 */
+            padding-bottom: 0.5rem;
+            padding-left: 1rem; /* px-4 */
+            padding-right: 1rem;
+            border: 2px solid #a0aec0; /* border-gray-500 */
+            text-decoration: none; /* no-underline */
+            border-radius: 0; /* Ensure square corners */
+            margin: 0.5rem 1rem; /* Spacing */
+            transition: background-color 0.2s ease;
+        }
+        .nav-link:hover {
+             background-color: #cbd5e0; /* gray-300 */
+             color: #2d3748; /* Keep text color same on hover */
+             border-color: #a0aec0; /* Keep border color same */
+        }
+
+        /* Styles for Anime Covers */
+        .anime-cover-container {
+             max-width: 100px; /* Adjust as needed for desired small size */
+             margin: 0 auto; /* Center the container */
+        }
+        .anime-cover {
+            border: 1px solid #a0aec0; /* Simple border */
+            width: 100%;
+            height: auto; /* Maintain aspect ratio */
+            display: block;
+        }
+        .anime-title {
+            font-size: 0.8rem; /* Smaller font for smaller images */
+            margin-top: 0.25rem; /* Reduced margin */
+            color: #333;
+            line-height: 1.2; /* Adjust line height if needed */
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <header class="bg-[#f5f5f0] text-center p-6 md:p-8 border-b border-[#ccc] z-20 relative">
+        <h1 class="text-3xl md:text-4xl font-bold text-[#222] mb-2">Aaron's World</h1>
+        <p class="text-[#555] text-base md:text-lg">Welcome to my little corner of the web.</p>
+    </header>
+
+    <!-- Added Navigation Bar for consistency -->
+    <nav id="main-nav" class="flex justify-center bg-[#f7f7f2] border-b border-[#ccc] p-2 flex-wrap sticky top-0 z-10">
+        <a href="index.html" class="nav-link">Home</a> 
+        <!-- You could add a direct link to the gallery here too if desired -->
+        <!-- <a href="gallery.html" class="nav-link">Train Gallery</a> -->
+    </nav>
+
+    <main class="flex-grow flex items-center justify-center p-4 md:p-8">
+
+        <!-- Retro-styled About Me card using info-box class -->
+        <div class="info-box max-w-2xl w-full">
+            <div class="p-6 md:p-8">
+                <h2 class="text-2xl font-semibold mb-6 text-center border-b border-gray-300 pb-3">About Me</h2>
+
+                <p class="text-lg text-[#333] mb-4 leading-relaxed">
+                    Hello and welcome! My name is Aaron. This website is a place for me to share some of the things I'm passionate about.
+                </p>
+                <p class="text-lg text-[#333] mb-4 leading-relaxed">
+                    I just really like trains in general, especially the historic steam locomotives you can find at railway museums and heritage lines.  There's something truly special about seeing these incredible machines up close. The gallery here is a passion project – I'm trying to collect as many photos as possible of *me* next to these amazing trains! You'll see my collection so far in the gallery.
+                </p>
+                 <p class="text-lg text-[#333] mb-4 leading-relaxed">
+                    Beyond trains, I have a few other hobbies. I enjoy painting miniatures, particularly Warhammer 40,000 models.  I also like playing video games on my Nintendo Switch 2  and spending time with my pet dog. 
+                 </p>
+                 <p class="text-lg text-[#333] mb-4 leading-relaxed">
+                    I also enjoy watching anime, which got me interested in learning a bit of Japanese (still very much a beginner!). Some of the series I'd recommend are:
+                 </p>
+
+                 <!-- Smaller Anime Covers Grid -->
+                 <div class="grid grid-cols-6 gap-2 mb-6 text-center">
+                     <div class="anime-cover-container">
+                         <a href="https://bentoroll.vercel.app/series.html?series=dr-stone" target="_blank" rel="noopener noreferrer">
+                             <img src="https://i.ibb.co/bMptFwVN/60930bac0d6c0.jpg" alt="Dr. Stone Cover" class="anime-cover" onerror="this.src='https://placehold.co/100x140/ffffff/777777?text=Dr.+Stone'; this.onerror=null;">
+                         </a>
+                         <p class="anime-title">Dr. Stone</p>
+                     </div>
+                      <div class="anime-cover-container">
+                         <img src="https://i.ibb.co/7NRrqKF1/MV5-BMWU1-OGEw-Nm-Qt-NGM3-MS00-YTYy-LThm-Ym-Mt-N2-Fj-Yz-Qz-Nz-Nm-NTE0-Xk-Ey-Xk-Fqc-Gc-V1.jpg" alt="Demon Slayer Cover" class="anime-cover" onerror="this.src='https://placehold.co/100x140/ffffff/777777?text=Demon+Slayer'; this.onerror=null;">
+                         <p class="anime-title">Demon Slayer</p>
+                     </div>
+                      <div class="anime-cover-container">
+                         <img src="https://i.ibb.co/tTH2JGcg/MV5-BYTgy-ZDhm-MTEt-ZDFh-Ni00-MTc4-LTg3-Nj-Ut-YWJl-NGE5-Mzk2-Nz-Mx-Xk-Ey-Xk-Fqc-Gc-V1.jpg" alt="Death Note Cover" class="anime-cover" onerror="this.src='https://placehold.co/100x140/ffffff/777777?text=Death+Note'; this.onerror=null;">
+                         <p class="anime-title">Death Note</p>
+                     </div>
+                      <div class="anime-cover-container">
+                         <a href="https://bentoroll.vercel.app/series.html?series=gachiakuta" target="_blank" rel="noopener noreferrer">
+                             <img src="https://i.ibb.co/XZj5cQcR/MV5-BZDU5-Zm-Ez-ODYt-MDU2-OS00-NTZi-LTk4-MWYt-YWUy-ZWUz-NGU2-ODdj-Xk-Ey-Xk-Fqc-Gc-V1.jpg" alt="Gachiakuta Cover" class="anime-cover" onerror="this.src='https://placehold.co/100x140/ffffff/777777?text=Gachiakuta'; this.onerror=null;">
+                         </a>
+                         <p class="anime-title">Gachiakuta</p>
+                     </div>
+                      <div class="anime-cover-container">
+                         <img src="https://i.ibb.co/cSwpjr3R/MV5-BM2-M4-Yzdk-MTEt-Mj-Uy-Yy00-ZWY0-LWI5-ODQt-NGRk-ZWQ1-Mz-U5-MWM2-Xk-Ey-Xk-Fqc-Gc-V1.jpg" alt="Solo Leveling Cover" class="anime-cover" onerror="this.src='https://placehold.co/100x140/ffffff/777777?text=Solo+Leveling'; this.onerror=null;">
+                         <p class="anime-title">Solo Leveling</p>
+                     </div>
+                      <div class="anime-cover-container">
+                         <img src="https://i.ibb.co/1YFRvyCC/MV5-BOTky-Mz-A2-OWIt-NDlj-My00-Yj-Rk-LWFj-NGQt-ZTcy-Mzk4-Zm-U4-Mj-I2-Xk-Ey-Xk-Fqc-Gc-V1.jpg" alt="High Card Cover" class="anime-cover" onerror="this.src='https://placehold.co/100x140/ffffff/777777?text=High+Card'; this.onerror=null;">
+                         <p class="anime-title">High Card</p>
+                     </div>
+                 </div>
+
+                <div class="text-center mt-8">
+                     <p class="text-lg text-[#333] mb-4">
+                        Feel free to explore my main collection:
+                    </p>
+                    <!-- Button now uses nav-link class for consistency -->
+                    <a href="gallery.html" class="nav-link">
+                        Visit the Train Gallery
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="text-center p-4 bg-[#f5f5f0] text-[#555] border-t border-[#ccc] text-sm mt-auto">
+        <p>© 2025 Aaron’s World — Built with ❤️ on Neocities</p>
+    </footer>
+
+</body>
+</html>
+
