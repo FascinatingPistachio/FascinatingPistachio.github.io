@@ -46,11 +46,54 @@
       display: block;
     }
     .anime-title {
-      font-size: 0.8rem;
+      font-size: 0.875rem; /* Updated from 0.8rem */
       margin-top: 0.25rem;
       color: #333;
       line-height: 1.2;
     }
+
+    /* --- Added for Image Loom --- */
+    @keyframes loom-shake {
+      0%, 100% { transform: translate(0, 0) rotate(0); }
+      20% { transform: translate(-2px, 1px) rotate(-0.5deg); }
+      40% { transform: translate(2px, -1px) rotate(0.5deg); }
+      60% { transform: translate(-2px, 1px) rotate(0.5deg); }
+      80% { transform: translate(2px, -1px) rotate(-0.5deg); }
+    }
+    .shake {
+      /* Uses a custom cubic-bezier for a 'snappy' mechanical feel */
+      animation: loom-shake 0.3s cubic-bezier(.36,.07,.19,.97) both;
+    }
+    
+    /* --- Added for Side Text --- */
+    .loom-text {
+      max-width: 0;
+      opacity: 0;
+      transform: scaleX(0.8); /* Add a slight scale for effect */
+      /* Use the same cubic-bezier as the reel for a unified feel */
+      transition: max-width 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), 
+                  opacity 0.3s ease-out,
+                  transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      overflow: hidden; /* Prevent content from appearing during transition */
+      color: #444;
+      font-style: italic;
+      /* Change min-height to a fixed height to prevent jiggle */
+      height: 9rem; /* 144px */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .loom-text.visible {
+      max-width: 144px; /* w-36 */
+      opacity: 1;
+      transform: scaleX(1);
+    }
+    /* Isolate the loom viewer to prevent jiggling */
+    #image-loom-viewer {
+      will-change: transform;
+    }
+    /* --- End of Added CSS --- */
+
   </style>
 </head>
 
@@ -68,12 +111,68 @@
 
   <main class="flex-grow flex items-center justify-center p-4 md:p-8">
 
-    <div class="info-box max-w-2xl w-full">
+    <div class="info-box max-w-3xl w-full"> <!-- Widened from max-w-2xl -->
       <div class="p-6 md:p-8">
         <h2 class="text-2xl font-semibold mb-6 text-center border-b border-gray-300 pb-3">About Me</h2>
 
+        <!-- ===== Image Loom with Side Text ===== -->
+        <div class="flex justify-center items-center gap-4 mb-6">
+            <!-- Left Text Box -->
+            <div id="loom-text-left" class="loom-text w-36 text-center text-sm p-3 bg-[#f5f5f0] border border-dashed border-gray-400 rounded-lg">
+                <!-- Content injected by JS -->
+            </div>
+
+            <!-- Image Loom Viewer -->
+            <div class="w-48 h-56 md:w-56 md:h-64 relative flex-shrink-0">
+                <div class="w-full h-full border-2 border-[#a0aec0] bg-white relative overflow-hidden shadow-inner rounded-lg" id="image-loom-viewer">
+                    <!-- The "reel" holds all images. h-[300%] because there are 3 images -->
+                    <div class="absolute w-full h-[300%] top-0 left-0 transition-transform duration-500 ease-[cubic-bezier(0.68,-0.55,0.27,1.55)]" id="image-loom-reel">
+                        
+                        <!-- Slide 1: Each slide is 1/3 (33.3333%) of the reel height -->
+                        <div class="w-full h-[33.3333%] flex flex-col items-center justify-center p-2 relative">
+                            <img 
+                              src="https://i.ibb.co/TMn0CGKv/Gemini-Generated-Image-s78wyfs78wyfs78w.png" 
+                              alt="Aaron's profile picture" 
+                              class="w-32 h-32 md:w-40 md:h-40 object-contain rounded-full"
+                              onerror="this.src='https://placehold.co/160x160/e8e6e3/777777?text=Aaron'; this.onerror=null;"
+                            >
+                            <!-- <p class="text-sm text-[#444] mt-2 italic">Me</p> --> <!-- Text removed -->
+                        </div>
+                        
+                        <!-- Slide 2 -->
+                        <div class="w-full h-[33.3333%] flex flex-col items-center justify-center p-2 relative">
+                            <img 
+                              src="https://i.ibb.co/SsGZF4Z/Aaron-Minifig.png" 
+                              alt="Aaron as a Lego minifig" 
+                              class="w-32 h-32 md:w-40 md:h-40 object-contain rounded-lg"
+                              onerror="this.src='https://placehold.co/160x160/e8e6e3/777777?text=Lego'; this.onerror=null;"
+                            >
+                            <!-- <p class="text-sm text-[#444] mt-2 italic">Myself (Lego)</p> --> <!-- Text removed -->
+                        </div>
+                        
+                        <!-- Slide 3 -->
+                        <div class="w-full h-[33.3333%] flex flex-col items-center justify-center p-2 relative">
+                            <img 
+                              src="https://cdn-mii.accounts.nintendo.com/2.0.0/mii_images/b55b2028ffa7765b/cac39114f9d53cb8324bbec1a8dfd6e9f3cbc5f6.png?type=face&width=270" 
+                              alt="Aaron as a Mii" 
+                              class="w-32 h-32 md:w-40 md:h-40 object-contain rounded-lg bg-white"
+                              onerror="this.src='https://placehold.co/160x160/e8e6e3/777777?text=Mii'; this.onerror=null;"
+                            >
+                            <!-- <p class="text-sm text-[#444] mt-2 italic">...and Mii</p> --> <!-- Text removed -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Text Box -->
+            <div id="loom-text-right" class="loom-text w-36 text-center text-sm p-3 bg-[#f5f5f0] border border-dashed border-gray-400 rounded-lg">
+                <!-- Content injected by JS -->
+            </div>
+        </div>
+        <!-- =============================================== -->
+
         <p class="text-lg text-[#333] mb-4 leading-relaxed">
-          Hey there! My name’s Aaron, and welcome to my little corner of the web. I’ve always loved trains — something about them just fascinates me, especially the old steam ones. They’ve got this amazing power and character that you just don’t see anymore. One of my main hobbies (and kind of a goal, honestly) is to get a picture with as many steam trains as possible. Every time I visit a heritage railway or museum, I’m always on the lookout for another one to add to my collection!
+          Hello there. :) My name is Aaron and welcome to my website. I’ve always loved trains — something about them just fascinates me, especially the old steam ones. They’ve got this amazing power and character that you just don’t see anymore. One of my main hobbies (and kind of a goal, honestly) is to get a picture with as many steam trains as possible. Every time I visit a heritage railway or museum, I’m always on the lookout for another one to add to my collection!
         </p>
 
         <p class="text-lg text-[#333] mb-4 leading-relaxed">
@@ -100,7 +199,7 @@
           I’m also into anime and have been slowly learning a bit of Japanese. Here are a few series I’d recommend if you haven’t seen them:
         </p>
 
-        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 mb-6 text-center">
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 mb-6 text-center"> <!-- Changed gap-3 to gap-4 -->
           <div class="anime-cover-container">
             <a href="https://bentoroll.vercel.app/series.html?series=dr-stone" target="_blank" rel="noopener noreferrer">
               <img src="https://i.ibb.co/bMptFwVN/60930bac0d6c0.jpg" alt="Dr. Stone cover" class="anime-cover" onerror="this.src='https://placehold.co/100x140/ffffff/777777?text=Dr.+Stone'; this.onerror=null;">
@@ -134,7 +233,7 @@
             <img src="https://i.ibb.co/1YFRvyCC/MV5-BOTky-Mz-A2-OWIt-NDlj-My00-Yj-Rk-LWFj-NGQt-ZTcy-Mzk4-Zm-U4-Mj-I2-Xk-Ey-Xk-Fqc-Gc-V1.jpg" alt="High Card cover" class="anime-cover" onerror="this.src='https://placehold.co/100x140/ffffff/777777?text=High+Card'; this.onerror=null;">
             <p class="anime-title">High Card</p>
           </div>
-		  <div class="anime-cover-container">
+          <div class="anime-cover-container">
             <img src="https://i.ibb.co/xSKwqcGm/image.png" alt="High Card cover" class="anime-cover" onerror="this.src='https://placehold.co/100x140/ffffff/777777?text=Tougen+Anki'; this.onerror=null;">
             <p class="anime-title">Tougen Anki</p>
           </div>
@@ -154,6 +253,70 @@
   <footer class="text-center p-4 bg-[#f5f5f0] text-[#555] border-t border-[#ccc] text-sm mt-auto">
     <p>© 2025 Aaron’s World — Built with ❤️ on Neocities</p>
   </footer>
+
+  <!-- --- Updated JavaScript for Image Loom --- -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const reel = document.getElementById('image-loom-reel');
+      const viewer = document.getElementById('image-loom-viewer');
+      const leftText = document.getElementById('loom-text-left');
+      const rightText = document.getElementById('loom-text-right');
+      
+      if (reel && viewer && leftText && rightText) {
+        let currentIndex = 0;
+        const totalImages = 3;
+        const slideData = [
+          { left: "Based on my looks and personality,", right: "with a train!" },
+          { left: "A custom minifig I designed,", right: "using the 'Stud.io' 3D software." },
+          { left: "This Mii shows my love for Nintendo!", right: "We've got a WiiU, 2 Switches, N64, GameCube, &amp; 2 Game &amp; Watch devices!" }
+        ];
+
+        // Function to change the slide
+        function changeSlide() {
+          // 1. Start hiding text
+          leftText.classList.remove('visible');
+          rightText.classList.remove('visible');
+
+          // 2. Wait for hide transition to finish (500ms)
+          setTimeout(() => {
+            // 3. Increment index and loop
+            currentIndex = (currentIndex + 1) % totalImages;
+
+            // 4. Update text content
+            leftText.innerHTML = slideData[currentIndex].left;
+            rightText.innerHTML = slideData[currentIndex].right;
+
+            // 5. Apply shake and move reel
+            viewer.classList.add('shake');
+            reel.style.transform = `translateY(-${currentIndex * (100 / totalImages)}%)`;
+            
+            // 6. Start showing text
+            leftText.classList.add('visible');
+            rightText.classList.add('visible');
+
+            // 7. Remove shake after animation
+            setTimeout(() => {
+              viewer.classList.remove('shake');
+            }, 300); // Shake duration
+          }, 500); // Must match .loom-text hide transition duration
+        }
+
+        // --- Initial Load ---
+        // Set initial text
+        leftText.innerHTML = slideData[0].left;
+        rightText.innerHTML = slideData[0].right;
+        // Make it visible on load
+        setTimeout(() => {
+            leftText.classList.add('visible');
+            rightText.classList.add('visible');
+        }, 100); // Small delay to ensure transition runs
+
+        // --- Start automatic slideshow ---
+        setInterval(changeSlide, 4000); // Change every 4 seconds
+      }
+    });
+  </script>
+  <!-- --- End of Added JavaScript --- -->
 
 </body>
 </html>
