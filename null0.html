@@ -93,12 +93,38 @@ a:hover { color: #ff0000; text-shadow: 0 0 10px #ff0000; }
     z-index: 6;
     opacity: 0;
 }
+
+.flash {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 7;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.05s ease-in-out;
+}
+
+.corrupt {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 6;
+    mix-blend-mode: difference;
+}
 </style>
 </head>
 <body>
 <div id="container">
     <iframe id="mainframe" src="/" scrolling="yes"></iframe>
     <div class="overlay" id="overlay"></div>
+    <div class="flash" id="flash"></div>
+    <canvas class="corrupt" id="corruptCanvas"></canvas>
 
     <div id="page1" class="page active">
         <h1>…</h1>
@@ -113,6 +139,11 @@ const overlay = document.getElementById('overlay');
 const rifts = [];
 const overlayTexts = [];
 const glitchTexts = [];
+const flash = document.getElementById('flash');
+const canvas = document.getElementById('corruptCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
 // Create rifts
 for (let i = 0; i < 12; i++) {
@@ -125,7 +156,7 @@ for (let i = 0; i < 12; i++) {
     rifts.push(rift);
 }
 
-// Overlay texts (pinned to page)
+// Overlay texts
 const messages = ["If you leave…","You will not return","The shadows follow you"];
 messages.forEach((msg, i) => {
     const text = document.createElement('div');
@@ -137,7 +168,7 @@ messages.forEach((msg, i) => {
     overlayTexts.push(text);
 });
 
-// Occasional glitch text for ARG feel
+// Glitch text
 for(let i = 0; i < 5; i++) {
     const g = document.createElement('div');
     g.className = 'glitch';
@@ -155,7 +186,16 @@ function triggerLeave() {
     history.pushState({}, '', '/');
 }
 
-// Sync overlay with iframe scroll with parallax
+// Draw random corruption lines on the canvas
+function drawCorruption() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for(let i = 0; i < 30; i++){
+        ctx.fillStyle = `rgba(${Math.random()*255},0,0,${Math.random()*0.1})`;
+        ctx.fillRect(Math.random()*canvas.width, Math.random()*canvas.height, Math.random()*50, 1);
+    }
+}
+
+// Sync overlay and effects with iframe scroll
 const iframe = document.getElementById('mainframe');
 iframe.addEventListener('load', () => {
     const iframeWindow = iframe.contentWindow;
@@ -172,7 +212,7 @@ iframe.addEventListener('load', () => {
             rift.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${rotation}deg) scale(${0.8 + Math.sin(Date.now()*0.002 + i)/5})`;
         });
 
-        // Overlay text pinned to scroll (opposite direction with slight parallax)
+        // Overlay text opposite to scroll
         overlayTexts.forEach((text, i) => {
             const parallax = 1 + i*0.05; 
             text.style.transform = `translate(${-scrollLeft*parallax}px, ${-scrollTop*parallax}px)`;
@@ -180,7 +220,7 @@ iframe.addEventListener('load', () => {
 
         // Glitch text flicker
         glitchTexts.forEach(g => {
-            if(Math.random() < 0.01) {
+            if(Math.random() < 0.02) {
                 g.style.opacity = 0.5 + Math.random()*0.5;
                 g.style.top = Math.random()*window.innerHeight + 'px';
                 g.style.left = Math.random()*window.innerWidth + 'px';
@@ -189,13 +229,25 @@ iframe.addEventListener('load', () => {
             }
         });
 
-        // Subtle overlay flicker
-        overlay.style.backgroundColor = `rgba(0,0,0,${0.01 + Math.random()*0.02})`;
+        // Flashing black effect
+        if(Math.random() < 0.01){
+            flash.style.opacity = 1;
+            setTimeout(()=>{flash.style.opacity = 0},50);
+        }
+
+        // Draw corruption
+        drawCorruption();
 
         requestAnimationFrame(animate);
     }
 
     animate();
+});
+
+// Adjust canvas on resize
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 });
 </script>
 </body>
