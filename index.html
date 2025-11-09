@@ -1,48 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Welcome to Aaron World</title>
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="shortcut icon" href="/favicon.png" />
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="/css/styles.css">
-
-    <!-- Custom JS -->
-    <script src="/js/main.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aaron World</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="font-['Inter',_Georgia,_serif] flex flex-col min-h-screen text-[#222]">
 
-    <!-- Navbar -->
-    <nav id="main-nav" class="flex justify-center bg-[#f7f7f2] border-b border-[#ccc] p-2 flex-wrap sticky top-0 z-10" aria-label="Main navigation"></nav>
+<body class="min-h-screen flex flex-col font-['Inter']">
 
-    <!-- Main content -->
-    <main class="flex-grow w-full max-w-full mx-auto p-4 md:p-8 text-center mt-12">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">Welcome to Aaron World</h1>
-        <p class="text-lg text-[#555] max-w-3xl mx-auto leading-relaxed">Explore my interactive collections, games, and other fun content!</p>
+<header class="bg-[#f5f5f0] text-center p-6 md:p-8 border-b border-[#ccc] z-20 relative">
+  <h1 class="text-3xl md:text-4xl font-bold text-[#222] mb-2">Aaron World</h1>
+  <p class="text-[#555] text-base md:text-lg">Welcome to my little corner of the web.</p>
+</header>
 
-        <!-- Personal Animation / Profile GIF -->
-        <div class="mt-12">
-            <img src="/media/profile-animation.gif" alt="Aaron Animation" class="mx-auto w-64 h-64 object-cover rounded-lg shadow-lg">
+<nav id="main-nav" class="flex justify-center bg-[#f7f7f2] border-b border-[#ccc] p-2 flex-wrap sticky top-0 z-10" aria-label="Main navigation">
+  <!-- Navbar populated by JS -->
+</nav>
+
+<main class="flex-grow flex items-center justify-center p-4 md:p-8">
+  <div class="bg-white border-2 border-gray-400 rounded-lg shadow-lg max-w-3xl w-full p-6 md:p-8">
+
+    <h2 class="text-2xl font-semibold mb-6 text-center border-b border-gray-300 pb-3">About Me</h2>
+
+    <!-- ===== Image Loom with Side Text ===== -->
+    <div class="flex justify-center items-center gap-4 mb-6">
+      <div id="loom-text-left" class="loom-text w-36 text-center text-sm p-3 bg-[#f5f5f0] border border-dashed border-gray-400 rounded-lg"></div>
+      <div class="w-48 h-56 md:w-56 md:h-64 relative flex-shrink-0">
+        <div class="w-full h-full border-2 border-[#a0aec0] bg-white relative overflow-hidden shadow-inner rounded-lg" id="image-loom-viewer">
+          <div class="absolute w-full h-[300%] top-0 left-0 transition-transform duration-500 ease-[cubic-bezier(0.68,-0.55,0.27,1.55)]" id="image-loom-reel">
+            <div class="w-full h-[33.3333%] flex flex-col items-center justify-center p-2 relative">
+              <img src="https://i.ibb.co/TMn0CGKv/Gemini-Generated-Image-s78wyfs78wyfs78w.png" alt="Aaron's profile picture" class="w-32 h-32 md:w-40 md:h-40 object-contain rounded-full" onerror="this.src='https://placehold.co/160x160/e8e6e3/777777?text=Aaron'; this.onerror=null;">
+            </div>
+            <div class="w-full h-[33.3333%] flex flex-col items-center justify-center p-2 relative">
+              <img src="https://i.ibb.co/SsGZF4Z/Aaron-Minifig.png" alt="Aaron as a Lego minifig" class="w-32 h-32 md:w-40 md:h-40 object-contain rounded-lg" onerror="this.src='https://placehold.co/160x160/e8e6e3/777777?text=Lego'; this.onerror=null;">
+            </div>
+            <div class="w-full h-[33.3333%] flex flex-col items-center justify-center p-2 relative">
+              <img src="https://cdn-mii.accounts.nintendo.com/2.0.0/mii_images/b55b2028ffa7765b/cac39114f9d53cb8324bbec1a8dfd6e9f3cbc5f6.png?type=face&width=270" alt="Aaron as a Mii" class="w-32 h-32 md:w-40 md:h-40 object-contain rounded-lg bg-white" onerror="this.src='https://placehold.co/160x160/e8e6e3/777777?text=Mii'; this.onerror=null;">
+            </div>
+          </div>
         </div>
-    </main>
+      </div>
+      <div id="loom-text-right" class="loom-text w-36 text-center text-sm p-3 bg-[#f5f5f0] border border-dashed border-gray-400 rounded-lg"></div>
+    </div>
+    <!-- ===== End Loom ===== -->
 
-    <!-- Footer -->
-    <footer class="text-center p-4 bg-[#f5f5f0] text-[#555] border-t border-[#ccc] text-sm mt-auto">
-        <p>© 2025<span id="year-span"></span> Aaron’s World — Built with ❤️ on Neocities</p>
-    </footer>
+    <p class="text-lg text-[#333] mb-4 leading-relaxed">Hello there! My name is Aaron, and welcome to my website. I love steam trains...</p>
+    <p class="text-lg text-[#333] mb-4 leading-relaxed">I sometimes paint miniatures, but I mostly enjoy video games like <em>Fortnite</em>, <em>Roblox</em>...</p>
+
+    <div class="mt-8 border-t border-gray-300 pt-6">
+      <p class="text-lg text-center text-[#333] mb-6">Here are a few other things you might like:</p>
+      <div class="flex flex-col md:flex-row justify-center items-center gap-4">
+        <a href="https://fortnite.gg/wishlist?id=518159" target="_blank" class="inline-block bg-gray-200 text-gray-800 font-semibold py-2 px-4 border-2 border-gray-400 rounded-lg mx-2 my-1 hover:bg-gray-300 hover:border-gray-500 w-full md:w-auto text-center">My Fortnite Wishlist</a>
+        <a href="gallery.html" class="inline-block bg-gray-200 text-gray-800 font-semibold py-2 px-4 border-2 border-gray-400 rounded-lg mx-2 my-1 hover:bg-gray-300 hover:border-gray-500 w-full md:w-auto text-center">Visit the Train Gallery</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="text-center p-4 bg-[#f5f5f0] text-[#555] border-t border-[#ccc] text-sm mt-auto">
+  <p>© 2025 Aaron’s World — Built with ❤️ on <a href="https://neocities.org" target="_blank" class="underline">Neocities</a></p>
+</footer>
+
+<script src="js/main.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const reel = document.getElementById('image-loom-reel');
+  const viewer = document.getElementById('image-loom-viewer');
+  const leftText = document.getElementById('loom-text-left');
+  const rightText = document.getElementById('loom-text-right');
+
+  if (reel && viewer && leftText && rightText) {
+    let currentIndex = 0;
+    const totalImages = 3;
+    const slideData = [
+      { left: "Based on my looks and personality,", right: "with a train!" },
+      { left: "A custom minifig I designed,", right: "using the 'Stud.io' 3D software." },
+      { left: "This Mii shows my love for Nintendo!", right: "We've got a WiiU, 2 Switches, N64, GameCube, & 2 Game & Watch devices!" }
+    ];
+
+    function changeSlide() {
+      leftText.classList.remove('visible');
+      rightText.classList.remove('visible');
+      setTimeout(() => {
+        currentIndex = (currentIndex + 1) % totalImages;
+        leftText.innerHTML = slideData[currentIndex].left;
+        rightText.innerHTML = slideData[currentIndex].right;
+        viewer.classList.add('shake');
+        reel.style.transform = `translateY(-${currentIndex * (100 / totalImages)}%)`;
+        leftText.classList.add('visible');
+        rightText.classList.add('visible');
+        setTimeout(() => viewer.classList.remove('shake'), 300);
+      }, 500);
+    }
+
+    leftText.innerHTML = slideData[0].left;
+    rightText.innerHTML = slideData[0].right;
+    setTimeout(() => { leftText.classList.add('visible'); rightText.classList.add('visible'); }, 100);
+    setInterval(changeSlide, 4000);
+  }
+});
+</script>
 
 </body>
 </html>
