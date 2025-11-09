@@ -39,7 +39,7 @@ iframe#mainframe {
     height: 100%;
     z-index: 2;
     pointer-events: none;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .page {
@@ -76,17 +76,23 @@ a:hover { color: #ff0000; text-shadow: 0 0 10px #ff0000; }
     z-index: 4;
     transition: transform 0.2s ease, opacity 0.2s ease;
 }
+
+.overlay-text {
+    position: absolute;
+    font-size: 2em;
+    color: #ff4444;
+    text-shadow: 0 0 10px #ff0000;
+    pointer-events: none;
+    z-index: 5;
+    transition: transform 0.1s linear; /* smooth movement */
+}
 </style>
 </head>
 <body>
 <div id="container">
-    <!-- Embedded main site -->
     <iframe id="mainframe" src="/" scrolling="yes"></iframe>
-
-    <!-- Dynamic overlay -->
     <div class="overlay" id="overlay"></div>
 
-    <!-- ARG page content -->
     <div id="page1" class="page active">
         <h1>…</h1>
         <p>The shadows watch you.<br>Do you really want to leave?</p>
@@ -98,6 +104,9 @@ a:hover { color: #ff0000; text-shadow: 0 0 10px #ff0000; }
 <script>
 const overlay = document.getElementById('overlay');
 const rifts = [];
+const overlayTexts = [];
+
+// Create rifts
 for (let i = 0; i < 8; i++) {
     const rift = document.createElement('div');
     rift.className = 'rift';
@@ -107,45 +116,51 @@ for (let i = 0; i < 8; i++) {
     rifts.push(rift);
 }
 
+// Create overlay text
+const messages = ["If you leave…","You will not return","The shadows follow you"];
+messages.forEach((msg, i) => {
+    const text = document.createElement('div');
+    text.className = 'overlay-text';
+    text.innerText = msg;
+    text.style.top = (100 + i*200) + 'px';
+    text.style.left = (50 + i*200) + 'px';
+    overlay.appendChild(text);
+    overlayTexts.push(text);
+});
+
 // Trigger leave sequence
 function triggerLeave() {
     document.getElementById('page1').classList.add('hidden');
-
-    // Show iframe
     const iframe = document.getElementById('mainframe');
     iframe.style.opacity = 1;
-
-    // URL mask: pushState to look like root URL
     history.pushState({}, '', '/');
-
-    // Overlay warning
-    const msg = document.createElement('div');
-    msg.style.position = 'absolute';
-    msg.style.top = '50%';
-    msg.style.left = '50%';
-    msg.style.transform = 'translate(-50%, -50%)';
-    msg.style.color = '#ff4444';
-    msg.style.fontSize = '2em';
-    msg.style.textShadow = '0 0 10px #ff0000';
-    msg.style.zIndex = 5;
-    msg.innerText = "If you leave… you will not return to this world.";
-    overlay.appendChild(msg);
 }
 
-// Sync overlay movement with iframe scroll
+// Smooth overlay scroll sync using requestAnimationFrame
 const iframe = document.getElementById('mainframe');
 iframe.addEventListener('load', () => {
     const iframeWindow = iframe.contentWindow;
-    // Poll scroll position continuously
-    setInterval(() => {
-        let scrollTop = iframeWindow.scrollY || iframeWindow.pageYOffset || 0;
-        let scrollLeft = iframeWindow.scrollX || iframeWindow.pageXOffset || 0;
+
+    function updateOverlay() {
+        const scrollTop = iframeWindow.scrollY || iframeWindow.pageYOffset || 0;
+        const scrollLeft = iframeWindow.scrollX || iframeWindow.pageXOffset || 0;
+
+        // Rifts move slightly dynamically
         rifts.forEach((rift, i) => {
             const offsetX = Math.sin(scrollTop*0.01 + i) * 30;
             const offsetY = Math.cos(scrollLeft*0.01 + i) * 30;
             rift.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${scrollTop*0.05}deg)`;
         });
-    }, 30);
+
+        // Overlay text moves in opposite direction to appear pinned
+        overlayTexts.forEach(text => {
+            text.style.transform = `translate(${-scrollLeft}px, ${-scrollTop}px)`;
+        });
+
+        requestAnimationFrame(updateOverlay);
+    }
+
+    updateOverlay();
 });
 </script>
 </body>
