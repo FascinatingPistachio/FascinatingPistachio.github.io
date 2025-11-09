@@ -70,7 +70,7 @@
         .frame-wood {
             background: #6a4a2a;
             background-image: linear-gradient(0deg, rgba(0,0,0,0.2) 0%, rgba(255,255,255,0.05) 50%, rgba(0,0,0,0.2) 100%), 
-                              linear-gradient(90deg, #6a4a2a 0%, #8b5a2b 30%, #6a4a2a 60%, #8b5a2b 100%);
+                                linear-gradient(90deg, #6a4a2a 0%, #8b5a2b 30%, #6a4a2a 60%, #8b5a2b 100%);
             border: 1px solid #4a2a0a;
         }
         
@@ -78,7 +78,7 @@
         .frame-dark-wood {
             background: #4a2a0a;
             background-image: linear-gradient(0deg, rgba(0,0,0,0.3) 0%, rgba(255,255,255,0.05) 50%, rgba(0,0,0,0.3) 100%), 
-                              linear-gradient(90deg, #4a2a0a 0%, #5a3a1b 30%, #4a2a0a 60%, #5a3a1b 100%);
+                                linear-gradient(90deg, #4a2a0a 0%, #5a3a1b 30%, #4a2a0a 60%, #5a3a1b 100%);
             border: 1px solid #2a1a00;
         }
         
@@ -156,7 +156,7 @@
         .art-piece.featured .frame {
             background: #5a2a0a;
             background-image: linear-gradient(0deg, rgba(0,0,0,0.3) 0%, rgba(255,255,255,0.05) 50%, rgba(0,0,0,0.3) 100%), 
-                              linear-gradient(90deg, #7a3f18 0%, #a05a2c 30%, #7a3f18 60%, #a05a2c 100%);
+                                linear-gradient(90deg, #7a3f18 0%, #a05a2c 30%, #7a3f18 60%, #a05a2c 100%);
             box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 15px rgba(0,0,0,0.5);
             padding: 15px;
             width: 460px; /* Fixed width */
@@ -284,10 +284,14 @@
         <p class="text-[#555] text-base md:text-lg">An interactive collection of my favourite trains.</p> 
     </header>
 
-    <!-- Navigation updated with Tailwind classes -->
-    <nav id="main-nav" class="flex justify-center bg-[#f7f7f2] border-b border-[#ccc] p-2 flex-wrap sticky top-0 z-10">
-        <a href="/" class="inline-block bg-gray-200 text-gray-800 font-semibold py-2 px-4 border-2 border-gray-400 rounded-lg mx-2 my-1 transition-all duration-200 ease-in-out hover:bg-gray-300 hover:border-gray-500 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50">Home</a> 
-        <a href="" class="inline-block bg-gray-200 text-gray-800 font-semibold py-2 px-4 border-2 border-gray-400 rounded-lg mx-2 my-1 transition-all duration-200 ease-in-out hover:bg-gray-300 hover:border-gray-500 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50">Train Gallery</a> 
+    <!-- ===== UPDATED Navbar ===== -->
+    <!-- Replaced old button styles with the new consistent ones -->
+    <!-- Set "Train Gallery" as the active link -->
+    <nav id="main-nav" class="flex justify-center bg-[#f7f7f2] border-b border-[#ccc] p-2 flex-wrap sticky top-0 z-10" aria-label="Main navigation">
+        <!-- Standard nav link style -->
+        <a href="index.html" class="font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-200 py-2 px-4 rounded-lg mx-2 my-1 transition-all duration-200 ease-in-out">Home</a>
+        <!-- "Active" link style: blue text, light blue background -->
+        <a href="gallery.html" class="font-semibold text-blue-600 bg-blue-100 py-2 px-4 rounded-lg mx-2 my-1 transition-all duration-200 ease-in-out">Train Gallery</a>
     </nav>
 
     <main class="flex-grow p-4 md:p-8 w-full max-w-full mx-auto">
@@ -403,8 +407,8 @@
                 
                 const maxScroll = gallery.scrollWidth - stickyContainer.clientWidth;
                 if (maxScroll <= 0) {
-                       gallery.style.transform = 'translateX(0px)';
-                       return;
+                        gallery.style.transform = 'translateX(0px)';
+                        return;
                 }
                 
                 const scrollDistance = wrapper.clientHeight - effectiveViewHeight;
@@ -576,10 +580,10 @@
                            voiceNotePlayer.src = audioSrc;
                            voiceNotePlayer.play(); 
                         } catch (error) {
-                            console.error("Error playing voice note:", error);
-                            if (backgroundMusic.paused) {
-                                backgroundMusic.play().catch(e => console.error("Error resuming background music:", e));
-                            }
+                             console.error("Error playing voice note:", error);
+                             if (backgroundMusic.paused) {
+                                 backgroundMusic.play().catch(e => console.error("Error resuming background music:", e));
+                             }
                         }
                     }
                 }
