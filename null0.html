@@ -15,11 +15,7 @@ html, body {
     color: #fff;
 }
 
-#container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
+#container { position: relative; width: 100%; height: 100%; }
 
 iframe#mainframe {
     position: absolute;
@@ -40,6 +36,7 @@ iframe#mainframe {
     z-index: 2;
     pointer-events: none;
     overflow: visible;
+    background: rgba(0,0,0,0.02);
 }
 
 .page {
@@ -84,7 +81,17 @@ a:hover { color: #ff0000; text-shadow: 0 0 10px #ff0000; }
     text-shadow: 0 0 10px #ff0000;
     pointer-events: none;
     z-index: 5;
-    transition: transform 0.1s linear; /* smooth movement */
+    transition: transform 0.1s linear;
+}
+
+.glitch {
+    position: absolute;
+    font-size: 1.5em;
+    color: #ff6666;
+    text-shadow: 0 0 5px #ff0000;
+    pointer-events: none;
+    z-index: 6;
+    opacity: 0;
 }
 </style>
 </head>
@@ -105,30 +112,42 @@ a:hover { color: #ff0000; text-shadow: 0 0 10px #ff0000; }
 const overlay = document.getElementById('overlay');
 const rifts = [];
 const overlayTexts = [];
+const glitchTexts = [];
 
 // Create rifts
-for (let i = 0; i < 8; i++) {
+for (let i = 0; i < 12; i++) {
     const rift = document.createElement('div');
     rift.className = 'rift';
     rift.style.top = Math.random() * window.innerHeight + 'px';
     rift.style.left = Math.random() * window.innerWidth + 'px';
+    rift.style.opacity = 0.1 + Math.random() * 0.3;
     overlay.appendChild(rift);
     rifts.push(rift);
 }
 
-// Create overlay text
+// Overlay texts (pinned to page)
 const messages = ["If you leave…","You will not return","The shadows follow you"];
 messages.forEach((msg, i) => {
     const text = document.createElement('div');
     text.className = 'overlay-text';
     text.innerText = msg;
     text.style.top = (100 + i*200) + 'px';
-    text.style.left = (50 + i*200) + 'px';
+    text.style.left = (50 + i*250) + 'px';
     overlay.appendChild(text);
     overlayTexts.push(text);
 });
 
-// Trigger leave sequence
+// Occasional glitch text for ARG feel
+for(let i = 0; i < 5; i++) {
+    const g = document.createElement('div');
+    g.className = 'glitch';
+    g.innerText = ["ERROR","???","§§§","404","!!!"][i%5];
+    g.style.top = Math.random()*window.innerHeight + 'px';
+    g.style.left = Math.random()*window.innerWidth + 'px';
+    overlay.appendChild(g);
+    glitchTexts.push(g);
+}
+
 function triggerLeave() {
     document.getElementById('page1').classList.add('hidden');
     const iframe = document.getElementById('mainframe');
@@ -136,31 +155,47 @@ function triggerLeave() {
     history.pushState({}, '', '/');
 }
 
-// Smooth overlay scroll sync using requestAnimationFrame
+// Sync overlay with iframe scroll with parallax
 const iframe = document.getElementById('mainframe');
 iframe.addEventListener('load', () => {
     const iframeWindow = iframe.contentWindow;
 
-    function updateOverlay() {
+    function animate() {
         const scrollTop = iframeWindow.scrollY || iframeWindow.pageYOffset || 0;
         const scrollLeft = iframeWindow.scrollX || iframeWindow.pageXOffset || 0;
 
-        // Rifts move slightly dynamically
+        // Rift animations
         rifts.forEach((rift, i) => {
-            const offsetX = Math.sin(scrollTop*0.01 + i) * 30;
-            const offsetY = Math.cos(scrollLeft*0.01 + i) * 30;
-            rift.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${scrollTop*0.05}deg)`;
+            const offsetX = Math.sin(scrollTop*0.01 + i) * 50;
+            const offsetY = Math.cos(scrollLeft*0.01 + i) * 50;
+            const rotation = scrollTop*0.05 + i*10;
+            rift.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${rotation}deg) scale(${0.8 + Math.sin(Date.now()*0.002 + i)/5})`;
         });
 
-        // Overlay text moves in opposite direction to appear pinned
-        overlayTexts.forEach(text => {
-            text.style.transform = `translate(${-scrollLeft}px, ${-scrollTop}px)`;
+        // Overlay text pinned to scroll (opposite direction with slight parallax)
+        overlayTexts.forEach((text, i) => {
+            const parallax = 1 + i*0.05; 
+            text.style.transform = `translate(${-scrollLeft*parallax}px, ${-scrollTop*parallax}px)`;
         });
 
-        requestAnimationFrame(updateOverlay);
+        // Glitch text flicker
+        glitchTexts.forEach(g => {
+            if(Math.random() < 0.01) {
+                g.style.opacity = 0.5 + Math.random()*0.5;
+                g.style.top = Math.random()*window.innerHeight + 'px';
+                g.style.left = Math.random()*window.innerWidth + 'px';
+            } else {
+                g.style.opacity = 0;
+            }
+        });
+
+        // Subtle overlay flicker
+        overlay.style.backgroundColor = `rgba(0,0,0,${0.01 + Math.random()*0.02})`;
+
+        requestAnimationFrame(animate);
     }
 
-    updateOverlay();
+    animate();
 });
 </script>
 </body>
