@@ -1,254 +1,401 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>…</title>
-<style>
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden;
-    font-family: 'Roboto Mono', monospace;
-    background: #000;
-    color: #fff;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Archive of Null</title>
+    <!-- Load Roboto Mono for the classic terminal/glitch aesthetic -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Load Tone.js for ambient audio effects -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    <style>
+        :root {
+            --red-glow: #ff4444;
+            --dark-red: #880000;
+            --bg-color: #000000;
+        }
 
-#container { position: relative; width: 100%; height: 100%; }
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Roboto Mono', monospace;
+            background: var(--bg-color);
+            color: #fff;
+            /* Allow scrolling only when main content is revealed */
+            overflow: hidden; 
+        }
 
-iframe#mainframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-    z-index: 1;
-    opacity: 0;
-    transition: opacity 1s ease;
-}
+        #container { 
+            position: relative; 
+            min-height: 100vh;
+        }
+        
+        /* CRT Effect */
+        #container::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0.1;
+            background: 
+                repeating-linear-gradient(
+                    0deg, 
+                    rgba(0,0,0,0.5), 
+                    rgba(0,0,0,0.5) 1px, 
+                    transparent 1px, 
+                    transparent 2px
+                ),
+                radial-gradient(
+                    ellipse at center, 
+                    rgba(0,0,0,0) 0%, 
+                    rgba(0,0,0,0.7) 100%
+                );
+        }
 
-.overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-    pointer-events: none;
-    overflow: visible;
-    background: rgba(0,0,0,0.02);
-}
+        .overlay {
+            position: fixed; /* Fixed position so effects stay visible on scroll */
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            pointer-events: none;
+            background: rgba(0,0,0,0.02);
+        }
 
-.page {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 2em;
-    transition: opacity 1s ease;
-    z-index: 3;
-}
+        .page {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2em;
+            transition: opacity 1s ease, transform 1s ease;
+            z-index: 3;
+            box-sizing: border-box;
+        }
 
-.active { opacity: 1; }
-.hidden { opacity: 0; pointer-events: none; }
+        #start-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: var(--bg-color);
+        }
 
-h1 { font-size: 4em; color: #ff4444; text-shadow: 0 0 10px #ff0000; }
-p { max-width: 600px; font-size: 1.2em; color: #ccc; }
-a { color: #ff6666; text-decoration: none; margin-top: 1em; cursor: pointer; }
-a:hover { color: #ff0000; text-shadow: 0 0 10px #ff0000; }
+        .active { opacity: 1; pointer-events: auto; }
+        .hidden { opacity: 0; pointer-events: none; transform: scale(0.95); }
 
-.rift {
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    border: 2px dashed #ff4444;
-    box-shadow: 0 0 20px #ff0000;
-    border-radius: 50%;
-    opacity: 0.3;
-    pointer-events: none;
-    z-index: 4;
-    transition: transform 0.2s ease, opacity 0.2s ease;
-}
+        h1 { font-size: 4em; color: var(--red-glow); text-shadow: 0 0 15px var(--red-glow); }
+        h2 { font-size: 2em; color: var(--red-glow); margin-top: 40px; text-shadow: 0 0 5px var(--dark-red); }
+        p, .main-text { 
+            max-width: 700px; 
+            font-size: 1.1em; 
+            color: #ccc; 
+            line-height: 1.6;
+            text-align: left;
+            margin: 1.5em auto;
+        }
+        .main-text { padding-bottom: 50vh; } /* Extra padding for effect overlap */
+        
+        a { 
+            color: #ff6666; 
+            text-decoration: none; 
+            margin: 1em; 
+            cursor: pointer;
+            padding: 0.5em 1em;
+            border: 1px solid #ff6666;
+            transition: all 0.3s ease;
+        }
+        a:hover { 
+            color: #ff0000; 
+            border-color: #ff0000;
+            background: rgba(255, 0, 0, 0.1);
+            text-shadow: 0 0 5px #ff0000; 
+        }
 
-.overlay-text {
-    position: absolute;
-    font-size: 2em;
-    color: #ff4444;
-    text-shadow: 0 0 10px #ff0000;
-    pointer-events: none;
-    z-index: 5;
-    transition: transform 0.1s linear;
-}
+        /* --- Rift and Glitch Effects (Fixed to viewport) --- */
+        .rift {
+            position: fixed;
+            width: 150px;
+            height: 150px;
+            border: 2px dashed var(--red-glow);
+            box-shadow: 0 0 25px var(--red-glow);
+            border-radius: 50%;
+            opacity: 0.2;
+            pointer-events: none;
+            z-index: 4;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
 
-.glitch {
-    position: absolute;
-    font-size: 1.5em;
-    color: #ff6666;
-    text-shadow: 0 0 5px #ff0000;
-    pointer-events: none;
-    z-index: 6;
-    opacity: 0;
-}
+        .overlay-text {
+            position: fixed;
+            font-size: 2em;
+            color: var(--red-glow);
+            text-shadow: 0 0 10px var(--red-glow);
+            pointer-events: none;
+            z-index: 5;
+            /* No transition here, parallax moves immediately */
+        }
 
-.flash {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #000;
-    z-index: 7;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.05s ease-in-out;
-}
+        .glitch {
+            position: fixed;
+            font-size: 1.5em;
+            color: #ff6666;
+            text-shadow: 0 0 5px var(--red-glow);
+            pointer-events: none;
+            z-index: 6;
+            opacity: 0;
+        }
 
-.corrupt {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 6;
-    mix-blend-mode: difference;
-}
-</style>
+        .flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-color);
+            z-index: 7;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.05s ease-in-out;
+        }
+
+        .corrupt {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 6;
+            mix-blend-mode: color-dodge; /* Blends colors in an unnerving way */
+        }
+    </style>
 </head>
 <body>
 <div id="container">
-    <iframe id="mainframe" src="/" scrolling="yes"></iframe>
     <div class="overlay" id="overlay"></div>
     <div class="flash" id="flash"></div>
     <canvas class="corrupt" id="corruptCanvas"></canvas>
 
-    <div id="page1" class="page active">
-        <h1>…</h1>
-        <p>The shadows watch you.<br>Do you really want to leave?</p>
-        <a onclick="triggerLeave()">Leave</a>
-        <a onclick="alert('Step deeper into the unknown...')">Step Deeper</a>
+    <!-- Initial Landing Page -->
+    <div id="start-page" class="page active">
+        <h1>...The Void Gate...</h1>
+        <p>You have stumbled upon an unindexed node. A place of static and echo, where data structure fails and the Archive bleeds through.<br>Do you really want to sever this connection and leave?</p>
+        <div class="flex flex-row">
+            <a onclick="triggerLeave()">Disconnect</a>
+            <a onclick="triggerEnter()">Step Deeper</a>
+        </div>
+    </div>
+
+    <!-- Main ARG Content Page (Initially Hidden) -->
+    <div id="main-content" class="page hidden">
+        <h1 style="font-size: 2.5em; margin-bottom: 0;">OBSERVER'S JOURNAL (FRAGMENT 4.1)</h1>
+        <p style="color: var(--dark-red); font-size: 1em; margin-top: 0;">[ACCESS LEVEL: UNSAFE // TIMESTAMP: 1989.11.05.03:17:34 Z]</p>
+        <div class="main-text">
+            <p>The signal is louder now. It's not noise, it's—it's **structure**. A deep, resonating hum that feels less like sound and more like a pressure behind the eyes. It's been 72 hours since the main frame was isolated, but the data leakage continues. Every scroll, every input, pushes another fragment of my research into the network, and something else... something *from* the network... is pushing back.</p>
+            <p>I tried to implement the **Parallax Dissonance Filter** (PFD-21), hoping to stabilize the viewport, but it only amplified the distortion. Now, the rifts appear fixed to my vision, moving contrary to the text I'm trying to read. It mocks my efforts, a silent, swirling tear in the digital space. The corruption layer is no longer just on the display; I see it in the margins of my own handwritten notes. The reality of the display is becoming the reality of the room.</p>
+            <p>My primary concern is the **Glitch Text**. It appears randomly, too fast to decipher, always fragments of common errors—404, EOF, ???. But sometimes... sometimes a word slips through, a coherent command. Today it was *WATCH*. Yesterday it was *LISTEN*. I've disabled all speakers and microphones, but the constant, low-frequency pressure persists. It's not a suggestion. It's an instruction.</p>
+            <p>The only remaining objective is to find the **Null Vector**. If I can pinpoint the point of origin for the reverse-signal, I can perhaps sever the connection without triggering a catastrophic **Event**. If you are reading this, I have failed. The final sequence is hidden within the text itself. Look for the discrepancy in the code, the thing that shouldn't be there, and **DO NOT LOOK AWAY** when the screen flashes.</p>
+            <p>— O.</p>
+        </div>
     </div>
 </div>
 
 <script>
-const overlay = document.getElementById('overlay');
-const rifts = [];
-const overlayTexts = [];
-const glitchTexts = [];
-const flash = document.getElementById('flash');
-const canvas = document.getElementById('corruptCanvas');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+    // --- Setup and Constants ---
+    const startPage = document.getElementById('start-page');
+    const mainContent = document.getElementById('main-content');
+    const overlay = document.getElementById('overlay');
+    const flash = document.getElementById('flash');
+    const canvas = document.getElementById('corruptCanvas');
+    const ctx = canvas.getContext('2d');
 
-// Create rifts
-for (let i = 0; i < 12; i++) {
-    const rift = document.createElement('div');
-    rift.className = 'rift';
-    rift.style.top = Math.random() * window.innerHeight + 'px';
-    rift.style.left = Math.random() * window.innerWidth + 'px';
-    rift.style.opacity = 0.1 + Math.random() * 0.3;
-    overlay.appendChild(rift);
-    rifts.push(rift);
-}
+    let isExperienceActive = false;
+    let audioContextReady = false;
+    let staticSound;
 
-// Overlay texts
-const messages = ["If you leave…","You will not return","The shadows follow you"];
-messages.forEach((msg, i) => {
-    const text = document.createElement('div');
-    text.className = 'overlay-text';
-    text.innerText = msg;
-    text.style.top = (100 + i*200) + 'px';
-    text.style.left = (50 + i*250) + 'px';
-    overlay.appendChild(text);
-    overlayTexts.push(text);
-});
-
-// Glitch text
-for(let i = 0; i < 5; i++) {
-    const g = document.createElement('div');
-    g.className = 'glitch';
-    g.innerText = ["ERROR","???","§§§","404","!!!"][i%5];
-    g.style.top = Math.random()*window.innerHeight + 'px';
-    g.style.left = Math.random()*window.innerWidth + 'px';
-    overlay.appendChild(g);
-    glitchTexts.push(g);
-}
-
-function triggerLeave() {
-    document.getElementById('page1').classList.add('hidden');
-    const iframe = document.getElementById('mainframe');
-    iframe.style.opacity = 1;
-    history.pushState({}, '', '/');
-}
-
-// Draw random corruption lines on the canvas
-function drawCorruption() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for(let i = 0; i < 30; i++){
-        ctx.fillStyle = `rgba(${Math.random()*255},0,0,${Math.random()*0.1})`;
-        ctx.fillRect(Math.random()*canvas.width, Math.random()*canvas.height, Math.random()*50, 1);
+    // Adjust canvas on load/resize
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
     }
-}
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    
+    // Initialize Tone.js for ambient static noise
+    function initAudio() {
+        if (audioContextReady) return;
 
-// Sync overlay and effects with iframe scroll
-const iframe = document.getElementById('mainframe');
-iframe.addEventListener('load', () => {
-    const iframeWindow = iframe.contentWindow;
+        try {
+            // Create a noise source (static)
+            staticSound = new Tone.Noise('brown').start(); // Brown noise is softer, like a low hum/static
+
+            // Create a filter to keep the sound low and muffled
+            const filter = new Tone.Filter(200, 'lowpass').toDestination();
+            
+            // Create a subtle tremolo/volume variation for unsettling effect
+            const tremolo = new Tone.Tremolo(2, 0.5).start();
+
+            // Connect everything: Noise -> Tremolo -> Filter -> Output
+            staticSound.connect(tremolo);
+            tremolo.connect(filter);
+            
+            // Set noise volume very low
+            staticSound.volume.value = -30; 
+
+            audioContextReady = true;
+            console.log('Audio initialized.');
+        } catch (e) {
+            console.error('Tone.js initialization failed:', e);
+        }
+    }
+
+
+    // --- Effect Element Generation ---
+    const rifts = [];
+    for (let i = 0; i < 8; i++) {
+        const rift = document.createElement('div');
+        rift.className = 'rift';
+        rift.style.top = Math.random() * 80 + 10 + 'vh';
+        rift.style.left = Math.random() * 80 + 10 + 'vw';
+        rift.style.opacity = 0.1 + Math.random() * 0.2;
+        overlay.appendChild(rift);
+        rifts.push(rift);
+    }
+
+    const overlayTexts = [];
+    const messages = ["ACCESS DENIED", "UNAUTHORIZED USER", "THE ARCHIVE IS WATCHING", "SEEK THE VECTOR"];
+    messages.forEach((msg, i) => {
+        const text = document.createElement('div');
+        text.className = 'overlay-text';
+        text.innerText = msg;
+        text.style.fontSize = (2 + Math.random()) + 'em';
+        text.style.top = (10 + i * 20 + Math.random() * 10) + 'vh';
+        text.style.left = (5 + i * 15 + Math.random() * 10) + 'vw';
+        text.style.opacity = 0.3 + Math.random() * 0.5;
+        overlay.appendChild(text);
+        overlayTexts.push(text);
+    });
+
+    const glitchTexts = [];
+    for(let i = 0; i < 10; i++) {
+        const g = document.createElement('div');
+        g.className = 'glitch';
+        g.innerText = ["ERROR", "404", "NULL", ">>>", "!!!", "EOF", "§§§", "WAIT", "HELP", "STATIC"][i%10];
+        g.style.top = Math.random()*100 + 'vh';
+        g.style.left = Math.random()*100 + 'vw';
+        overlay.appendChild(g);
+        glitchTexts.push(g);
+    }
+
+    // --- Core Interaction Functions ---
+    
+    function triggerEnter() {
+        startPage.classList.remove('active');
+        startPage.classList.add('hidden');
+        mainContent.classList.remove('hidden');
+        mainContent.classList.add('active');
+        
+        // Allow the body to scroll to see the content
+        document.body.style.overflow = 'auto';
+        isExperienceActive = true;
+        
+        // Audio must be started by user interaction
+        initAudio(); 
+        
+        console.log('Stepping deeper into the archive...');
+
+        // Start animation loop now that interaction is complete
+        requestAnimationFrame(animate);
+    }
+
+    function triggerLeave() {
+        // Simple fade to black/exit effect
+        isExperienceActive = false;
+        document.body.style.backgroundColor = 'white';
+        document.body.style.transition = 'background-color 2s ease';
+        setTimeout(() => {
+             // In a real browser, this would redirect or close the tab
+             // Here, we simulate a 'clean exit' by fading everything out
+             document.body.style.opacity = 0;
+        }, 500);
+        if (staticSound) staticSound.stop();
+    }
+
+    // --- Drawing and Animation Loop ---
+
+    function drawCorruption() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        if (!isExperienceActive) return;
+
+        // Draw sparse, red data lines
+        for(let i = 0; i < 35; i++){
+            ctx.fillStyle = `rgba(255,0,0,${Math.random()*0.15})`;
+            ctx.fillRect(
+                Math.random() * canvas.width, 
+                Math.random() * canvas.height, 
+                Math.random() * 70, 
+                Math.random() * 2
+            );
+        }
+    }
 
     function animate() {
-        const scrollTop = iframeWindow.scrollY || iframeWindow.pageYOffset || 0;
-        const scrollLeft = iframeWindow.scrollX || iframeWindow.pageXOffset || 0;
+        if (!isExperienceActive) return;
 
-        // Rift animations
+        const scrollTop = window.scrollY || 0;
+        const scrollLeft = window.scrollX || 0;
+        const time = Date.now() * 0.001;
+
+        // Rift animations (Parallax Dissonance Filter)
         rifts.forEach((rift, i) => {
-            const offsetX = Math.sin(scrollTop*0.01 + i) * 50;
-            const offsetY = Math.cos(scrollLeft*0.01 + i) * 50;
-            const rotation = scrollTop*0.05 + i*10;
-            rift.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${rotation}deg) scale(${0.8 + Math.sin(Date.now()*0.002 + i)/5})`;
+            // Rifts move opposite to scroll/time for the fixed-to-vision effect
+            const offsetX = Math.sin(time * 0.5 + i) * 30 + Math.sin(scrollTop * 0.005) * 50;
+            const offsetY = Math.cos(time * 0.4 + i) * 30 + Math.cos(scrollLeft * 0.005) * 50;
+            const rotation = scrollTop * 0.02 + i * 15;
+            rift.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${rotation}deg) scale(${0.8 + Math.sin(time * 0.2 + i) / 5})`;
         });
 
-        // Overlay text opposite to scroll
+        // Overlay text opposite to scroll (Parallax effect)
         overlayTexts.forEach((text, i) => {
-            const parallax = 1 + i*0.05; 
-            text.style.transform = `translate(${-scrollLeft*parallax}px, ${-scrollTop*parallax}px)`;
+            const parallax = 1 + i * 0.05; 
+            text.style.transform = `translate(${-scrollLeft * parallax}px, ${-scrollTop * parallax * 0.5}px)`;
         });
 
-        // Glitch text flicker
+        // Glitch text flicker (Random)
         glitchTexts.forEach(g => {
-            if(Math.random() < 0.02) {
-                g.style.opacity = 0.5 + Math.random()*0.5;
-                g.style.top = Math.random()*window.innerHeight + 'px';
-                g.style.left = Math.random()*window.innerWidth + 'px';
+            if(Math.random() < 0.015) {
+                g.style.opacity = 0.5 + Math.random() * 0.5;
+                g.style.top = Math.random() * 100 + 'vh';
+                g.style.left = Math.random() * 100 + 'vw';
             } else {
-                g.style.opacity = 0;
+                g.style.opacity = Math.max(0, g.style.opacity - 0.05); // Gradual fade
             }
         });
 
-        // Flashing black effect
-        if(Math.random() < 0.01){
+        // Flashing black effect (Quick Data Corruption)
+        if(Math.random() < 0.005){
             flash.style.opacity = 1;
-            setTimeout(()=>{flash.style.opacity = 0},50);
+            setTimeout(()=>{flash.style.opacity = 0}, 30);
         }
 
-        // Draw corruption
+        // Draw canvas corruption
         drawCorruption();
 
         requestAnimationFrame(animate);
     }
-
-    animate();
-});
-
-// Adjust canvas on resize
-window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-});
+    
+    // Only run animation after 'Step Deeper' is clicked
+    // The initial elements are already displayed by default.
 </script>
 </body>
 </html>
