@@ -6,17 +6,19 @@
     <title>Train Gallery</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
+    <!-- Added Google Font "Inter" -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     
 
 <style>
         body {
             background-color: #e8e6e3;
-            /* Switched to Georgia for a retro feel */
-            font-family: Georgia, 'Times New Roman', Times, serif;
+            /* Switched font-family to Inter, but kept Georgia as a fallback in the body tag */
         }
 
-        /* TRAIN GALLERY STYLES */
+        /* TRAIN GALLERY STYLES (No changes here) */
         .gallery-room {
             display: flex;
             flex-direction: row;
@@ -50,7 +52,7 @@
             transform: translateY(-5px);
         }
 
-        /* --- Frame Base Style --- */
+        /* --- Frame Base Style (No changes here) --- */
         .frame {
             position: relative;
             border: 1px solid #4a2a0a;
@@ -63,7 +65,7 @@
             transition: transform 0.3s ease;
         }
         
-        /* --- Frame Variations --- */
+        /* --- Frame Variations (No changes here) --- */
         /* 1. Standard Wood (default) */
         .frame-wood {
             background: #6a4a2a;
@@ -128,9 +130,11 @@
             color: #111;
             line-height: 1.4;
             margin: 0;
+            /* Apply Georgia font specifically to plaques for the retro feel */
+            font-family: Georgia, 'Times New Roman', Times, serif;
         }
         
-        /* Audio Button Style */
+        /* Audio Button Style (No changes here) */
         .play-audio-btn {
             background-color: #f7f7f2; /* Match nav background */
             border: 1px solid #aaa;
@@ -167,29 +171,8 @@
             max-width: 420px;
         }
         
-        /* Updated Nav Link Style for uniformity */
-        .nav-link {
-            display: inline-block; /* Match button */
-            background-color: #e2e8f0; /* gray-200 */
-            color: #2d3748; /* gray-800 */
-            font-weight: 600; /* font-semibold */
-            padding-top: 0.5rem; /* py-2 */
-            padding-bottom: 0.5rem;
-            padding-left: 1rem; /* px-4 */
-            padding-right: 1rem;
-            border: 2px solid #a0aec0; /* border-gray-500 */
-            text-decoration: none; /* no-underline */
-            border-radius: 0; /* Ensure square corners */
-            margin: 0.5rem 1rem; /* Spacing */
-            transition: background-color 0.2s ease;
-        }
+        /* REMOVED .nav-link style block */
         
-        .nav-link:hover {
-             background-color: #cbd5e0; /* gray-300 */
-             color: #2d3748; /* Keep text color same on hover */
-             border-color: #a0aec0; /* Keep border color same */
-        }
-                
         .horizontal-scroll-wrapper {
             position: relative;
         }
@@ -198,19 +181,9 @@
             width: 100%;
         }
 
-        /* Retro Info Box Style */
-        .info-box {
-            background-color: white;
-            border: 2px solid #a0aec0; /* gray-500 */
-            padding: 1.5rem; /* p-6 */
-            border-radius: 0; /* No rounded corners */
-            margin-bottom: 3rem; /* mb-12 */
-            max-width: 48rem; /* max-w-5xl */
-            margin-left: auto;
-            margin-right: auto;
-        }
+        /* REMOVED .info-box style block */
         
-        /* Duck Encore Sections */
+        /* Duck Encore Sections (No changes here) */
         .duck-text-room {
             display: flex;
             flex-direction: row;
@@ -244,7 +217,7 @@
             padding: 2rem;
         }
 
-        /* --- MOBILE STYLES --- */
+        /* --- MOBILE STYLES (No changes here) --- */
         @media (max-width: 767px) {
             /* Disable sticky/scroll functionality */
             .horizontal-scroll-wrapper,
@@ -274,9 +247,9 @@
             }
             
             .frame {
-                 margin: 0 auto;
-                 width: 280px; 
-                 max-width: 90%; /* For very small screens */
+                margin: 0 auto;
+                width: 280px; 
+                max-width: 90%; /* For very small screens */
             }
 
             .art-piece.featured .frame {
@@ -293,7 +266,8 @@
         }
     </style>
 </head>
-<body class="text-[#222] min-h-screen flex flex-col">
+<!-- Added font-['Inter'] and fallback to Georgia -->
+<body class="text-[#222] min-h-screen flex flex-col font-['Inter',_Georgia,_serif]">
 
     <!-- Background Music Player -->
     <audio id="background-music-player" autoplay loop>
@@ -310,18 +284,18 @@
         <p class="text-[#555] text-base md:text-lg">An interactive collection of my favourite trains.</p> 
     </header>
 
-    <!-- Restored Navigation with Home Link -->
+    <!-- Navigation updated with Tailwind classes -->
     <nav id="main-nav" class="flex justify-center bg-[#f7f7f2] border-b border-[#ccc] p-2 flex-wrap sticky top-0 z-10">
-        <!-- Removed Emoji -->
-        <a href="/" class="nav-link">Home</a> 
-        <a href="" class="nav-link">Train Gallery</a> 
+        <a href="/" class="inline-block bg-gray-200 text-gray-800 font-semibold py-2 px-4 border-2 border-gray-400 rounded-lg mx-2 my-1 transition-all duration-200 ease-in-out hover:bg-gray-300 hover:border-gray-500 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50">Home</a> 
+        <a href="" class="inline-block bg-gray-200 text-gray-800 font-semibold py-2 px-4 border-2 border-gray-400 rounded-lg mx-2 my-1 transition-all duration-200 ease-in-out hover:bg-gray-300 hover:border-gray-500 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50">Train Gallery</a> 
     </nav>
 
     <main class="flex-grow p-4 md:p-8 w-full max-w-full mx-auto">
         
         <!-- Train Gallery Section -->
         <section id="trains" class="section-content">
-            <div id="train-info-block" class="info-box">
+            <!-- Info box updated with Tailwind classes -->
+            <div id="train-info-block" class="bg-white border-2 border-gray-400 rounded-lg shadow-lg max-w-5xl w-full p-6 mx-auto mb-12">
                 <h2 id="train-title" class="text-3xl font-bold text-center mb-4"></h2>
                 <p id="train-desc" class="text-lg text-center text-[#333] mb-6"></p>
                 <div class="border-t border-[#ccc] pt-6">
@@ -330,7 +304,7 @@
                 </div>
             </div>
             
-            <!-- Main Gallery -->
+            <!-- Main Gallery (No changes here) -->
             <div class="horizontal-scroll-wrapper" data-scroll-id="gallery">
                 <div class="sticky-container">
                     <div id="train-gallery-grid" class="gallery-room">
@@ -339,7 +313,7 @@
                 </div>
             </div>
             
-            <!-- First Duck Message -->
+            <!-- First Duck Message (No changes here) -->
             <div class="text-center mt-12 mb-8">
                 <p class="text-lg text-[#555] mb-4">
                     ...you reached the end. Here's a duck.
@@ -347,7 +321,7 @@
                 <img src="https://random-d.uk/api/v2/randomimg?t=1" alt="A random duck" class="mx-auto border-2 border-gray-500 w-64 h-64 object-cover" onerror="this.src='https://placehold.co/256x256/ffffff/777777?text=Duck+Error'; this.onerror=null;">
             </div>
             
-            <!-- Duck Encore 1: Scroll Left -->
+            <!-- Duck Encore 1: Scroll Left (No changes here) -->
             <div class="horizontal-scroll-wrapper" data-scroll-id="duck1">
                 <div class="sticky-container">
                     <div class="duck-text-room">
@@ -357,7 +331,7 @@
                 </div>
             </div>
             
-            <!-- Duck Encore 2: Scroll Up -->
+            <!-- Duck Encore 2: Scroll Up (No changes here) -->
             <div class="scroll-up-wrapper" data-scroll-id="duck2">
                  <div class="scroll-up-content">
                     <p class="text-lg text-[#555] mb-4">...here is another duck.</p>
@@ -429,8 +403,8 @@
                 
                 const maxScroll = gallery.scrollWidth - stickyContainer.clientWidth;
                 if (maxScroll <= 0) {
-                     gallery.style.transform = 'translateX(0px)';
-                     return;
+                       gallery.style.transform = 'translateX(0px)';
+                       return;
                 }
                 
                 const scrollDistance = wrapper.clientHeight - effectiveViewHeight;
@@ -645,4 +619,3 @@
     </script>
 </body>
 </html>
-
