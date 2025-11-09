@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>…</title>
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        font-family: 'Roboto Mono', monospace;
+        background: #000;
+        color: #fff;
+    }
+
+    #container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    iframe#mainframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+        z-index: 1;
+        opacity: 0;
+        transition: opacity 1s ease;
+    }
+
+    .overlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        pointer-events: none;
+        overflow: hidden;
+    }
+
+    .page {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 2em;
+        transition: opacity 1s ease;
+        z-index: 3;
+    }
+
+    .active { opacity: 1; }
+    .hidden { opacity: 0; pointer-events: none; }
+
+    h1 { font-size: 4em; color: #ff4444; text-shadow: 0 0 10px #ff0000; }
+    p { max-width: 600px; font-size: 1.2em; color: #ccc; }
+    a { color: #ff6666; text-decoration: none; margin-top: 1em; cursor: pointer; }
+    a:hover { color: #ff0000; text-shadow: 0 0 10px #ff0000; }
+
+    .rift {
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        border: 2px dashed #ff4444;
+        box-shadow: 0 0 20px #ff0000;
+        border-radius: 50%;
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: 4;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+</style>
+</head>
+<body>
+<div id="container">
+    <!-- Embedded main site -->
+    <iframe id="mainframe" src="/"></iframe>
+
+    <!-- Dynamic overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- ARG page content -->
+    <div id="page1" class="page active">
+        <h1>…</h1>
+        <p>The shadows watch you.<br>Do you really want to leave?</p>
+        <a onclick="triggerLeave()">Leave</a>
+        <a onclick="alert('Step deeper into the unknown...')">Step Deeper</a>
+    </div>
+</div>
+
+<script>
+const overlay = document.getElementById('overlay');
+const rifts = [];
+
+// Create multiple rifts
+for (let i = 0; i < 8; i++) {
+    let rift = document.createElement('div');
+    rift.className = 'rift';
+    rift.style.top = Math.random() * window.innerHeight + 'px';
+    rift.style.left = Math.random() * window.innerWidth + 'px';
+    overlay.appendChild(rift);
+    rifts.push(rift);
+}
+
+// Make rifts react to scroll
+window.addEventListener('wheel', e => {
+    const delta = e.deltaY;
+    rifts.forEach((rift, index) => {
+        // Each rift moves a bit differently based on scroll
+        const offsetX = (Math.random() - 0.5) * 20 + delta * 0.05 * (index+1);
+        const offsetY = (Math.random() - 0.5) * 20 + delta * 0.05 * (index+1);
+        rift.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${delta*0.1}deg)`;
+        rift.style.opacity = Math.min(0.8, 0.3 + Math.abs(delta)/200);
+    });
+});
+
+// Trigger leave sequence
+function triggerLeave() {
+    const page = document.getElementById('page1');
+    page.classList.add('hidden');
+
+    // Show iframe
+    const iframe = document.getElementById('mainframe');
+    iframe.style.opacity = 1;
+
+    // Overlay warning message
+    let msg = document.createElement('div');
+    msg.style.position = 'absolute';
+    msg.style.top = '50%';
+    msg.style.left = '50%';
+    msg.style.transform = 'translate(-50%, -50%)';
+    msg.style.color = '#ff4444';
+    msg.style.fontSize = '2em';
+    msg.style.textShadow = '0 0 10px #ff0000';
+    msg.style.zIndex = 5;
+    msg.innerText = "If you leave… you will not return to this world.";
+    overlay.appendChild(msg);
+
+    // Flicker overlay background subtly
+    setInterval(() => {
+        overlay.style.backgroundColor = `rgba(${Math.floor(Math.random()*255)},0,0,0.05)`;
+    }, 150);
+
+    // Change URL to appear like leaving
+    history.pushState({}, '', '/');
+}
+</script>
+</body>
+</html>
