@@ -3,12 +3,5 @@
     { "source": "/", "destination": "/index.html" },
     { "source": "/gallery", "destination": "/gallery.html" },
     { "source": "/null", "destination": "/null0.html" }
-  ],
-  "redirects": [
-    {
-      "source": "/(.*)",
-      "destination": "http://aaronworld.nullexistence.net/",
-      "permanent": false
-    }
   ]
 }
