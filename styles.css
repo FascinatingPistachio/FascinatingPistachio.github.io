@@ -1,6 +1,6 @@
 /* ===========================
-   Global Styles
-   =========================== */
+    Global Styles
+    =========================== */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -26,8 +26,8 @@ a:hover {
 }
 
 /* ===========================
-   Header and Navigation
-   =========================== */
+    Header and Navigation
+    =========================== */
 header {
   background: #f5f5f0;
   text-align: center;
@@ -67,8 +67,8 @@ nav a:hover {
 }
 
 /* ===========================
-   Gallery Room
-   =========================== */
+    Gallery Room
+    =========================== */
 .gallery-room {
   flex: 1;
   display: grid;
@@ -158,8 +158,8 @@ nav a:hover {
 }
 
 /* ===========================
-   Footer
-   =========================== */
+    Footer
+    =========================== */
 footer {
   text-align: center;
   padding: 1rem 0;
@@ -170,8 +170,8 @@ footer {
 }
 
 /* ===========================
-   Responsive
-   =========================== */
+    Responsive
+    =========================== */
 @media (max-width: 900px) {
   .frame {
     max-width: 280px;
