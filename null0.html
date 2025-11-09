@@ -13,6 +13,7 @@
             --red-glow: #ff4444;
             --dark-red: #880000;
             --bg-color: #000000;
+            --text-color: #E0E0E0; /* Brighter for readability */
         }
 
         html, body {
@@ -21,17 +22,19 @@
             height: 100%;
             font-family: 'Roboto Mono', monospace;
             background: var(--bg-color);
-            color: #fff;
-            /* Allow scrolling only when main content is revealed */
+            color: var(--text-color);
             overflow: hidden; 
         }
 
         #container { 
             position: relative; 
             min-height: 100vh;
+            transition: opacity 1.5s ease-out; 
+            /* Added continuous, subtle horizontal shake */
+            animation: crt-shake 0.2s infinite; 
         }
         
-        /* CRT Effect */
+        /* --- CRT Effect (Updated and Animated) --- */
         #container::before {
             content: "";
             position: fixed;
@@ -41,24 +44,62 @@
             height: 100%;
             pointer-events: none;
             z-index: 100;
-            opacity: 0.1;
+            opacity: 0.18; /* Increased opacity slightly */
+            
+            /* Animated Scanlines */
             background: 
                 repeating-linear-gradient(
                     0deg, 
-                    rgba(0,0,0,0.5), 
-                    rgba(0,0,0,0.5) 1px, 
-                    transparent 1px, 
-                    transparent 2px
+                    rgba(0,0,0,0.6), 
+                    rgba(0,0,0,0.6) 2px, 
+                    transparent 2px, 
+                    transparent 4px
                 ),
                 radial-gradient(
                     ellipse at center, 
                     rgba(0,0,0,0) 0%, 
                     rgba(0,0,0,0.7) 100%
                 );
+            background-size: 100% 4px; /* Ensure lines are spaced */
+            animation: crt-flicker 15s infinite alternate, scanlines-scroll 5s linear infinite; 
+        }
+        
+        /* New pseudo-element for screen curvature/border glow */
+        #container::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 99; 
+            box-shadow: 0 0 80px rgba(255, 68, 68, 0.1) inset; 
+        }
+        
+        @keyframes crt-flicker {
+            0% { opacity: 0.18; }
+            5% { opacity: 0.22; }
+            10% { opacity: 0.18; }
+            95% { opacity: 0.18; }
+            100% { opacity: 0.2; }
+        }
+        
+        @keyframes scanlines-scroll {
+            from { background-position: 0 0; }
+            to { background-position: 0 100vh; }
         }
 
+        @keyframes crt-shake {
+            0% { transform: translate(1px, 0); }
+            50% { transform: translate(-1px, 0); }
+            100% { transform: translate(1px, 0); }
+        }
+        /* --- End CRT Effect --- */
+
+
         .overlay {
-            position: fixed; /* Fixed position so effects stay visible on scroll */
+            position: fixed; 
             width: 100%;
             height: 100%;
             top: 0;
@@ -88,23 +129,48 @@
             left: 0;
             background: var(--bg-color);
         }
+        
+        /* Main Terminal Section */
+        #archive-terminal {
+            padding: 40px 20px;
+            text-align: left;
+            opacity: 0;
+            transition: opacity 1s ease;
+            min-height: 100vh;
+        }
+        
+        .section-content {
+            max-width: 800px;
+            margin: 40px auto;
+            border-left: 2px solid var(--red-glow);
+            padding-left: 20px;
+        }
+        
+        .terminal-header {
+            color: #4CAF50; /* Green command line */
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
 
         .active { opacity: 1; pointer-events: auto; }
         .hidden { opacity: 0; pointer-events: none; transform: scale(0.95); }
 
-        h1 { font-size: 4em; color: var(--red-glow); text-shadow: 0 0 15px var(--red-glow); }
+        h1 { font-size: 3.5em; color: var(--red-glow); text-shadow: 0 0 15px var(--red-glow); margin-bottom: 0.5em;}
         h2 { font-size: 2em; color: var(--red-glow); margin-top: 40px; text-shadow: 0 0 5px var(--dark-red); }
-        p, .main-text { 
+        h3 { font-size: 1.5em; color: #ff6666; margin-top: 30px;}
+        
+        p, .main-text, .section-content p { 
             max-width: 700px; 
             font-size: 1.1em; 
-            color: #ccc; 
-            line-height: 1.6;
+            color: var(--text-color); 
+            line-height: 1.7; /* Improved line height for readability */
             text-align: left;
-            margin: 1.5em auto;
+            margin: 1.2em auto;
         }
-        .main-text { padding-bottom: 50vh; } /* Extra padding for effect overlap */
+        .main-text { padding-bottom: 50vh; } 
         
-        a { 
+        a, .terminal-link { 
             color: #ff6666; 
             text-decoration: none; 
             margin: 1em; 
@@ -112,74 +178,59 @@
             padding: 0.5em 1em;
             border: 1px solid #ff6666;
             transition: all 0.3s ease;
+            display: inline-block;
         }
-        a:hover { 
+        a:hover, .terminal-link:hover { 
             color: #ff0000; 
             border-color: #ff0000;
             background: rgba(255, 0, 0, 0.1);
             text-shadow: 0 0 5px #ff0000; 
         }
 
-        /* --- Rift and Glitch Effects (Fixed to viewport) --- */
+        /* UPDATED: Subtle Highlight for Code Digits */
+        .code-digit {
+            color: var(--text-color); /* Keep the base color the same */
+            font-weight: 700;
+            text-shadow: 0 0 1px var(--red-glow); /* Very faint red glow */
+            animation: subtle-flicker 2s infinite alternate; /* Slower, less aggressive flicker */
+        }
+        @keyframes subtle-flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.9; text-shadow: 0 0 2px var(--red-glow); }
+            100% { opacity: 1; }
+        }
+
+        /* Cipher Input Styling */
+        input[type="text"] {
+            background: rgba(255, 68, 68, 0.1);
+            border: 1px dashed var(--red-glow);
+            color: var(--text-color);
+            padding: 10px;
+            font-size: 1.2em;
+            font-family: 'Roboto Mono', monospace;
+            width: 250px;
+            text-align: center;
+        }
+        
+        #cipher-output {
+            color: #4CAF50;
+            margin-top: 20px;
+            font-weight: bold;
+            min-height: 30px;
+        }
+
+        /* Rift and Glitch Effects (Fixed to viewport) */
         .rift {
-            position: fixed;
-            width: 150px;
-            height: 150px;
-            border: 2px dashed var(--red-glow);
-            box-shadow: 0 0 25px var(--red-glow);
-            border-radius: 50%;
-            opacity: 0.2;
-            pointer-events: none;
-            z-index: 4;
-            transition: transform 0.2s ease, opacity 0.2s ease;
+            position: fixed; width: 150px; height: 150px; border: 2px dashed var(--red-glow); box-shadow: 0 0 25px var(--red-glow); border-radius: 50%; opacity: 0.2; pointer-events: none; z-index: 4; transition: transform 0.2s ease, opacity 0.2s ease;
         }
-
-        .overlay-text {
-            position: fixed;
-            font-size: 2em;
-            color: var(--red-glow);
-            text-shadow: 0 0 10px var(--red-glow);
-            pointer-events: none;
-            z-index: 5;
-            /* No transition here, parallax moves immediately */
-        }
-
-        .glitch {
-            position: fixed;
-            font-size: 1.5em;
-            color: #ff6666;
-            text-shadow: 0 0 5px var(--red-glow);
-            pointer-events: none;
-            z-index: 6;
-            opacity: 0;
-        }
-
-        .flash {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bg-color);
-            z-index: 7;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.05s ease-in-out;
-        }
-
-        .corrupt {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 6;
-            mix-blend-mode: color-dodge; /* Blends colors in an unnerving way */
-        }
+        .overlay-text { position: fixed; font-size: 2em; color: var(--red-glow); text-shadow: 0 0 10px var(--red-glow); pointer-events: none; z-index: 5;}
+        .glitch { position: fixed; font-size: 1.5em; color: #ff6666; text-shadow: 0 0 5px var(--red-glow); pointer-events: none; z-index: 6; opacity: 0;}
+        /* Increased z-index of flash for jump scare */
+        .flash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-color); z-index: 101; opacity: 0; pointer-events: none; transition: opacity 0.05s ease-in-out;}
+        .corrupt { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 6; mix-blend-mode: color-dodge;}
     </style>
 </head>
-<body>
+<body onload="calculateFileSize()">
 <div id="container">
     <div class="overlay" id="overlay"></div>
     <div class="flash" id="flash"></div>
@@ -195,16 +246,47 @@
         </div>
     </div>
 
-    <!-- Main ARG Content Page (Initially Hidden) -->
-    <div id="main-content" class="page hidden">
-        <h1 style="font-size: 2.5em; margin-bottom: 0;">OBSERVER'S JOURNAL (FRAGMENT 4.1)</h1>
-        <p style="color: var(--dark-red); font-size: 1em; margin-top: 0;">[ACCESS LEVEL: UNSAFE // TIMESTAMP: 1989.11.05.03:17:34 Z]</p>
-        <div class="main-text">
-            <p>The signal is louder now. It's not noise, it's—it's **structure**. A deep, resonating hum that feels less like sound and more like a pressure behind the eyes. It's been 72 hours since the main frame was isolated, but the data leakage continues. Every scroll, every input, pushes another fragment of my research into the network, and something else... something *from* the network... is pushing back.</p>
-            <p>I tried to implement the **Parallax Dissonance Filter** (PFD-21), hoping to stabilize the viewport, but it only amplified the distortion. Now, the rifts appear fixed to my vision, moving contrary to the text I'm trying to read. It mocks my efforts, a silent, swirling tear in the digital space. The corruption layer is no longer just on the display; I see it in the margins of my own handwritten notes. The reality of the display is becoming the reality of the room.</p>
-            <p>My primary concern is the **Glitch Text**. It appears randomly, too fast to decipher, always fragments of common errors—404, EOF, ???. But sometimes... sometimes a word slips through, a coherent command. Today it was *WATCH*. Yesterday it was *LISTEN*. I've disabled all speakers and microphones, but the constant, low-frequency pressure persists. It's not a suggestion. It's an instruction.</p>
-            <p>The only remaining objective is to find the **Null Vector**. If I can pinpoint the point of origin for the reverse-signal, I can perhaps sever the connection without triggering a catastrophic **Event**. If you are reading this, I have failed. The final sequence is hidden within the text itself. Look for the discrepancy in the code, the thing that shouldn't be there, and **DO NOT LOOK AWAY** when the screen flashes.</p>
-            <p>— O.</p>
+    <!-- Main ARG Terminal Content -->
+    <div id="archive-terminal">
+        <div class="section-content" id="index-section">
+            <h2 id="section-index">ARCHIVE INDEX: ACCESSING // ROOT DIRECTORY [INIT]</h2>
+            <div class="terminal-header">> list -d /archive/fragments/</div>
+            
+            <p>001. <span class="terminal-link" onclick="showSection('journal-fragment')">FRAGMENT 4.1 (OBSERVER'S JOURNAL)</span> <span id="file-size-display">[Size: 0.0KB]</span> [Security: LOW]</p>
+            <p>002. <span class="terminal-link" onclick="showSection('cipher-protocol')">PROTOCOL: CIPHER-GATEMARK</span> [Size: 1.1KB] [Security: HIGH] **&lt; LOCKED &gt;**</p>
+            <p>003. <span class="terminal-link" onclick="console.log('Searching...'); document.getElementById('search-output').innerText='> ERR: NODE UNAVAILABLE. TARGETING NODE 4.1...';">SEARCH: NULL VECTOR</span> [Size: 0.0KB] [Security: UNKNOWN]</p>
+            
+            <p id="search-output" style="color: #ff0000; font-size: 0.9em; margin-top: 15px;">> </p>
+            <p style="margin-top: 40px;"><span class="terminal-link" onclick="returnToStartPage()">Return to Void Gate</span></p>
+        </div>
+
+        <div class="section-content" id="journal-fragment" style="display: none;">
+            <h2>FRAGMENT 4.1 (OBSERVER'S JOURNAL)</h2>
+            <p style="color: var(--dark-red); font-size: 1em; margin-top: 0;">[ACCESS LEVEL: UNSAFE // TIMESTAMP: 1989.11.05.03:17:34 Z]</p>
+            <div class="main-text" id="journal-content-target">
+                <p>The signal is louder now. It's not noise, it's—it's **structure**. A deep, resonating hum that feels less like sound and more like a pressure behind the eyes. It's been <span class="code-digit">9</span> days since the main frame was isolated, but the data leakage continues. Every scroll, every input, pushes another fragment of my research into the network, and something else... something *from* the network—is pushing back.</p>
+                <p>I tried to implement the **Parallax Dissonance Filter** (PFD-**21**), hoping to stabilize the viewport, but it only amplified the distortion. Now, the rifts appear fixed to my vision, moving contrary to the text I'm trying to read. For <span class="code-digit">5</span> seconds the screen blanked. It mocks my efforts, a silent, swirling tear in the digital space. The corruption layer is no longer just on the display; I see it in the margins of my own handwritten notes.</p>
+                <p>My primary concern is the **Glitch Text**. It appears randomly, too fast to decipher, always fragments of common errors—**404**, EOF, ???. But sometimes—<span class="code-digit">3</span> times this hour—a word slips through, a coherent command. Today it was *WATCH*. Yesterday it was *LISTEN*. I've disabled all speakers and microphones, but the constant, low-frequency pressure persists. It's not a suggestion. It's—<span class="code-digit">1</span> instruction. </p>
+                <p style="margin-top: 50px; color: #ff0000; font-style: italic;">The four required digits are isolated single numbers found near the Observer's most urgent temporal (time-based) notations.</p>
+                <p style="margin-top: 10px;"><span class="terminal-link" onclick="showSection('index-section')">-- BACK TO INDEX --</span></p>
+            </div>
+        </div>
+
+        <div class="section-content" id="cipher-protocol" style="display: none; text-align: center;">
+            <h2>PROTOCOL: CIPHER-GATEMARK</h2>
+            <p>Access requires four-digit sequence found within an accessible fragment. Enter the key below to decode the final broadcast.</p>
+            
+            <input type="text" id="cipher-input" maxlength="4" placeholder="[ _ _ _ _ ]" onkeyup="checkCipherLength(this)">
+            <button class="terminal-link" onclick="attemptCipher()">DECODE SIGNAL</button>
+            
+            <p id="cipher-output">Awaiting Key...</p>
+            
+            <div id="final-message" style="margin-top: 40px; color: var(--red-glow); font-size: 1.5em; display: none;">
+                <p>*** SEQUENCE DECODED ***</p>
+                <p>THE NULL VECTOR IS NOT A PLACE, IT IS A STATE. THE SIGNAL IS YOUR EXIT. THANK YOU FOR LISTENING.</p>
+            </div>
+            
+            <p style="margin-top: 50px;"><span class="terminal-link" onclick="showSection('index-section')">-- BACK TO INDEX --</span></p>
         </div>
     </div>
 </div>
@@ -212,54 +294,19 @@
 <script>
     // --- Setup and Constants ---
     const startPage = document.getElementById('start-page');
-    const mainContent = document.getElementById('main-content');
-    const overlay = document.getElementById('overlay');
-    const flash = document.getElementById('flash');
+    const archiveTerminal = document.getElementById('archive-terminal');
+    const container = document.getElementById('container');
     const canvas = document.getElementById('corruptCanvas');
+    const flash = document.getElementById('flash');
     const ctx = canvas.getContext('2d');
+    const CIPHER_KEY = "9531"; // The required key for the puzzle
 
     let isExperienceActive = false;
     let audioContextReady = false;
     let staticSound;
 
-    // Adjust canvas on load/resize
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-    
-    // Initialize Tone.js for ambient static noise
-    function initAudio() {
-        if (audioContextReady) return;
-
-        try {
-            // Create a noise source (static)
-            staticSound = new Tone.Noise('brown').start(); // Brown noise is softer, like a low hum/static
-
-            // Create a filter to keep the sound low and muffled
-            const filter = new Tone.Filter(200, 'lowpass').toDestination();
-            
-            // Create a subtle tremolo/volume variation for unsettling effect
-            const tremolo = new Tone.Tremolo(2, 0.5).start();
-
-            // Connect everything: Noise -> Tremolo -> Filter -> Output
-            staticSound.connect(tremolo);
-            tremolo.connect(filter);
-            
-            // Set noise volume very low
-            staticSound.volume.value = -30; 
-
-            audioContextReady = true;
-            console.log('Audio initialized.');
-        } catch (e) {
-            console.error('Tone.js initialization failed:', e);
-        }
-    }
-
-
-    // --- Effect Element Generation ---
+    // --- Dynamic Elements (Rifts, Glitch Text) Setup ---
+    const overlay = document.getElementById('overlay');
     const rifts = [];
     for (let i = 0; i < 8; i++) {
         const rift = document.createElement('div');
@@ -270,21 +317,6 @@
         overlay.appendChild(rift);
         rifts.push(rift);
     }
-
-    const overlayTexts = [];
-    const messages = ["ACCESS DENIED", "UNAUTHORIZED USER", "THE ARCHIVE IS WATCHING", "SEEK THE VECTOR"];
-    messages.forEach((msg, i) => {
-        const text = document.createElement('div');
-        text.className = 'overlay-text';
-        text.innerText = msg;
-        text.style.fontSize = (2 + Math.random()) + 'em';
-        text.style.top = (10 + i * 20 + Math.random() * 10) + 'vh';
-        text.style.left = (5 + i * 15 + Math.random() * 10) + 'vw';
-        text.style.opacity = 0.3 + Math.random() * 0.5;
-        overlay.appendChild(text);
-        overlayTexts.push(text);
-    });
-
     const glitchTexts = [];
     for(let i = 0; i < 10; i++) {
         const g = document.createElement('div');
@@ -295,39 +327,182 @@
         overlay.appendChild(g);
         glitchTexts.push(g);
     }
+    
+    // --- Initializers and Helpers ---
 
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    
+    function initAudio() {
+        if (audioContextReady) return;
+        try {
+            staticSound = new Tone.Noise('brown').start();
+            const filter = new Tone.Filter(200, 'lowpass').toDestination();
+            const tremolo = new Tone.Tremolo(2, 0.5).start();
+            staticSound.connect(tremolo);
+            tremolo.connect(filter);
+            staticSound.volume.value = -30; 
+            audioContextReady = true;
+        } catch (e) {
+            console.error('Tone.js initialization failed:', e);
+        }
+    }
+
+    /**
+     * Calculates the "file size" based on the character count of the journal entry.
+     */
+    function calculateFileSize() {
+        const contentElement = document.getElementById('journal-content-target');
+        const displayElement = document.getElementById('file-size-display');
+        
+        if (!contentElement || !displayElement) {
+            console.error("Content or display element not found for size calculation.");
+            return;
+        }
+
+        // Get the raw text content (including spaces/newlines, simulating file bytes)
+        const rawText = contentElement.innerText;
+        
+        // Simple estimation: 1 character ~ 1 byte for basic ASCII text
+        const byteSize = rawText.length; 
+        
+        // Convert to KB (1024 bytes) and format to one decimal place
+        const kbSize = (byteSize / 1024).toFixed(1);
+
+        displayElement.innerText = `[Size: ${kbSize}KB]`;
+    }
+
+    // --- Navigation and Puzzle Logic ---
+    
+    function showSection(id) {
+        document.querySelectorAll('.section-content').forEach(section => {
+            section.style.display = 'none';
+        });
+        document.getElementById(id).style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top on section change
+    }
+
+    function checkCipherLength(input) {
+        // Simple input validation to restrict to numbers
+        input.value = input.value.replace(/[^0-9]/g, '').substring(0, 4);
+    }
+
+    function attemptCipher() {
+        const input = document.getElementById('cipher-input').value;
+        const output = document.getElementById('cipher-output');
+        const finalMessage = document.getElementById('final-message');
+        
+        output.style.color = 'var(--red-glow)';
+        finalMessage.style.display = 'none';
+
+        if (input.length !== 4) {
+            output.innerText = "Error: Key length invalid.";
+        } else if (input === CIPHER_KEY) {
+            output.innerText = "Status: KEY ACCEPTED. DECODING...";
+            output.style.color = '#4CAF50';
+            // Play a short tone burst to indicate success
+            try {
+                const synth = new Tone.Synth().toDestination();
+                synth.triggerAttackRelease("C4", "8n");
+            } catch (e) { /* silent fail */ }
+            setTimeout(() => {
+                finalMessage.style.display = 'block';
+                output.innerText = "DECODING COMPLETE.";
+            }, 1500);
+        } else {
+            output.innerText = "Status: KEY REJECTED. DATA CORRUPTION LIKELY.";
+        }
+    }
+    
     // --- Core Interaction Functions ---
     
     function triggerEnter() {
         startPage.classList.remove('active');
         startPage.classList.add('hidden');
-        mainContent.classList.remove('hidden');
-        mainContent.classList.add('active');
+        archiveTerminal.style.opacity = 1;
         
-        // Allow the body to scroll to see the content
         document.body.style.overflow = 'auto';
         isExperienceActive = true;
-        
-        // Audio must be started by user interaction
         initAudio(); 
         
-        console.log('Stepping deeper into the archive...');
-
-        // Start animation loop now that interaction is complete
+        showSection('index-section'); // Start at the index
+        
         requestAnimationFrame(animate);
+    }
+    
+    function returnToStartPage() {
+        isExperienceActive = false;
+        document.body.style.overflow = 'hidden'; // Lock scroll again
+        
+        // Ensure container is visible 
+        container.style.opacity = 1; 
+
+        // Hide terminal and show start page
+        archiveTerminal.style.opacity = 0;
+        archiveTerminal.classList.remove('active');
+        
+        startPage.classList.remove('hidden');
+        startPage.classList.add('active');
+        
+        // Stop audio when returning to the passive start screen
+        if (staticSound) staticSound.stop();
+        
+        // Reset all section content visibility (show the index by default)
+        showSection('index-section');
+    }
+
+    function doJumpScare() {
+        // Stop current sounds
+        if (staticSound) staticSound.stop();
+        
+        // 1. Go to black (container fade out)
+        container.style.opacity = 0;
+        
+        // 2. Clear effects instantly
+        rifts.forEach(r => r.style.opacity = 0);
+        glitchTexts.forEach(g => g.style.opacity = 0);
+        ctx.clearRect(0, 0, canvas.width, canvas.height); 
+        
+        // 3. Jump Scare Sequence (Flash and Sound)
+        try {
+            // High frequency noise burst (the sound scare)
+            const highFreqNoise = new Tone.Noise('white').toDestination();
+            highFreqNoise.volume.value = -10; 
+            highFreqNoise.start();
+            highFreqNoise.stop("+0.3"); 
+
+            // Sustained white flash (the visual scare)
+            flash.style.background = 'white';
+            flash.style.transition = 'opacity 0.01s';
+            flash.style.opacity = 1;
+            
+            setTimeout(() => {
+                flash.style.opacity = 0;
+                flash.style.background = 'black'; // Reset for black flashes later
+            }, 300); // White flash duration
+            
+        } catch (e) { console.error('Audio failed:', e); }
+
+        // 4. Fade back to the start page after the scare duration
+        setTimeout(() => {
+            returnToStartPage();
+            // Re-fade container back in after the jump scare is over
+            container.style.opacity = 1;
+        }, 2000); // Total duration of black screen/scare before reset
     }
 
     function triggerLeave() {
-        // Simple fade to black/exit effect
-        isExperienceActive = false;
-        document.body.style.backgroundColor = 'white';
-        document.body.style.transition = 'background-color 2s ease';
-        setTimeout(() => {
-             // In a real browser, this would redirect or close the tab
-             // Here, we simulate a 'clean exit' by fading everything out
-             document.body.style.opacity = 0;
-        }, 500);
-        if (staticSound) staticSound.stop();
+        // This is called by the "Disconnect" button on the start page
+        // It should always trigger the jump scare sequence.
+        if (isExperienceActive) {
+            isExperienceActive = false;
+            archiveTerminal.style.opacity = 0;
+        }
+        doJumpScare();
     }
 
     // --- Drawing and Animation Loop ---
@@ -350,7 +525,10 @@
     }
 
     function animate() {
-        if (!isExperienceActive) return;
+        if (!isExperienceActive) {
+            // Ensure the continuous effects stop when not active
+            return;
+        }
 
         const scrollTop = window.scrollY || 0;
         const scrollLeft = window.scrollX || 0;
@@ -358,17 +536,10 @@
 
         // Rift animations (Parallax Dissonance Filter)
         rifts.forEach((rift, i) => {
-            // Rifts move opposite to scroll/time for the fixed-to-vision effect
             const offsetX = Math.sin(time * 0.5 + i) * 30 + Math.sin(scrollTop * 0.005) * 50;
             const offsetY = Math.cos(time * 0.4 + i) * 30 + Math.cos(scrollLeft * 0.005) * 50;
             const rotation = scrollTop * 0.02 + i * 15;
             rift.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${rotation}deg) scale(${0.8 + Math.sin(time * 0.2 + i) / 5})`;
-        });
-
-        // Overlay text opposite to scroll (Parallax effect)
-        overlayTexts.forEach((text, i) => {
-            const parallax = 1 + i * 0.05; 
-            text.style.transform = `translate(${-scrollLeft * parallax}px, ${-scrollTop * parallax * 0.5}px)`;
         });
 
         // Glitch text flicker (Random)
@@ -378,24 +549,27 @@
                 g.style.top = Math.random() * 100 + 'vh';
                 g.style.left = Math.random() * 100 + 'vw';
             } else {
-                g.style.opacity = Math.max(0, g.style.opacity - 0.05); // Gradual fade
+                g.style.opacity = Math.max(0, g.style.opacity - 0.05); 
             }
         });
 
         // Flashing black effect (Quick Data Corruption)
         if(Math.random() < 0.005){
+            flash.style.background = 'black';
             flash.style.opacity = 1;
             setTimeout(()=>{flash.style.opacity = 0}, 30);
         }
 
-        // Draw canvas corruption
         drawCorruption();
 
         requestAnimationFrame(animate);
     }
-    
-    // Only run animation after 'Step Deeper' is clicked
-    // The initial elements are already displayed by default.
+
+    // Call size calculation immediately when the page loads
+    // Note: If you edit the text content of the journal, you'll need to refresh
+    // the page to see the updated size calculation here!
+    calculateFileSize();
+
 </script>
 </body>
 </html>
