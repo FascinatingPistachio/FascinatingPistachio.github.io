@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Archive of Null</title>
+    <!-- FAVICON LINK -->
+    <link rel="icon" type="image/png" href="https://i.ibb.co/D3yJSP2/ezgif-1561cebd07b8392d.png">
     <!-- Load Roboto Mono for the classic terminal/glitch aesthetic -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
     <!-- Load Tone.js for ambient audio effects -->
@@ -20,7 +22,7 @@
             margin: 0;
             padding: 0;
             height: 100%;
-            font-family: 'Roboto Mono', monospace;
+            font-family: 'Roboto', monospace; /* Swapped to Roboto for UI, Mono for terminal */
             background: var(--bg-color);
             color: var(--text-color);
             overflow: hidden; 
@@ -121,22 +123,30 @@
             transition: opacity 1s ease, transform 1s ease;
             z-index: 3;
             box-sizing: border-box;
-        }
-
-        #start-page {
+            /* Set position to be able to fade in/out */
             position: fixed;
             top: 0;
             left: 0;
+        }
+
+        #start-page {
+            /* Now uses .page styles, so no need for duplicate fixed/top/left */
             background: var(--bg-color);
         }
         
         /* Main Terminal Section */
         #archive-terminal {
+            /* This is no longer a page overlay, but the main scrollable content area */
             padding: 40px 20px;
             text-align: left;
             opacity: 0;
             transition: opacity 1s ease;
             min-height: 100vh;
+            /* Remove fixed positioning to allow scrolling */
+            position: relative;
+            z-index: 1;
+            /* Add this to make it invisible but exist for the fade-in */
+            visibility: hidden;
         }
         
         .section-content {
@@ -144,17 +154,45 @@
             margin: 40px auto;
             border-left: 2px solid var(--red-glow);
             padding-left: 20px;
+            /* Added transitions for opacity and transform */
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
         }
         
         .terminal-header {
             color: #4CAF50; /* Green command line */
             font-size: 1.5em;
             margin-bottom: 20px;
+            font-family: 'Roboto Mono', monospace; /* Terminal-specific font */
+        }
+        
+        /* --- Added .flex-row for button layout --- */
+        .flex-row {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 1em;
         }
 
-
-        .active { opacity: 1; pointer-events: auto; }
-        .hidden { opacity: 0; pointer-events: none; transform: scale(0.95); }
+        /* --- Updated .active and .hidden for transitions --- */
+        .active { 
+            opacity: 1; 
+            transform: scale(1);
+            pointer-events: auto; 
+            visibility: visible;
+        }
+        .hidden { 
+            opacity: 0; 
+            pointer-events: none; 
+            transform: scale(0.98); /* Subtle zoom out */
+            /* Use visibility: hidden to remove from layout */
+            visibility: hidden;
+            /* Add position: absolute to allow stacking/fading */
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+        }
 
         h1 { font-size: 3.5em; color: var(--red-glow); text-shadow: 0 0 15px var(--red-glow); margin-bottom: 0.5em;}
         h2 { font-size: 2em; color: var(--red-glow); margin-top: 40px; text-shadow: 0 0 5px var(--dark-red); }
@@ -167,9 +205,17 @@
             line-height: 1.7; /* Improved line height for readability */
             text-align: left;
             margin: 1.2em auto;
+            font-family: 'Roboto', 'Helvetica Neue', sans-serif; /* More readable font for prose */
         }
+        
+        /* --- Terminal-specific text should be monospace --- */
+        .terminal-header, .terminal-link, .code-digit, input[type="text"], #cipher-output, #search-output {
+             font-family: 'Roboto Mono', monospace;
+        }
+        
         .main-text { padding-bottom: 50vh; } 
         
+        /* Updated links for accessibility and styling */
         a, .terminal-link { 
             color: #ff6666; 
             text-decoration: none; 
@@ -207,7 +253,6 @@
             color: var(--text-color);
             padding: 10px;
             font-size: 1.2em;
-            font-family: 'Roboto Mono', monospace;
             width: 250px;
             text-align: center;
         }
@@ -230,37 +275,42 @@
         .corrupt { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 6; mix-blend-mode: color-dodge;}
     </style>
 </head>
-<body onload="calculateFileSize()">
+<body> <!-- Removed onload attribute -->
 <div id="container">
     <div class="overlay" id="overlay"></div>
     <div class="flash" id="flash"></div>
     <canvas class="corrupt" id="corruptCanvas"></canvas>
 
     <!-- Initial Landing Page -->
+    <!-- Added 'active' class to start -->
     <div id="start-page" class="page active">
         <h1>...The Void Gate...</h1>
         <p>You have stumbled upon an unindexed node. A place of static and echo, where data structure fails and the Archive bleeds through.<br>Do you really want to sever this connection and leave?</p>
-        <div class="flex flex-row">
-            <a onclick="triggerLeave()">Disconnect</a>
-            <a onclick="triggerEnter()">Step Deeper</a>
+        <div class="flex-row"> <!-- Using the new flex-row class -->
+            <!-- Updated 'a' tags for better accessibility/functionality -->
+            <a href="#" onclick="triggerLeave(event)">Disconnect</a>
+            <a href="#" onclick="triggerEnter(event)">Step Deeper</a>
         </div>
     </div>
 
     <!-- Main ARG Terminal Content -->
-    <div id="archive-terminal">
-        <div class="section-content" id="index-section">
+    <!-- Added 'hidden' class to start -->
+    <div id="archive-terminal" class="hidden">
+        <!-- Made this section active by default when terminal shows -->
+        <div class="section-content active" id="index-section">
             <h2 id="section-index">ARCHIVE INDEX: ACCESSING // ROOT DIRECTORY [INIT]</h2>
             <div class="terminal-header">> list -d /archive/fragments/</div>
             
             <p>001. <span class="terminal-link" onclick="showSection('journal-fragment')">FRAGMENT 4.1 (OBSERVER'S JOURNAL)</span> <span id="file-size-display">[Size: 0.0KB]</span> [Security: LOW]</p>
             <p>002. <span class="terminal-link" onclick="showSection('cipher-protocol')">PROTOCOL: CIPHER-GATEMARK</span> [Size: 1.1KB] [Security: HIGH] **&lt; LOCKED &gt;**</p>
-            <p>003. <span class="terminal-link" onclick="console.log('Searching...'); document.getElementById('search-output').innerText='> ERR: NODE UNAVAILABLE. TARGETING NODE 4.1...';">SEARCH: NULL VECTOR</span> [Size: 0.0KB] [Security: UNKNOWN]</p>
+            <p>003. <span class="terminal-link" onclick="handleSearchClick(event)">SEARCH: NULL VECTOR</span> [Size: 0.0KB] [Security: UNKNOWN]</p>
             
             <p id="search-output" style="color: #ff0000; font-size: 0.9em; margin-top: 15px;">> </p>
             <p style="margin-top: 40px;"><span class="terminal-link" onclick="returnToStartPage()">Return to Void Gate</span></p>
         </div>
 
-        <div class="section-content" id="journal-fragment" style="display: none;">
+        <!-- Added 'hidden' class to start -->
+        <div class="section-content hidden" id="journal-fragment">
             <h2>FRAGMENT 4.1 (OBSERVER'S JOURNAL)</h2>
             <p style="color: var(--dark-red); font-size: 1em; margin-top: 0;">[ACCESS LEVEL: UNSAFE // TIMESTAMP: 1989.11.05.03:17:34 Z]</p>
             <div class="main-text" id="journal-content-target">
@@ -272,11 +322,13 @@
             </div>
         </div>
 
-        <div class="section-content" id="cipher-protocol" style="display: none; text-align: center;">
+        <!-- Added 'hidden' class to start -->
+        <div class="section-content hidden" id="cipher-protocol" style="text-align: center;">
             <h2>PROTOCOL: CIPHER-GATEMARK</h2>
             <p>Access requires four-digit sequence found within an accessible fragment. Enter the key below to decode the final broadcast.</p>
             
-            <input type="text" id="cipher-input" maxlength="4" placeholder="[ _ _ _ _ ]" onkeyup="checkCipherLength(this)">
+            <!-- Changed to oninput for better validation -->
+            <input type="text" id="cipher-input" maxlength="4" placeholder="[ _ _ _ _ ]" oninput="checkCipherInput(this)">
             <button class="terminal-link" onclick="attemptCipher()">DECODE SIGNAL</button>
             
             <p id="cipher-output">Awaiting Key...</p>
@@ -334,12 +386,13 @@
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
     }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
     
     function initAudio() {
-        if (audioContextReady) return;
+        if (audioContextReady || Tone.context.state === 'running') return;
         try {
+            // Start audio context on user gesture
+            Tone.start(); 
+            
             staticSound = new Tone.Noise('brown').start();
             const filter = new Tone.Filter(200, 'lowpass').toDestination();
             const tremolo = new Tone.Tremolo(2, 0.5).start();
@@ -347,6 +400,7 @@
             tremolo.connect(filter);
             staticSound.volume.value = -30; 
             audioContextReady = true;
+            console.log("Audio context started.");
         } catch (e) {
             console.error('Tone.js initialization failed:', e);
         }
@@ -354,6 +408,7 @@
 
     /**
      * Calculates the "file size" based on the character count of the journal entry.
+     * Uses textContent for better performance and accuracy.
      */
     function calculateFileSize() {
         const contentElement = document.getElementById('journal-content-target');
@@ -364,8 +419,8 @@
             return;
         }
 
-        // Get the raw text content (including spaces/newlines, simulating file bytes)
-        const rawText = contentElement.innerText;
+        // Use textContent, which is faster and more accurate for raw text length
+        const rawText = contentElement.textContent;
         
         // Simple estimation: 1 character ~ 1 byte for basic ASCII text
         const byteSize = rawText.length; 
@@ -378,16 +433,42 @@
 
     // --- Navigation and Puzzle Logic ---
     
+    /**
+     * Shows a specific content section by ID, hiding all others.
+     * Now uses class toggling for CSS transitions.
+     */
     function showSection(id) {
         document.querySelectorAll('.section-content').forEach(section => {
-            section.style.display = 'none';
+            if (section.id === id) {
+                section.classList.add('active');
+                section.classList.remove('hidden');
+            } else {
+                section.classList.add('hidden');
+                section.classList.remove('active');
+            }
         });
-        document.getElementById(id).style.display = 'block';
-        window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top on section change
+        // Scroll to top on section change for better UX
+        window.scrollTo({ top: 0, behavior: 'smooth' }); 
     }
 
-    function checkCipherLength(input) {
-        // Simple input validation to restrict to numbers
+    /**
+     * Handles the "SEARCH: NULL VECTOR" click.
+     */
+    function handleSearchClick(event) {
+        if (event) event.preventDefault();
+        console.log('Searching...');
+        document.getElementById('search-output').innerText = '> ERR: NODE UNAVAILABLE. TARGETING NODE 4.1...';
+        // Optional: clear message after a delay
+        setTimeout(() => {
+            document.getElementById('search-output').innerText = '>';
+        }, 3000);
+    }
+
+    /**
+     * Validates cipher input to only allow numbers.
+     * Renamed from checkCipherLength for clarity and uses oninput.
+     */
+    function checkCipherInput(input) {
         input.value = input.value.replace(/[^0-9]/g, '').substring(0, 4);
     }
 
@@ -406,9 +487,11 @@
             output.style.color = '#4CAF50';
             // Play a short tone burst to indicate success
             try {
+                if (!audioContextReady) initAudio(); // Ensure audio is ready
                 const synth = new Tone.Synth().toDestination();
                 synth.triggerAttackRelease("C4", "8n");
-            } catch (e) { /* silent fail */ }
+            } catch (e) { console.error("Audio playback failed", e); }
+            
             setTimeout(() => {
                 finalMessage.style.display = 'block';
                 output.innerText = "DECODING COMPLETE.";
@@ -420,13 +503,20 @@
     
     // --- Core Interaction Functions ---
     
-    function triggerEnter() {
+    function triggerEnter(event) {
+        if (event) event.preventDefault(); // Prevent <a> tag from navigating
+
         startPage.classList.remove('active');
         startPage.classList.add('hidden');
-        archiveTerminal.style.opacity = 1;
         
-        document.body.style.overflow = 'auto';
+        archiveTerminal.style.opacity = 1;
+        archiveTerminal.style.visibility = 'visible'; // Make visible
+        archiveTerminal.classList.remove('hidden'); // No longer hidden
+        
+        document.body.style.overflow = 'auto'; // Allow scrolling
         isExperienceActive = true;
+        
+        // Initialize audio on the first user interaction
         initAudio(); 
         
         showSection('index-section'); // Start at the index
@@ -443,21 +533,28 @@
 
         // Hide terminal and show start page
         archiveTerminal.style.opacity = 0;
-        archiveTerminal.classList.remove('active');
+        archiveTerminal.style.visibility = 'hidden'; // Hide
+        archiveTerminal.classList.add('hidden');
         
         startPage.classList.remove('hidden');
         startPage.classList.add('active');
         
         // Stop audio when returning to the passive start screen
-        if (staticSound) staticSound.stop();
+        if (staticSound) {
+            // Tone.js stop() might not be immediate, lower volume too
+            staticSound.volume.value = -Infinity;
+        }
         
-        // Reset all section content visibility (show the index by default)
+        // Reset all section content visibility
+        // This ensures 'index-section' is active when we return
         showSection('index-section');
     }
 
     function doJumpScare() {
         // Stop current sounds
-        if (staticSound) staticSound.stop();
+        if (staticSound) {
+             staticSound.volume.value = -Infinity;
+        }
         
         // 1. Go to black (container fade out)
         container.style.opacity = 0;
@@ -469,6 +566,8 @@
         
         // 3. Jump Scare Sequence (Flash and Sound)
         try {
+            if (!audioContextReady) initAudio(); // Must init for sound
+
             // High frequency noise burst (the sound scare)
             const highFreqNoise = new Tone.Noise('white').toDestination();
             highFreqNoise.volume.value = -10; 
@@ -495,12 +594,14 @@
         }, 2000); // Total duration of black screen/scare before reset
     }
 
-    function triggerLeave() {
+    function triggerLeave(event) {
+        if (event) event.preventDefault(); // Prevent <a> tag from navigating
+
         // This is called by the "Disconnect" button on the start page
-        // It should always trigger the jump scare sequence.
         if (isExperienceActive) {
             isExperienceActive = false;
             archiveTerminal.style.opacity = 0;
+            archiveTerminal.classList.add('hidden');
         }
         doJumpScare();
     }
@@ -524,22 +625,27 @@
         }
     }
 
-    function animate() {
+    let lastTime = 0;
+    function animate(time) {
         if (!isExperienceActive) {
-            // Ensure the continuous effects stop when not active
+            // Stop the loop if the experience is no longer active
             return;
         }
+        
+        // Ensure we have a time variable, even if rAF doesn't provide one
+        if (!time) time = lastTime; 
+        const timeSeconds = time * 0.001;
+        lastTime = time;
 
         const scrollTop = window.scrollY || 0;
         const scrollLeft = window.scrollX || 0;
-        const time = Date.now() * 0.001;
 
         // Rift animations (Parallax Dissonance Filter)
         rifts.forEach((rift, i) => {
-            const offsetX = Math.sin(time * 0.5 + i) * 30 + Math.sin(scrollTop * 0.005) * 50;
-            const offsetY = Math.cos(time * 0.4 + i) * 30 + Math.cos(scrollLeft * 0.005) * 50;
+            const offsetX = Math.sin(timeSeconds * 0.5 + i) * 30 + Math.sin(scrollTop * 0.005) * 50;
+            const offsetY = Math.cos(timeSeconds * 0.4 + i) * 30 + Math.cos(scrollLeft * 0.005) * 50;
             const rotation = scrollTop * 0.02 + i * 15;
-            rift.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${rotation}deg) scale(${0.8 + Math.sin(time * 0.2 + i) / 5})`;
+            rift.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${rotation}deg) scale(${0.8 + Math.sin(timeSeconds * 0.2 + i) / 5})`;
         });
 
         // Glitch text flicker (Random)
@@ -565,10 +671,22 @@
         requestAnimationFrame(animate);
     }
 
-    // Call size calculation immediately when the page loads
-    // Note: If you edit the text content of the journal, you'll need to refresh
-    // the page to see the updated size calculation here!
-    calculateFileSize();
+    // --- Wait for DOM to be ready before running setup ---
+    document.addEventListener('DOMContentLoaded', () => {
+        // Call size calculation immediately when the page loads
+        calculateFileSize();
+        // Set initial canvas size
+        resizeCanvas();
+        // Add resize listener
+        window.addEventListener('resize', resizeCanvas);
+
+        // Set initial states for sections
+        showSection('index-section'); // Ensure index is the default
+        // Hide terminal until 'Enter' is clicked
+        archiveTerminal.classList.add('hidden');
+        archiveTerminal.style.visibility = 'hidden'; 
+        startPage.classList.add('active'); // Show start page
+    });
 
 </script>
 </body>
