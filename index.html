@@ -6,248 +6,294 @@
   <title>Aaron's World</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    /* --- Global & Typography --- */
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@400;700&display=swap');
+
     body {
-      font-family: Georgia, 'Times New Roman', Times, serif;
+      font-family: 'Lato', sans-serif;
       background-color: #e8e6e3;
       color: #222;
+      /* Subtle noise texture for a paper/wall feel */
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
     }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* --- Custom UI Elements --- */
     .info-box {
-      background-color: white;
-      border: 2px solid #a0aec0;
-      border-radius: 0;
+      background-color: #fdfbf7;
+      border: 1px solid #d1d5db;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
       padding: 1.5rem;
+      position: relative;
     }
+    
+    /* Decoration line for info box */
+    .info-box::before {
+      content: '';
+      position: absolute;
+      top: 4px; left: 4px; right: 4px; bottom: 4px;
+      border: 1px solid #e5e7eb;
+      pointer-events: none;
+    }
+
     .nav-link {
       display: inline-block;
-      background-color: #e2e8f0;
+      background-color: #f0f0f0;
       color: #2d3748;
       font-weight: 600;
-      padding: 0.5rem 1rem;
-      border: 2px solid #a0aec0;
+      padding: 0.5rem 1.5rem;
+      border: 1px solid #a0aec0;
       text-decoration: none;
-      border-radius: 0;
-      margin: 0.5rem 1rem;
-      transition: background-color 0.2s ease;
+      margin: 0.5rem;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 0 #a0aec0;
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 0.05em;
     }
-    .nav-link:hover,
-    .nav-link:focus-visible {
-      background-color: #cbd5e0;
-      color: #2d3748;
-      outline: none;
+
+    .nav-link:hover {
+      background-color: #e2e8f0;
+      transform: translateY(-1px);
+      box-shadow: 0 3px 0 #a0aec0;
     }
+
+    .nav-link:active {
+      transform: translateY(2px);
+      box-shadow: 0 0 0 #a0aec0;
+    }
+
+    /* --- Anime Covers --- */
     .anime-cover-container {
-      max-width: 100px;
-      margin: 0 auto;
+      transition: transform 0.2s ease;
+    }
+    .anime-cover-container:hover {
+      transform: translateY(-5px);
     }
     .anime-cover {
-      border: 1px solid #a0aec0;
+      border: 4px solid white;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
       width: 100%;
       height: auto;
+      aspect-ratio: 2/3;
+      object-fit: cover;
       display: block;
     }
     .anime-title {
-      font-size: 0.875rem; /* Updated from 0.8rem */
-      margin-top: 0.25rem;
-      color: #333;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      color: #4a5568;
+      font-weight: 700;
       line-height: 1.2;
     }
 
-    /* --- Added for Image Loom --- */
+    /* --- Image Loom Animation --- */
     @keyframes loom-shake {
       0%, 100% { transform: translate(0, 0) rotate(0); }
-      20% { transform: translate(-2px, 1px) rotate(-0.5deg); }
-      40% { transform: translate(2px, -1px) rotate(0.5deg); }
-      60% { transform: translate(-2px, 1px) rotate(0.5deg); }
-      80% { transform: translate(2px, -1px) rotate(-0.5deg); }
+      25% { transform: translate(-2px, 1px) rotate(-1deg); }
+      50% { transform: translate(2px, -1px) rotate(1deg); }
+      75% { transform: translate(-2px, 1px) rotate(0deg); }
     }
     .shake {
-      /* Uses a custom cubic-bezier for a 'snappy' mechanical feel */
-      animation: loom-shake 0.3s cubic-bezier(.36,.07,.19,.97) both;
+      animation: loom-shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
     }
     
-    /* --- Added for Side Text --- */
+    /* Side Text Transitions */
     .loom-text {
       max-width: 0;
       opacity: 0;
-      transform: scaleX(0.8); /* Add a slight scale for effect */
-      /* Use the same cubic-bezier as the reel for a unified feel */
-      transition: max-width 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), 
-                  opacity 0.3s ease-out,
-                  transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-      overflow: hidden; /* Prevent content from appearing during transition */
-      color: #444;
+      transform: scaleX(0.9);
+      transition: max-width 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
+                  opacity 0.4s ease-out, 
+                  transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      overflow: hidden;
+      color: #555;
       font-style: italic;
-      /* Change min-height to a fixed height to prevent jiggle */
-      height: 9rem; /* 144px */
+      height: 9rem; /* Fixed height to prevent layout shifts */
       display: flex;
       flex-direction: column;
       justify-content: center;
+      font-family: 'Playfair Display', serif;
     }
-    /* visible state — works on all screen sizes */
+
     .loom-text.visible {
       max-width: 100%;
       opacity: 1;
       transform: scaleX(1);
     }
 
-    /* on larger screens constrain width to w-36 (144px) */
+    /* Constrain text width on larger screens */
     @media (min-width: 640px) {
       .loom-text.visible {
-        max-width: 144px;
+        max-width: 160px;
       }
     }
 
-    /* Isolate the loom viewer to prevent jiggling */
     #image-loom-viewer {
       will-change: transform;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
     }
-
   </style>
 </head>
 
 <body class="min-h-screen flex flex-col">
 
-  <header class="bg-[#f5f5f0] text-center p-6 md:p-8 border-b border-[#ccc] z-20 relative">
-    <h1 class="text-3xl md:text-4xl font-bold text-[#222] mb-2">Aaron's World</h1>
-    <p class="text-[#555] text-base md:text-lg">Welcome to my little corner of the web.</p>
+  <header class="bg-[#f5f5f0] text-center p-8 border-b border-[#ccc] z-20 relative shadow-sm">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-4xl md:text-5xl font-bold text-[#222] mb-3 tracking-wide">Aaron's World</h1>
+      <p class="text-[#666] text-lg italic font-serif">Welcome to my little corner of the web.</p>
+    </div>
   </header>
 
-  <nav id="main-nav" class="flex justify-center bg-[#f7f7f2] border-b border-[#ccc] p-2 flex-wrap sticky top-0 z-10" aria-label="Main navigation">
-    <a href="#" class="nav-link">Home</a>
-    <a href="gallery" class="nav-link">Train Gallery</a>
+  <nav id="main-nav" class="flex justify-center bg-[#fbfbf9] border-b border-[#e2e8f0] p-3 flex-wrap sticky top-0 z-30 shadow-sm" aria-label="Main navigation">
+    <a href="#" class="nav-link bg-white">Home</a>
+    <a href="gallery.html" class="nav-link bg-white">Train Gallery</a>
   </nav>
 
-  <main class="flex-grow flex items-center justify-center p-4 md:p-8">
+  <main class="flex-grow flex flex-col items-center justify-start p-4 md:p-12">
 
-    <div class="info-box max-w-3xl w-full"> <!-- Widened from max-w-2xl -->
-      <div class="p-6 md:p-8">
-        <h2 class="text-2xl font-semibold mb-6 text-center border-b border-gray-300 pb-3">About Me</h2>
+    <div class="info-box max-w-4xl w-full">
+      <div class="p-4 md:p-8 relative z-10">
+        
+        <h2 class="text-3xl font-semibold mb-8 text-center border-b-2 border-[#e2e8f0] pb-4 text-[#2d3748]">About Me</h2>
 
         <!-- ===== Image Loom with Side Text ===== -->
-        <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-6">
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-6 mb-10 bg-[#f3f4f6] p-6 rounded-xl border border-gray-200 shadow-inner">
+            
             <!-- Left Text Box -->
-            <div id="loom-text-left" class="loom-text sm:w-36 w-full text-center text-sm p-3 bg-[#f5f5f0] border border-dashed border-gray-400 rounded-lg">
+            <div id="loom-text-left" class="loom-text sm:w-40 w-full text-center text-base p-2">
                 <!-- Content injected by JS -->
             </div>
 
             <!-- Image Loom Viewer -->
-            <div class="w-40 h-48 sm:w-48 sm:h-56 md:w-56 md:h-64 relative flex-shrink-0">
-                <div class="w-full h-full border-2 border-[#a0aec0] bg-white relative overflow-hidden shadow-inner rounded-lg" id="image-loom-viewer">
+            <div class="w-48 h-48 sm:w-56 sm:h-56 relative flex-shrink-0">
+                <!-- Mechanical decorative top -->
+                <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 w-32 h-2 bg-gray-400 rounded-full z-10"></div>
+                
+                <div class="w-full h-full border-4 border-[#cbd5e0] bg-white relative overflow-hidden shadow-lg rounded-lg" id="image-loom-viewer">
                     <!-- The "reel" holds all images. h-[300%] because there are 3 images -->
-                    <div class="absolute w-full h-[300%] top-0 left-0 transition-transform duration-500 ease-[cubic-bezier(0.68,-0.55,0.27,1.55)]" id="image-loom-reel">
+                    <div class="absolute w-full h-[300%] top-0 left-0 transition-transform duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)]" id="image-loom-reel">
                         
-                        <!-- Slide 1: Each slide is 1/3 (33.3333%) of the reel height -->
-                        <div class="w-full h-[33.3333%] flex flex-col items-center justify-center p-2 relative">
+                        <!-- Slide 1 -->
+                        <div class="w-full h-[33.3333%] flex flex-col items-center justify-center p-4 relative">
                             <img 
                               src="https://i.ibb.co/TDz2pDHN/Gemini-Generated-Image-s78wyfs78wyfs78w-imgupscaler-ai-Beta-2-K-512x512.jpg" 
                               alt="Aaron's profile picture" 
-                              class="w-32 h-32 md:w-40 md:h-40 object-contain rounded-full"
+                              class="w-full h-full object-contain rounded-full border-2 border-gray-100 shadow-sm"
                               onerror="this.src='https://placehold.co/160x160/e8e6e3/777777?text=Aaron'; this.onerror=null;"
                             >
                         </div>
                         
                         <!-- Slide 2 -->
-                        <div class="w-full h-[33.3333%] flex flex-col items-center justify-center p-2 relative">
+                        <div class="w-full h-[33.3333%] flex flex-col items-center justify-center p-4 relative">
                             <img 
                               src="https://i.ibb.co/SsGZF4Z/Aaron-Minifig.png" 
                               alt="Aaron as a Lego minifig" 
-                              class="w-32 h-32 md:w-40 md:h-40 object-contain rounded-lg"
+                              class="w-full h-full object-contain"
                               onerror="this.src='https://placehold.co/160x160/e8e6e3/777777?text=Lego'; this.onerror=null;"
                             >
                         </div>
                         
                         <!-- Slide 3 -->
-                        <div class="w-full h-[33.3333%] flex flex-col items-center justify-center p-2 relative">
+                        <div class="w-full h-[33.3333%] flex flex-col items-center justify-center p-4 relative">
                             <img 
                               src="https://cdn-mii.accounts.nintendo.com/2.0.0/mii_images/b55b2028ffa7765b/cac39114f9d53cb8324bbec1a8dfd6e9f3cbc5f6.png?type=face&width=270" 
                               alt="Aaron as a Mii" 
-                              class="w-32 h-32 md:w-40 md:h-40 object-contain rounded-lg bg-white"
+                              class="w-full h-full object-contain"
                               onerror="this.src='https://placehold.co/160x160/e8e6e3/777777?text=Mii'; this.onerror=null;"
                             >
                         </div>
                     </div>
+                    <!-- Inner shadow overlay -->
+                    <div class="absolute inset-0 pointer-events-none shadow-[inset_0_0_15px_rgba(0,0,0,0.15)] rounded-lg"></div>
                 </div>
+                
+                <!-- Mechanical decorative bottom -->
+                <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-2 bg-gray-400 rounded-full z-10"></div>
             </div>
             
             <!-- Right Text Box -->
-            <div id="loom-text-right" class="loom-text sm:w-36 w-full text-center text-sm p-3 bg-[#f5f5f0] border border-dashed border-gray-400 rounded-lg">
+            <div id="loom-text-right" class="loom-text sm:w-40 w-full text-center text-base p-2">
                 <!-- Content injected by JS -->
             </div>
         </div>
         <!-- =============================================== -->
 
-        <p class="text-lg text-[#333] mb-4 leading-relaxed">
-          Hello there! My name is Aaron, and welcome to my website. I love steam trains. Something about them has always fascinated me. One of my main hobbies (and kind of a goal) is to get a picture with as many of them as I can. Whether it’s at a heritage railway, a museum, or even on the main line, if I see one that’s the real deal (replicas count if they’re full scale), I try to get a photo.
-        </p>
+        <div class="prose max-w-none text-[#333]">
+            <p class="text-lg mb-6 leading-relaxed">
+              Hello there! My name is Aaron. <br>I love <strong>steam trains</strong>. Something about them has always fascinated me. One of my main hobbies (and kind of a goal) is to get a picture with as many of them as I can. Whether it’s at a heritage railway, a museum, or even on the main line, if I see one that’s the real deal, I try to get a photo.
+            </p>
 
-        <p class="text-lg text-[#333] mb-4 leading-relaxed">
-          I sometimes paint miniatures, but I mostly enjoy playing video games like <em>Fortnite</em>, <em>Roblox</em>, <em>Minecraft</em>, or other games on my <em>Nintendo Switch 2</em>.
-        </p>
+            <p class="text-lg mb-6 leading-relaxed">
+              I sometimes paint miniatures, but I mostly enjoy playing video games like <em>Fortnite</em>, <em>Roblox</em>, <em>Minecraft</em>, or other games on my <em>Nintendo Switch</em>.
+            </p>
 
-        <p class="text-lg text-[#333] mb-4 leading-relaxed">
-          I’m also into anime and have been slowly learning some Japanese. Here are a few of my favorites:
-        </p>
+            <p class="text-lg mb-8 leading-relaxed">
+              I’m also into anime and have been slowly learning some Japanese. Here are a few of my favorites:
+            </p>
+        </div>
 
-        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 mb-6 text-center">
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 mb-10 text-center">
           <div class="anime-cover-container">
             <a href="https://bentoroll.vercel.app/series.html?series=dr-stone" target="_blank" rel="noopener noreferrer">
-              <img src="https://i.ibb.co/bMptFwVN/60930bac0d6c0.jpg" alt="Dr. Stone cover" class="anime-cover" onerror="this.src='https://placehold.co/100x140/ffffff/777777?text=Dr.+Stone'; this.onerror=null;">
+              <img src="https://i.ibb.co/bMptFwVN/60930bac0d6c0.jpg" alt="Dr. Stone cover" class="anime-cover" onerror="this.src='https://placehold.co/200x300/e2e8f0/777777?text=Dr.+Stone';">
             </a>
             <p class="anime-title">Dr. Stone</p>
           </div>
 
           <div class="anime-cover-container">
-            <img src="https://i.ibb.co/7NRrqKF1/MV5-BMWU1-OGEw-Nm-Qt-NGM3-MS00-YTYy-LThm-Ym-Mt-N2-Fj-Yz-Qz-Nz-Nm-NTE0-Xk-Ey-Xk-Fqc-Gc-V1.jpg" alt="Demon Slayer cover" class="anime-cover" onerror="this.src='https://placehold.co/100x140/ffffff/777777?text=Demon+Slayer'; this.onerror=null;">
+            <img src="https://i.ibb.co/7NRrqKF1/MV5-BMWU1-OGEw-Nm-Qt-NGM3-MS00-YTYy-LThm-Ym-Mt-N2-Fj-Yz-Qz-Nz-Nm-NTE0-Xk-Ey-Xk-Fqc-Gc-V1.jpg" alt="Demon Slayer cover" class="anime-cover" onerror="this.src='https://placehold.co/200x300/e2e8f0/777777?text=Demon+Slayer';">
             <p class="anime-title">Demon Slayer</p>
           </div>
 
           <div class="anime-cover-container">
-            <img src="https://i.ibb.co/tTH2JGcg/MV5-BYTgy-ZDhm-MTEt-ZDFh-Ni00-MTc4-LTg3-Nj-Ut-YWJl-NGE5-Mzk2-Nz-Mx-Xk-Ey-Xk-Fqc-Gc-V1.jpg" alt="Death Note cover" class="anime-cover" onerror="this.src='https://placehold.co/100x140/ffffff/777777?text=Death+Note'; this.onerror=null;">
+            <img src="https://i.ibb.co/tTH2JGcg/MV5-BYTgy-ZDhm-MTEt-ZDFh-Ni00-MTc4-LTg3-Nj-Ut-YWJl-NGE5-Mzk2-Nz-Mx-Xk-Ey-Xk-Fqc-Gc-V1.jpg" alt="Death Note cover" class="anime-cover" onerror="this.src='https://placehold.co/200x300/e2e8f0/777777?text=Death+Note';">
             <p class="anime-title">Death Note</p>
           </div>
 
           <div class="anime-cover-container">
             <a href="https://bentoroll.vercel.app/series.html?series=gachiakuta" target="_blank" rel="noopener noreferrer">
-              <img src="https://i.ibb.co/XZj5cQcR/MV5-BZDU5-Zm-Ez-ODYt-MDU2-OS00-NTZi-LTk4-MWYt-YWUy-ZWUz-NGU2-ODdj-Xk-Ey-Xk-Fqc-Gc-V1.jpg" alt="Gachiakuta cover" class="anime-cover" onerror="this.src='https://placehold.co/100x140/ffffff/777777?text=Gachiakuta'; this.onerror=null;">
+              <img src="https://i.ibb.co/XZj5cQcR/MV5-BZDU5-Zm-Ez-ODYt-MDU2-OS00-NTZi-LTk4-MWYt-YWUy-ZWUz-NGU2-ODdj-Xk-Ey-Xk-Fqc-Gc-V1.jpg" alt="Gachiakuta cover" class="anime-cover" onerror="this.src='https://placehold.co/200x300/e2e8f0/777777?text=Gachiakuta';">
             </a>
             <p class="anime-title">Gachiakuta</p>
           </div>
 
           <div class="anime-cover-container">
-            <img src="https://i.ibb.co/xSKwqcGm/image.png" alt="Tougen Anki cover" class="anime-cover" onerror="this.src='https://placehold.co/100x140/ffffff/777777?text=Tougen+Anki'; this.onerror=null;">
+            <img src="https://i.ibb.co/xSKwqcGm/image.png" alt="Tougen Anki cover" class="anime-cover" onerror="this.src='https://placehold.co/200x300/e2e8f0/777777?text=Tougen+Anki';">
             <p class="anime-title">Tougen Anki</p>
           </div>
         </div>
 
         <!-- ===== START: Fortnite Wishlist Section ===== -->
-        <div class="text-center mt-8 border-t border-gray-300 pt-6">
+        <div class="text-center mt-10 border-t border-gray-300 pt-8">
           <p class="text-lg text-[#333] mb-4">
             Speaking of games, you can check out my Fortnite wishlist:
           </p>
-          <a href="https://fortnite.gg/wishlist?id=518159" target="_blank" rel="noopener noreferrer" class="nav-link">
-            My Fortnite Wishlist
+          <a href="https://fortnite.gg/wishlist?id=518159" target="_blank" rel="noopener noreferrer" class="nav-link bg-blue-50 text-blue-900 border-blue-200">
+            View Fortnite Wishlist
           </a>
         </div>
         <!-- ===== END: Fortnite Wishlist Section ===== -->
 
-        <!-- Note: Changed mt-8 to mt-6 to balance spacing with new section above -->
-        <div class="text-center mt-6"> 
+        <div class="text-center mt-8"> 
           <p class="text-lg text-[#333] mb-4">
             Explore my train photo gallery:
           </p>
-          <a href="gallery.html" class="nav-link">Visit the Train Gallery</a>
+          <a href="gallery.html" class="nav-link bg-amber-50 text-amber-900 border-amber-200">Enter the Train Gallery</a>
         </div>
       </div>
     </div>
 
   </main>
 
-<footer class="text-center p-4 bg-[#f5f5f0] text-[#555] border-t border-[#ccc] text-sm mt-auto">
-  <p>© 2025 Aaron’s World — Built with ❤️ on <a href="https://neocities.org" target="_blank" class="text-[#555] underline">Neocities</a></p>
-</footer>
+  <footer class="text-center p-6 bg-[#f5f5f0] text-[#777] border-t border-[#ccc] text-sm mt-auto">
+    <p>© 2025 Aaron’s World — Built on Neocities</p>
+  </footer>
 
 
-  <!-- --- Updated JavaScript for Image Loom --- -->
+  <!-- --- Image Loom Logic --- -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const reel = document.getElementById('image-loom-reel');
@@ -261,55 +307,54 @@
         const slideData = [
           { left: "Based on my looks and personality,", right: "with a train!" },
           { left: "A custom minifig I designed,", right: "using the 'Stud.io' 3D software." },
-          { left: "This Mii shows my love for Nintendo!", right: "We've got a WiiU, 2 Switches, N64, GameCube, &amp; 2 Game &amp; Watch devices!" }
+          { left: "This Mii shows my love for Nintendo!", right: "We've got a WiiU, 2 Switches, N64, & GameCube!" }
         ];
 
-        // Function to change the slide
         function changeSlide() {
-          // 1. Start hiding text
+          // 1. Hide text
           leftText.classList.remove('visible');
           rightText.classList.remove('visible');
 
-          // 2. Wait for hide transition to finish (500ms)
+          // 2. Wait for hide transition
           setTimeout(() => {
-            // 3. Increment index and loop
+            // 3. Increment index
             currentIndex = (currentIndex + 1) % totalImages;
 
-            // 4. Update text content
+            // 4. Update content
             leftText.innerHTML = slideData[currentIndex].left;
             rightText.innerHTML = slideData[currentIndex].right;
 
-            // 5. Apply shake and move reel
+            // 5. Move reel
             viewer.classList.add('shake');
             reel.style.transform = `translateY(-${currentIndex * (100 / totalImages)}%)`;
             
-            // 6. Start showing text
-            leftText.classList.add('visible');
-            rightText.classList.add('visible');
+            // 6. Show text again slightly after reel starts moving
+            setTimeout(() => {
+                leftText.classList.add('visible');
+                rightText.classList.add('visible');
+            }, 300);
 
-            // 7. Remove shake after animation
+            // 7. Remove shake
             setTimeout(() => {
               viewer.classList.remove('shake');
-            }, 300); // Shake duration
-          }, 500); // Must match .loom-text hide transition duration
+            }, 400); 
+          }, 600); 
         }
 
         // --- Initial Load ---
-        // Set initial text
         leftText.innerHTML = slideData[0].left;
         rightText.innerHTML = slideData[0].right;
-        // Make it visible on load
+        
+        // Slight delay for initial entry
         setTimeout(() => {
             leftText.classList.add('visible');
             rightText.classList.add('visible');
-        }, 100); // Small delay to ensure transition runs
+        }, 200);
 
-        // --- Start automatic slideshow ---
-        setInterval(changeSlide, 4000); // Change every 4 seconds
+        // --- Start timer ---
+        setInterval(changeSlide, 5000); 
       }
     });
   </script>
-  <!-- --- End of Added JavaScript --- -->
-
 </body>
 </html>
