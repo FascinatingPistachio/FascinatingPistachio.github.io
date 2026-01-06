@@ -13,7 +13,7 @@ body {
   font-family: 'Lato', sans-serif;
   background-color: #e8e6e3;
   color: #222;
-  /* Subtle noise texture */
+  /* Shared noise texture for all pages */
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
   overflow-x: hidden;
 }
@@ -112,62 +112,9 @@ h1, h2, h3, .serif-font, .plaque p, .caption {
 }
 
 /* =========================================
-   5. GALLERY PAGE OVERRIDES (Dark Mode)
+   5. Gallery Components (Frames/Plaques)
    ========================================= */
-body.gallery-page {
-    background-color: #2a2a2a;
-    color: #f0f0f0;
-    /* Darker noise texture */
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23333333' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-}
-
-/* Header Override */
-body.gallery-page header {
-    background: linear-gradient(to bottom, #1a1a1a, #222);
-    border-bottom: 2px solid #8b5a2b;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-}
-
-/* Navbar Override (Targeting injected elements) */
-body.gallery-page nav#main-nav {
-    background-color: #222 !important;
-    border-bottom-color: #333 !important;
-}
-
-body.gallery-page nav#main-nav .nav-link {
-    background-color: #3a3a3a;
-    color: #d4af37; /* Gold */
-    border: 1px solid #8b5a2b;
-    font-weight: 400;
-}
-
-body.gallery-page nav#main-nav .nav-link:hover {
-    background-color: #4a4a4a;
-    color: #fff;
-    border-color: #d4af37;
-    box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
-}
-
-/* Active State Override for Gallery */
-body.gallery-page nav#main-nav .nav-link.active-link {
-    background-color: #d4af37 !important;
-    color: #000 !important;
-    font-weight: bold !important;
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
-}
-
-/* Footer Override */
-body.gallery-page footer {
-    background-color: #1a1a1a !important;
-    color: #777 !important;
-    border-top-color: #333 !important;
-}
-body.gallery-page footer a { color: #999 !important; }
-
-
-/* =========================================
-   6. Gallery Components (Frames/Plaques)
-   ========================================= */
+/* Scroll Container - Matching the light theme */
 #gallery-scroll-container {
     display: flex;
     overflow-x: auto;
@@ -176,17 +123,18 @@ body.gallery-page footer a { color: #999 !important; }
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     align-items: center;
-    min-height: 80vh;
+    min-height: 70vh;
+    /* Custom Scrollbar */
     scrollbar-width: thin;
-    scrollbar-color: #8b5a2b #1a1a1a;
+    scrollbar-color: #8b5a2b #e8e6e3;
 }
 
 #gallery-scroll-container::-webkit-scrollbar { height: 12px; }
-#gallery-scroll-container::-webkit-scrollbar-track { background: #1a1a1a; }
+#gallery-scroll-container::-webkit-scrollbar-track { background: #e8e6e3; }
 #gallery-scroll-container::-webkit-scrollbar-thumb {
     background-color: #8b5a2b;
     border-radius: 6px;
-    border: 2px solid #1a1a1a;
+    border: 2px solid #e8e6e3;
 }
 
 /* Animations */
@@ -211,10 +159,12 @@ body.gallery-page footer a { color: #999 !important; }
 .art-piece:nth-child(3) { animation-delay: 0.3s; }
 /* ... continue staggering if needed */
 
-/* Frames */
+/* Frames - Kept dark wood for contrast against light wall */
 .frame {
     position: relative;
-    box-shadow: 10px 10px 25px rgba(0,0,0,0.6);
+    box-shadow: 
+        0 20px 25px -5px rgba(0, 0, 0, 0.2), 
+        0 10px 10px -5px rgba(0, 0, 0, 0.1);
     padding: 12px;
     background-color: #4a2a0a;
     width: 100%;
@@ -228,7 +178,7 @@ body.gallery-page footer a { color: #999 !important; }
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.01) 50%, rgba(0,0,0,0) 100%);
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.01) 50%, rgba(0,0,0,0) 100%);
     pointer-events: none;
     mix-blend-mode: overlay;
 }
@@ -261,7 +211,7 @@ body.gallery-page footer a { color: #999 !important; }
     padding: 1rem;
     width: 90%;
     border: 2px solid #8b5a2b;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.15);
     text-align: center;
     border-radius: 2px;
     color: #222;
@@ -288,7 +238,7 @@ body.gallery-page footer a { color: #999 !important; }
     justify-content: center;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 .audio-btn:hover {
     background: #d4af37;
@@ -296,13 +246,14 @@ body.gallery-page footer a { color: #999 !important; }
     transform: scale(1.1);
 }
 
-/* Secret Archive */
+/* Secret Archive (Ducks) */
 #secret-archive {
-    background-color: #1a1a1a;
+    background-color: #f7f7f2; /* Light paper for consistency */
     padding: 4rem 2rem;
-    border-top: 1px solid #333;
+    border-top: 1px solid #ccc;
     text-align: center;
-    background-image: radial-gradient(circle at center, #2a2a2a 0%, #1a1a1a 100%);
+    /* Inset shadow to make it feel like a different section */
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
 }
 .duck-wrapper {
     max-width: 600px;
