@@ -3,358 +3,159 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aaron's World - Portfolio, Train Gallery, and Hobby Corner">
   <title>Aaron's World</title>
+  
+  <!-- CSS Framework -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* --- Global & Typography --- */
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@400;700&display=swap');
-
-    body {
-      font-family: 'Lato', sans-serif;
-      background-color: #e8e6e3;
-      color: #222;
-      /* Subtle noise texture for a paper/wall feel */
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
-    }
-
-    h1, h2, h3 {
-      font-family: 'Playfair Display', serif;
-    }
-
-    /* --- Custom UI Elements --- */
-    .info-box {
-      background-color: #fdfbf7;
-      border: 1px solid #d1d5db;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      padding: 1.5rem;
-      position: relative;
-    }
-    
-    /* Decoration line for info box */
-    .info-box::before {
-      content: '';
-      position: absolute;
-      top: 4px; left: 4px; right: 4px; bottom: 4px;
-      border: 1px solid #e5e7eb;
-      pointer-events: none;
-    }
-
-    .nav-link {
-      display: inline-block;
-      background-color: #f0f0f0;
-      color: #2d3748;
-      font-weight: 600;
-      padding: 0.5rem 1.5rem;
-      border: 1px solid #a0aec0;
-      text-decoration: none;
-      margin: 0.5rem;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 0 #a0aec0;
-      font-family: 'Playfair Display', serif;
-      letter-spacing: 0.05em;
-    }
-
-    .nav-link:hover {
-      background-color: #e2e8f0;
-      transform: translateY(-1px);
-      box-shadow: 0 3px 0 #a0aec0;
-    }
-
-    .nav-link:active {
-      transform: translateY(2px);
-      box-shadow: 0 0 0 #a0aec0;
-    }
-
-    /* --- Anime Covers --- */
-    .anime-cover-container {
-      transition: transform 0.2s ease;
-    }
-    .anime-cover-container:hover {
-      transform: translateY(-5px);
-    }
-    .anime-cover {
-      border: 4px solid white;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      width: 100%;
-      height: auto;
-      aspect-ratio: 2/3;
-      object-fit: cover;
-      display: block;
-    }
-    .anime-title {
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
-      color: #4a5568;
-      font-weight: 700;
-      line-height: 1.2;
-    }
-
-    /* --- Image Loom Animation --- */
-    @keyframes loom-shake {
-      0%, 100% { transform: translate(0, 0) rotate(0); }
-      25% { transform: translate(-2px, 1px) rotate(-1deg); }
-      50% { transform: translate(2px, -1px) rotate(1deg); }
-      75% { transform: translate(-2px, 1px) rotate(0deg); }
-    }
-    .shake {
-      animation: loom-shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
-    }
-    
-    /* Side Text Transitions */
-    .loom-text {
-      max-width: 0;
-      opacity: 0;
-      transform: scaleX(0.9);
-      transition: max-width 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
-                  opacity 0.4s ease-out, 
-                  transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-      overflow: hidden;
-      color: #555;
-      font-style: italic;
-      height: 9rem; /* Fixed height to prevent layout shifts */
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      font-family: 'Playfair Display', serif;
-    }
-
-    .loom-text.visible {
-      max-width: 100%;
-      opacity: 1;
-      transform: scaleX(1);
-    }
-
-    /* Constrain text width on larger screens */
-    @media (min-width: 640px) {
-      .loom-text.visible {
-        max-width: 160px;
-      }
-    }
-
-    #image-loom-viewer {
-      will-change: transform;
-      box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
-    }
-  </style>
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col selection:bg-amber-200 selection:text-amber-900">
 
-  <header class="bg-[#f5f5f0] text-center p-8 border-b border-[#ccc] z-20 relative shadow-sm">
-    <div class="max-w-4xl mx-auto">
-      <h1 class="text-4xl md:text-5xl font-bold text-[#222] mb-3 tracking-wide">Aaron's World</h1>
-      <p class="text-[#666] text-lg italic font-serif">Welcome to my little corner of the web.</p>
+  <!-- Header -->
+  <header class="bg-[#f5f5f0] text-center pt-10 pb-6 border-b border-[#ccc] z-20 relative shadow-sm">
+    <div class="max-w-4xl mx-auto px-4">
+      <h1 class="text-4xl md:text-6xl font-bold text-[#222] mb-3 tracking-wide drop-shadow-sm">
+        Aaron's World
+      </h1>
+      <div class="h-1 w-24 bg-gray-300 mx-auto mb-3 rounded-full"></div>
+      <p class="text-[#555] text-lg md:text-xl italic serif-font">Welcome to my little corner of the web.</p>
     </div>
   </header>
 
-  <nav id="main-nav" class="flex justify-center bg-[#fbfbf9] border-b border-[#e2e8f0] p-3 flex-wrap sticky top-0 z-30 shadow-sm" aria-label="Main navigation">
-    <a href="#" class="nav-link bg-white">Home</a>
-    <a href="gallery.html" class="nav-link bg-white">Train Gallery</a>
-  </nav>
+  <!-- Navigation injected by js/main.js -->
 
-  <main class="flex-grow flex flex-col items-center justify-start p-4 md:p-12">
+  <main class="flex-grow flex flex-col items-center justify-start p-4 md:py-12 md:px-6">
 
-    <div class="info-box max-w-4xl w-full">
-      <div class="p-4 md:p-8 relative z-10">
+    <div class="info-box max-w-5xl w-full rounded-md">
+      <div class="p-6 md:p-10 relative z-10">
         
-        <h2 class="text-3xl font-semibold mb-8 text-center border-b-2 border-[#e2e8f0] pb-4 text-[#2d3748]">About Me</h2>
+        <div class="flex items-center justify-center mb-10">
+            <h2 class="text-3xl font-bold text-center border-b-4 border-gray-200 pb-2 text-gray-700 px-8 inline-block">About Me</h2>
+        </div>
 
         <!-- ===== Image Loom with Side Text ===== -->
-        <div class="flex flex-col sm:flex-row justify-center items-center gap-6 mb-10 bg-[#f3f4f6] p-6 rounded-xl border border-gray-200 shadow-inner">
+        <div id="loom-container" class="group flex flex-col sm:flex-row justify-center items-center gap-6 mb-12 bg-gray-100 p-8 rounded-xl border border-gray-200 shadow-inner">
             
             <!-- Left Text Box -->
-            <div id="loom-text-left" class="loom-text sm:w-40 w-full text-center text-base p-2">
-                <!-- Content injected by JS -->
+            <div class="loom-text-wrapper order-2 sm:order-1">
+              <div id="loom-text-left" class="loom-text text-center text-gray-600 font-serif italic text-lg leading-tight"></div>
             </div>
 
             <!-- Image Loom Viewer -->
-            <div class="w-48 h-48 sm:w-56 sm:h-56 relative flex-shrink-0">
-                <!-- Mechanical decorative top -->
-                <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 w-32 h-2 bg-gray-400 rounded-full z-10"></div>
-                
-                <div class="w-full h-full border-4 border-[#cbd5e0] bg-white relative overflow-hidden shadow-lg rounded-lg" id="image-loom-viewer">
-                    <!-- The "reel" holds all images. h-[300%] because there are 3 images -->
-                    <div class="absolute w-full h-[300%] top-0 left-0 transition-transform duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)]" id="image-loom-reel">
-                        
-                        <!-- Slide 1 -->
-                        <div class="w-full h-[33.3333%] flex flex-col items-center justify-center p-4 relative">
-                            <img 
-                              src="https://i.ibb.co/TDz2pDHN/Gemini-Generated-Image-s78wyfs78wyfs78w-imgupscaler-ai-Beta-2-K-512x512.jpg" 
-                              alt="Aaron's profile picture" 
-                              class="w-full h-full object-contain rounded-full border-2 border-gray-100 shadow-sm"
-                              onerror="this.src='https://placehold.co/160x160/e8e6e3/777777?text=Aaron'; this.onerror=null;"
-                            >
-                        </div>
-                        
-                        <!-- Slide 2 -->
-                        <div class="w-full h-[33.3333%] flex flex-col items-center justify-center p-4 relative">
-                            <img 
-                              src="https://i.ibb.co/SsGZF4Z/Aaron-Minifig.png" 
-                              alt="Aaron as a Lego minifig" 
-                              class="w-full h-full object-contain"
-                              onerror="this.src='https://placehold.co/160x160/e8e6e3/777777?text=Lego'; this.onerror=null;"
-                            >
-                        </div>
-                        
-                        <!-- Slide 3 -->
-                        <div class="w-full h-[33.3333%] flex flex-col items-center justify-center p-4 relative">
-                            <img 
-                              src="https://cdn-mii.accounts.nintendo.com/2.0.0/mii_images/b55b2028ffa7765b/cac39114f9d53cb8324bbec1a8dfd6e9f3cbc5f6.png?type=face&width=270" 
-                              alt="Aaron as a Mii" 
-                              class="w-full h-full object-contain"
-                              onerror="this.src='https://placehold.co/160x160/e8e6e3/777777?text=Mii'; this.onerror=null;"
-                            >
-                        </div>
-                    </div>
-                    <!-- Inner shadow overlay -->
-                    <div class="absolute inset-0 pointer-events-none shadow-[inset_0_0_15px_rgba(0,0,0,0.15)] rounded-lg"></div>
+            <div class="w-52 h-52 sm:w-64 sm:h-64 relative flex-shrink-0 order-1 sm:order-2">
+                <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 w-40 h-3 bg-gradient-to-b from-gray-300 to-gray-400 rounded-full z-10 shadow-sm border border-gray-400">
+                    <div class="absolute top-1 left-2 w-1 h-1 bg-gray-500 rounded-full"></div>
+                    <div class="absolute top-1 right-2 w-1 h-1 bg-gray-500 rounded-full"></div>
                 </div>
                 
-                <!-- Mechanical decorative bottom -->
-                <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-2 bg-gray-400 rounded-full z-10"></div>
+                <div class="w-full h-full border-[6px] border-[#cbd5e0] bg-white relative overflow-hidden shadow-xl rounded-xl" id="image-loom-viewer">
+                    <div class="absolute w-full h-[300%] top-0 left-0 transition-transform duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)]" id="image-loom-reel">
+                        <!-- Slide 1 -->
+                        <div class="w-full h-[33.3333%] flex flex-col items-center justify-center p-4 relative bg-slate-50">
+                            <img src="https://i.ibb.co/TDz2pDHN/Gemini-Generated-Image-s78wyfs78wyfs78w-imgupscaler-ai-Beta-2-K-512x512.jpg" alt="Aaron's profile picture" class="w-full h-full object-contain drop-shadow-md rounded-full" onerror="this.src='https://placehold.co/160x160/e8e6e3/777777?text=Aaron';">
+                        </div>
+                        <!-- Slide 2 -->
+                        <div class="w-full h-[33.3333%] flex flex-col items-center justify-center p-4 relative bg-yellow-50">
+                            <img src="https://i.ibb.co/SsGZF4Z/Aaron-Minifig.png" alt="Aaron as a Lego minifig" class="w-full h-full object-contain drop-shadow-md" onerror="this.src='https://placehold.co/160x160/e8e6e3/777777?text=Lego';">
+                        </div>
+                        <!-- Slide 3 -->
+                        <div class="w-full h-[33.3333%] flex flex-col items-center justify-center p-4 relative bg-blue-50">
+                            <img src="https://cdn-mii.accounts.nintendo.com/2.0.0/mii_images/b55b2028ffa7765b/cac39114f9d53cb8324bbec1a8dfd6e9f3cbc5f6.png?type=face&width=270" alt="Aaron as a Mii" class="w-full h-full object-contain drop-shadow-md" onerror="this.src='https://placehold.co/160x160/e8e6e3/777777?text=Mii';">
+                        </div>
+                    </div>
+                    <div class="absolute inset-0 texture-overlay z-20"></div>
+                    <div class="absolute inset-0 pointer-events-none shadow-[inset_0_0_20px_rgba(0,0,0,0.1)] rounded-lg z-30"></div>
+                </div>
+                <div class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-40 h-3 bg-gradient-to-b from-gray-400 to-gray-300 rounded-full z-10 shadow-sm border border-gray-400"></div>
             </div>
             
             <!-- Right Text Box -->
-            <div id="loom-text-right" class="loom-text sm:w-40 w-full text-center text-base p-2">
-                <!-- Content injected by JS -->
+            <div class="loom-text-wrapper order-3 sm:order-3">
+              <div id="loom-text-right" class="loom-text text-center text-gray-600 font-serif italic text-lg leading-tight"></div>
             </div>
         </div>
-        <!-- =============================================== -->
 
-        <div class="prose max-w-none text-[#333]">
-            <p class="text-lg mb-6 leading-relaxed">
-              Hello there! My name is Aaron. <br>I love <strong>steam trains</strong>. Something about them has always fascinated me. One of my main hobbies (and kind of a goal) is to get a picture with as many of them as I can. Whether it’s at a heritage railway, a museum, or even on the main line, if I see one that’s the real deal, I try to get a photo.
+        <div class="prose max-w-3xl mx-auto text-gray-700 space-y-6 text-lg leading-relaxed font-light">
+            <p>
+              <span class="text-3xl font-serif text-gray-400 float-left mr-2 mt-[-10px]">H</span>ello there! My name is <strong>Aaron</strong>. 
+              I love <span class="bg-amber-100 px-1 rounded border-b-2 border-amber-200 font-medium">steam trains</span>. Something about them has always fascinated me.
             </p>
-
-            <p class="text-lg mb-6 leading-relaxed">
+            <p>
               I sometimes paint miniatures, but I mostly enjoy playing video games like <em>Fortnite</em>, <em>Roblox</em>, <em>Minecraft</em>, or other games on my <em>Nintendo Switch</em>.
             </p>
-
-            <p class="text-lg mb-8 leading-relaxed">
+            <p class="border-l-4 border-red-300 pl-4 italic bg-red-50 py-2 rounded-r">
               I’m also into anime and have been slowly learning some Japanese. Here are a few of my favorites:
             </p>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 mb-10 text-center">
-          <div class="anime-cover-container">
-            <a href="https://bentoroll.vercel.app/series.html?series=dr-stone" target="_blank" rel="noopener noreferrer">
-              <img src="https://i.ibb.co/bMptFwVN/60930bac0d6c0.jpg" alt="Dr. Stone cover" class="anime-cover" onerror="this.src='https://placehold.co/200x300/e2e8f0/777777?text=Dr.+Stone';">
+        <!-- Anime Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 md:gap-6 my-12 text-center">
+          <div class="anime-cover-container group cursor-pointer">
+            <a href="https://bentoroll.vercel.app/series.html?series=dr-stone" target="_blank" rel="noopener noreferrer" class="block">
+              <div class="relative overflow-hidden border-4 border-white rounded-sm shadow-md aspect-[2/3]">
+                <img src="https://i.ibb.co/bMptFwVN/60930bac0d6c0.jpg" alt="Dr. Stone" class="anime-cover w-full h-full object-cover" onerror="this.src='https://placehold.co/200x300/e2e8f0/777777?text=Dr.+Stone';">
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
+              </div>
             </a>
-            <p class="anime-title">Dr. Stone</p>
+            <p class="anime-title mt-3 font-bold text-gray-600 text-sm tracking-tight group-hover:text-blue-600">Dr. Stone</p>
           </div>
-
-          <div class="anime-cover-container">
-            <img src="https://i.ibb.co/7NRrqKF1/MV5-BMWU1-OGEw-Nm-Qt-NGM3-MS00-YTYy-LThm-Ym-Mt-N2-Fj-Yz-Qz-Nz-Nm-NTE0-Xk-Ey-Xk-Fqc-Gc-V1.jpg" alt="Demon Slayer cover" class="anime-cover" onerror="this.src='https://placehold.co/200x300/e2e8f0/777777?text=Demon+Slayer';">
-            <p class="anime-title">Demon Slayer</p>
+          <div class="anime-cover-container group">
+            <div class="relative overflow-hidden border-4 border-white rounded-sm shadow-md aspect-[2/3]">
+              <img src="https://i.ibb.co/7NRrqKF1/MV5-BMWU1-OGEw-Nm-Qt-NGM3-MS00-YTYy-LThm-Ym-Mt-N2-Fj-Yz-Qz-Nz-Nm-NTE0-Xk-Ey-Xk-Fqc-Gc-V1.jpg" alt="Demon Slayer" class="anime-cover w-full h-full object-cover" onerror="this.src='https://placehold.co/200x300/e2e8f0/777777?text=Demon+Slayer';">
+            </div>
+            <p class="anime-title mt-3 font-bold text-gray-600 text-sm tracking-tight">Demon Slayer</p>
           </div>
-
-          <div class="anime-cover-container">
-            <img src="https://i.ibb.co/tTH2JGcg/MV5-BYTgy-ZDhm-MTEt-ZDFh-Ni00-MTc4-LTg3-Nj-Ut-YWJl-NGE5-Mzk2-Nz-Mx-Xk-Ey-Xk-Fqc-Gc-V1.jpg" alt="Death Note cover" class="anime-cover" onerror="this.src='https://placehold.co/200x300/e2e8f0/777777?text=Death+Note';">
-            <p class="anime-title">Death Note</p>
+          <div class="anime-cover-container group">
+            <div class="relative overflow-hidden border-4 border-white rounded-sm shadow-md aspect-[2/3]">
+              <img src="https://i.ibb.co/tTH2JGcg/MV5-BYTgy-ZDhm-MTEt-ZDFh-Ni00-MTc4-LTg3-Nj-Ut-YWJl-NGE5-Mzk2-Nz-Mx-Xk-Ey-Xk-Fqc-Gc-V1.jpg" alt="Death Note" class="anime-cover w-full h-full object-cover" onerror="this.src='https://placehold.co/200x300/e2e8f0/777777?text=Death+Note';">
+            </div>
+            <p class="anime-title mt-3 font-bold text-gray-600 text-sm tracking-tight">Death Note</p>
           </div>
-
-          <div class="anime-cover-container">
-            <a href="https://bentoroll.vercel.app/series.html?series=gachiakuta" target="_blank" rel="noopener noreferrer">
-              <img src="https://i.ibb.co/XZj5cQcR/MV5-BZDU5-Zm-Ez-ODYt-MDU2-OS00-NTZi-LTk4-MWYt-YWUy-ZWUz-NGU2-ODdj-Xk-Ey-Xk-Fqc-Gc-V1.jpg" alt="Gachiakuta cover" class="anime-cover" onerror="this.src='https://placehold.co/200x300/e2e8f0/777777?text=Gachiakuta';">
+          <div class="anime-cover-container group cursor-pointer">
+            <a href="https://bentoroll.vercel.app/series.html?series=gachiakuta" target="_blank" rel="noopener noreferrer" class="block">
+              <div class="relative overflow-hidden border-4 border-white rounded-sm shadow-md aspect-[2/3]">
+                <img src="https://i.ibb.co/XZj5cQcR/MV5-BZDU5-Zm-Ez-ODYt-MDU2-OS00-NTZi-LTk4-MWYt-YWUy-ZWUz-NGU2-ODdj-Xk-Ey-Xk-Fqc-Gc-V1.jpg" alt="Gachiakuta" class="anime-cover w-full h-full object-cover" onerror="this.src='https://placehold.co/200x300/e2e8f0/777777?text=Gachiakuta';">
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
+              </div>
             </a>
-            <p class="anime-title">Gachiakuta</p>
+            <p class="anime-title mt-3 font-bold text-gray-600 text-sm tracking-tight group-hover:text-blue-600">Gachiakuta</p>
           </div>
-
-          <div class="anime-cover-container">
-            <img src="https://i.ibb.co/xSKwqcGm/image.png" alt="Tougen Anki cover" class="anime-cover" onerror="this.src='https://placehold.co/200x300/e2e8f0/777777?text=Tougen+Anki';">
-            <p class="anime-title">Tougen Anki</p>
+          <div class="anime-cover-container group">
+            <div class="relative overflow-hidden border-4 border-white rounded-sm shadow-md aspect-[2/3]">
+              <img src="https://i.ibb.co/xSKwqcGm/image.png" alt="Tougen Anki" class="anime-cover w-full h-full object-cover" onerror="this.src='https://placehold.co/200x300/e2e8f0/777777?text=Tougen+Anki';">
+            </div>
+            <p class="anime-title mt-3 font-bold text-gray-600 text-sm tracking-tight">Tougen Anki</p>
           </div>
         </div>
 
-        <!-- ===== START: Fortnite Wishlist Section ===== -->
-        <div class="text-center mt-10 border-t border-gray-300 pt-8">
-          <p class="text-lg text-[#333] mb-4">
-            Speaking of games, you can check out my Fortnite wishlist:
-          </p>
-          <a href="https://fortnite.gg/wishlist?id=518159" target="_blank" rel="noopener noreferrer" class="nav-link bg-blue-50 text-blue-900 border-blue-200">
-            View Fortnite Wishlist
-          </a>
-        </div>
-        <!-- ===== END: Fortnite Wishlist Section ===== -->
-
-        <div class="text-center mt-8"> 
-          <p class="text-lg text-[#333] mb-4">
-            Explore my train photo gallery:
-          </p>
-          <a href="gallery.html" class="nav-link bg-amber-50 text-amber-900 border-amber-200">Enter the Train Gallery</a>
+        <!-- Links Card -->
+        <div class="flex flex-col md:flex-row gap-6 mt-10 border-t-2 border-dashed border-gray-300 pt-10">
+          <div class="flex-1 bg-blue-50 border border-blue-200 rounded-lg p-6 text-center hover:shadow-md transition-shadow">
+            <h3 class="text-xl font-bold text-blue-900 mb-2">Gamer Gear</h3>
+            <p class="text-gray-600 mb-4">Check out my Fortnite wishlist:</p>
+            <a href="https://fortnite.gg/wishlist?id=518159" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-blue-600 text-white font-bold py-2 px-6 rounded hover:bg-blue-700 transition-colors shadow-sm">
+              View Wishlist
+            </a>
+          </div>
+          <div class="flex-1 bg-amber-50 border border-amber-200 rounded-lg p-6 text-center hover:shadow-md transition-shadow">
+            <h3 class="text-xl font-bold text-amber-900 mb-2">Locomotives</h3>
+            <p class="text-gray-600 mb-4">Explore my collection of train photography:</p>
+            <a href="gallery.html" class="inline-flex items-center justify-center bg-amber-700 text-white font-bold py-2 px-6 rounded hover:bg-amber-800 transition-colors shadow-sm">
+              Enter Gallery
+            </a>
+          </div>
         </div>
       </div>
     </div>
-
   </main>
 
-  <footer class="text-center p-6 bg-[#f5f5f0] text-[#777] border-t border-[#ccc] text-sm mt-auto">
-    <p>© 2025 Aaron’s World — Built on Neocities</p>
-  </footer>
+  <!-- Footer injected by js/main.js -->
 
-
-  <!-- --- Image Loom Logic --- -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const reel = document.getElementById('image-loom-reel');
-      const viewer = document.getElementById('image-loom-viewer');
-      const leftText = document.getElementById('loom-text-left');
-      const rightText = document.getElementById('loom-text-right');
-      
-      if (reel && viewer && leftText && rightText) {
-        let currentIndex = 0;
-        const totalImages = 3;
-        const slideData = [
-          { left: "Based on my looks and personality,", right: "with a train!" },
-          { left: "A custom minifig I designed,", right: "using the 'Stud.io' 3D software." },
-          { left: "This Mii shows my love for Nintendo!", right: "We've got a WiiU, 2 Switches, N64, & GameCube!" }
-        ];
-
-        function changeSlide() {
-          // 1. Hide text
-          leftText.classList.remove('visible');
-          rightText.classList.remove('visible');
-
-          // 2. Wait for hide transition
-          setTimeout(() => {
-            // 3. Increment index
-            currentIndex = (currentIndex + 1) % totalImages;
-
-            // 4. Update content
-            leftText.innerHTML = slideData[currentIndex].left;
-            rightText.innerHTML = slideData[currentIndex].right;
-
-            // 5. Move reel
-            viewer.classList.add('shake');
-            reel.style.transform = `translateY(-${currentIndex * (100 / totalImages)}%)`;
-            
-            // 6. Show text again slightly after reel starts moving
-            setTimeout(() => {
-                leftText.classList.add('visible');
-                rightText.classList.add('visible');
-            }, 300);
-
-            // 7. Remove shake
-            setTimeout(() => {
-              viewer.classList.remove('shake');
-            }, 400); 
-          }, 600); 
-        }
-
-        // --- Initial Load ---
-        leftText.innerHTML = slideData[0].left;
-        rightText.innerHTML = slideData[0].right;
-        
-        // Slight delay for initial entry
-        setTimeout(() => {
-            leftText.classList.add('visible');
-            rightText.classList.add('visible');
-        }, 200);
-
-        // --- Start timer ---
-        setInterval(changeSlide, 5000); 
-      }
-    });
-  </script>
+  <!-- Main Logic -->
+  <script src="js/main.js"></script>
 </body>
 </html>
