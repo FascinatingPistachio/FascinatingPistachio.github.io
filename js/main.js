@@ -1,34 +1,262 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // ====== Inject Navbar ======
-  const navHTML = `
-    <nav id="main-nav" class="flex justify-center bg-[#f7f7f2] border-b border-[#ccc] p-2 flex-wrap sticky top-0 z-10">
-      <a href="/index.html" class="nav-link" data-page="home">Home</a>
-      <a href="/gallery.html" class="nav-link" data-page="gallery">Train Gallery</a>
-      <a href="/about.html" class="nav-link" data-page="about">About</a>
-    </nav>
-  `;
-  
-  const header = document.querySelector("header");
-  if (header) header.insertAdjacentHTML("afterend", navHTML);
-
-  // ====== Inject Footer ======
-  const currentYear = new Date().getFullYear();
-  const footerHTML = `
-    <footer class="text-center p-4 bg-[#f5f5f0] text-[#555] border-t border-[#ccc] text-sm mt-auto">
-      <p>© 2025${currentYear > 2025 ? "–" + currentYear : ""} Aaron’s World — Built with ❤️ on 
-      <a href="https://neocities.org" target="_blank" class="text-[#555] underline">Neocities</a></p>
-    </footer>
-  `;
-  document.body.insertAdjacentHTML("beforeend", footerHTML);
-
-  // ====== Highlight Active Link ======
-  const page = location.pathname.split("/").pop();
-  document.querySelectorAll(".nav-link").forEach(link => {
-    const href = link.getAttribute("href").split("/").pop();
-    if (href === page || (page === "" && href === "index.html")) {
-      link.classList.add("font-semibold", "text-blue-600", "bg-blue-100", "rounded-lg", "px-4", "py-2");
-    } else {
-      link.classList.add("font-medium", "text-gray-600", "hover:text-gray-900", "hover:bg-gray-200", "rounded-lg", "px-4", "py-2");
+    initSharedLayout();
+    
+    // Conditional Logic based on elements present on the page
+    if (document.getElementById('loom-container')) {
+        initImageLoom();
     }
-  });
+    
+    if (document.getElementById('gallery-scroll-container')) {
+        initGallery();
+    }
 });
+
+/* =========================================
+   1. Shared Layout (Nav & Footer)
+   ========================================= */
+function initSharedLayout() {
+    // --- Inject Navbar ---
+    const navHTML = `
+      <nav id="main-nav" class="flex justify-center bg-[#f7f7f2] border-b border-[#ccc] p-2 flex-wrap sticky top-0 z-30 shadow-md backdrop-blur-sm bg-opacity-95 transition-colors duration-300">
+        <a href="index.html" class="nav-link" data-page="index.html">Home</a>
+        <a href="gallery.html" class="nav-link" data-page="gallery.html">Train Gallery</a>
+        <a href="#" class="nav-link" data-page="about">About</a>
+      </nav>
+    `;
+    
+    const header = document.querySelector("header");
+    if (header) header.insertAdjacentHTML("afterend", navHTML);
+  
+    // --- Inject Footer ---
+    const currentYear = new Date().getFullYear();
+    const footerHTML = `
+      <footer class="text-center p-6 bg-[#f5f5f0] text-[#555] border-t border-[#ccc] text-sm mt-auto">
+        <p>© 2025${currentYear > 2025 ? "–" + currentYear : ""} Aaron’s World — Built with ❤️ on 
+        <a href="https://neocities.org" target="_blank" class="text-[#555] underline">Neocities</a></p>
+      </footer>
+    `;
+    document.body.insertAdjacentHTML("beforeend", footerHTML);
+  
+    // --- Highlight Active Link ---
+    // Get current filename (e.g., "gallery.html") or default to "index.html"
+    const path = location.pathname.split("/").pop();
+    const currentPage = path === "" ? "index.html" : path;
+  
+    document.querySelectorAll(".nav-link").forEach(link => {
+      const targetPage = link.getAttribute("data-page");
+      
+      // Base styles for all links
+      link.classList.add("font-medium", "rounded-lg", "px-4", "py-2", "border", "border-transparent");
+  
+      if (targetPage === currentPage) {
+        link.classList.add("active-link", "font-semibold");
+      } else {
+        link.classList.add("text-gray-600", "hover:text-gray-900", "hover:bg-gray-200");
+      }
+    });
+}
+
+/* =========================================
+   2. Home Page Logic (Image Loom)
+   ========================================= */
+function initImageLoom() {
+    const reel = document.getElementById('image-loom-reel');
+    const viewer = document.getElementById('image-loom-viewer');
+    const leftText = document.getElementById('loom-text-left');
+    const rightText = document.getElementById('loom-text-right');
+    const container = document.getElementById('loom-container');
+    
+    let isPaused = false;
+    
+    if (reel && viewer && leftText && rightText && container) {
+      let currentIndex = 0;
+      const totalImages = 3;
+      const slideData = [
+        { left: "Based on my looks and personality,", right: "with a train!" },
+        { left: "A custom minifig I designed,", right: "using the 'Stud.io' 3D software." },
+        { left: "This Mii shows my love for Nintendo!", right: "We've got a WiiU, 2 Switches, N64, & GameCube!" }
+      ];
+
+      // Pause on hover
+      container.addEventListener('mouseenter', () => isPaused = true);
+      container.addEventListener('mouseleave', () => isPaused = false);
+
+      function changeSlide() {
+        if (isPaused) return;
+
+        // Hide text
+        leftText.classList.remove('visible');
+        rightText.classList.remove('visible');
+
+        setTimeout(() => {
+          currentIndex = (currentIndex + 1) % totalImages;
+          leftText.innerHTML = slideData[currentIndex].left;
+          rightText.innerHTML = slideData[currentIndex].right;
+
+          viewer.classList.add('shake');
+          reel.style.transform = `translateY(-${currentIndex * (100 / totalImages)}%)`;
+          
+          setTimeout(() => {
+              leftText.classList.add('visible');
+              rightText.classList.add('visible');
+          }, 300);
+
+          setTimeout(() => {
+            viewer.classList.remove('shake');
+          }, 400); 
+        }, 500);
+      }
+
+      // Initial Load
+      leftText.innerHTML = slideData[0].left;
+      rightText.innerHTML = slideData[0].right;
+      
+      setTimeout(() => {
+          leftText.classList.add('visible');
+          rightText.classList.add('visible');
+      }, 200);
+
+      setInterval(changeSlide, 5000); 
+    }
+}
+
+/* =========================================
+   3. Gallery Logic (Audio & Scroll)
+   ========================================= */
+function initGallery() {
+    const galleryItems = [
+        {
+            title: "Henry Oakley",
+            caption: "GNR Class C1 \"Henry Oakley\"<br>National Railway Museum",
+            src: "https://i.ibb.co/JF5PTXW7/AP1-Gcz-MOO4-MOzy3-V-L7c-Xe-Jsxc-XDgqe9-JDHs-TJK-Qy-Ln-PKVj-Qj-NFBGNHV6-E6i-W-Yw2-H6-JS5s-Lg-exxah-R.jpg",
+            audioSrc: "https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/HenryOakley.mp3",
+            featured: false
+        },
+        {
+            title: "Mallard",
+            caption: "LNER Class A4 \"Mallard\"<br>National Railway Museum",
+            src: "https://i.ibb.co/DfCZK7j1/AP1-Gcz-Mf8-Dafp8-KVxh-Onsf-DPhl-YGCd-MPUoc-PJMg-VT4g7sk-AYyx-G-npfou-Xq5-W-WV-CFKm-HHf-DL6x-R5-OYPk.jpg",
+            audioSrc: "https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/Mallard.mp3",
+            featured: false
+        },
+        {
+            title: "KF7 Class",
+            caption: "Chinese KF7 Class<br>National Railway Museum",
+            src: "https://i.ibb.co/NHyxcYM/AP1-Gcz-NSrq-G1-TIW9mj-Hp-X2-JXa-JUUvr6i3-Ze-FOf-NUj-UDBaj-Q-r-Xrs-J9jkl-UPYCto-JBO4t-BABo001-WQ9-Vz.jpg",
+            audioSrc: "https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/KF7.mp3",
+            featured: false
+        },
+        {
+            title: "Boxhill",
+            caption: "LB&SCR A1 Class \"Boxhill\"<br>National Railway Museum",
+            src: "https://i.ibb.co/8gwmmyWw/AP1-Gcz-Mwf7-J-j3s11-Fl-Oew-I2-Hmx-Irgm-I-epf5-W3veg-C1-GJin0swi-Mmf-TQKRr-Ab-NX2r-Qa-NOMTx-Xl-M1-n.jpg",
+            audioSrc: "https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/Boxhill.mp3",
+            featured: false
+        },
+        {
+            title: "Stirling Single",
+            caption: "GNR Class A2 Stirling Single on the turntable<br>National Railway Museum<br><em>My favorite photo!</em>",
+            src: "https://i.ibb.co/mCk6qn9k/AP1-Gcz-MOL-Eg-KBy-KWEQOCvrq-XIZp-Iz-V7-Xn-M72-A2-TC3-S4-M33-GJx-IGgghp-FOy-NBGr9uq-Vn86aqk6-Abq4-DD.jpg",
+            audioSrc: "https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/StirlingSingle.mp3",
+            featured: true
+        },
+        {
+            title: "Rocket",
+            caption: "Replica of Stephenson's Rocket<br>National Railway Museum",
+            src: "https://i.ibb.co/m5Lc5yHv/AP1-Gcz-Pz9p-RHa-U45hk-DB57-Yu4-x6-PT1-J3yw-H1r-Bxo-Cy-AIbi-K-AEps3-XYn1-Jq-W3-NDIJBc-VT08-JD2-MImlp.jpg",
+            audioSrc: "https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/Rocket.mp3",
+            featured: false
+        },
+        {
+            title: "Duchess of Hamilton",
+            caption: "LMS Coronation Class \"Duchess of Hamilton\"<br>National Railway Museum",
+            src: "https://i.ibb.co/9H5VPvyP/AP1-Gcz-NOKveq-nl3qrb-Agl-HBg-Hjf-ROO4pm-Vu-FFgd-Pw3aamruu5q-Gv-JGRzn-Kz-H5a-K7-G4d-P5ypcb2ll-VJVvj.jpg",
+            audioSrc: "https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/DuchessofHamilton.mp3",
+            featured: false
+        },
+        {
+            title: "James Spooner",
+            caption: "\"James Spooner\" Double Fairlie<br>Ffestiniog Railway, Wales",
+            src: "https://i.ibb.co/G3pd6j7C/AP1-Gcz-OR04-VD-Zq-GBF005zd-XD2m-Oj-FZZZgv-So-EN3d-UTl-JAs-Ro-Qr-LKw-KQGXMdgw-Pyg-Qm0w-FQw-Wwtx-Je-S.jpg",
+            audioSrc: "https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/JamesSpooner.mp3",
+            featured: false
+        },
+        {
+            title: "NGG16 130",
+            caption: "NGG16 Class Garratt No. 130<br>Welsh Highland Railway, Wales",
+            src: "https://i.ibb.co/q274mKm/1000114673-4025f027-4d92-41ca-81ec-5adc5dc358fb-png.jpg",
+            audioSrc: "https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/NGG16.mp3",
+            featured: false
+        }
+    ];
+
+    const container = document.getElementById('gallery-scroll-container');
+    
+    // Inject Items
+    galleryItems.forEach((item, index) => {
+        const artPiece = document.createElement('div');
+        artPiece.className = `art-piece ${item.featured ? 'featured' : ''}`;
+        
+        let frameStyle = 'frame-wood';
+        if (!item.featured) {
+            if (index % 3 === 1) frameStyle = 'frame-dark-wood';
+            if (index % 3 === 2) frameStyle = 'frame-black';
+        }
+        
+        artPiece.innerHTML = `
+            <div class="frame ${frameStyle}">
+                <img src="${item.src}" alt="${item.title}" loading="lazy" 
+                     onerror="this.src='https://placehold.co/300x200/4a2a0a/d4af37?text=Image+Unavailable'">
+            </div>
+            <div class="plaque">
+                <p>${item.caption}</p>
+            </div>
+            ${item.audioSrc ? `<button class="audio-btn" data-src="${item.audioSrc}" title="Play Audio Guide">🔊</button>` : ''}
+        `;
+        container.appendChild(artPiece);
+    });
+
+    // Audio Logic
+    const musicBtn = document.getElementById('music-toggle');
+    const musicIcon = document.getElementById('music-icon');
+    const bgAudio = document.getElementById('bg-music');
+    const voiceAudio = document.getElementById('voice-player');
+    let isMusicPlaying = false;
+
+    // Toggle Background Music
+    if (musicBtn) {
+        musicBtn.addEventListener('click', () => {
+            if (!isMusicPlaying) {
+                bgAudio.volume = 0.4; 
+                bgAudio.play().then(() => {
+                    isMusicPlaying = true;
+                    musicIcon.textContent = "⏸";
+                    musicBtn.innerHTML = '<span id="music-icon">⏸</span> Pause Ambience';
+                    musicBtn.classList.add('bg-[#d4af37]', 'text-black');
+                }).catch(e => console.log("Audio play failed", e));
+            } else {
+                bgAudio.pause();
+                isMusicPlaying = false;
+                musicIcon.textContent = "▶";
+                musicBtn.innerHTML = '<span id="music-icon">▶</span> Play Gallery Ambience';
+                musicBtn.classList.remove('bg-[#d4af37]', 'text-black');
+            }
+        });
+    }
+
+    // Play Voice Note
+    container.addEventListener('click', (e) => {
+        const btn = e.target.closest('.audio-btn');
+        if (btn) {
+            voiceAudio.pause();
+            if (isMusicPlaying) bgAudio.pause();
+            voiceAudio.src = btn.dataset.src;
+            voiceAudio.play();
+        }
+    });
+
+    // Resume Music
+    voiceAudio.addEventListener('ended', () => {
+        if (isMusicPlaying) bgAudio.play();
+    });
+}
