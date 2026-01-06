@@ -4,462 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Train Gallery - Aaron's World</title>
+    
+    <!-- CSS Framework -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@400;700&display=swap');
 
-        /* --- Animations --- */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- Base Styles --- */
-        body {
-            background-color: #2a2a2a; /* Darker background for museum contrast */
-            font-family: 'Lato', sans-serif;
-            color: #f0f0f0;
-            overflow-x: hidden;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23333333' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        }
-
-        h1, h2, h3, .nav-link, .plaque p, .caption {
-            font-family: 'Playfair Display', serif;
-        }
-
-        /* --- Layout & Navigation --- */
-        header {
-            background: linear-gradient(to bottom, #1a1a1a, #222);
-            border-bottom: 2px solid #8b5a2b;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-
-        .nav-link {
-            display: inline-block;
-            background-color: #3a3a3a;
-            color: #d4af37; /* Gold */
-            padding: 0.5rem 1.5rem;
-            border: 1px solid #8b5a2b;
-            text-decoration: none;
-            margin: 0.5rem;
-            transition: all 0.2s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-        }
-
-        .nav-link:hover {
-            background-color: #4a4a4a;
-            color: #fff;
-            border-color: #d4af37;
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
-        }
-
-        /* --- The Gallery Hall (Horizontal Scroll) --- */
-        #gallery-scroll-container {
-            display: flex;
-            overflow-x: auto;
-            gap: 4rem;
-            padding: 4rem 4rem 6rem 4rem;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
-            align-items: center;
-            min-height: 80vh;
-            /* Scrollbar styling */
-            scrollbar-width: thin;
-            scrollbar-color: #8b5a2b #1a1a1a;
-        }
-
-        /* Custom Scrollbar for Chrome/Safari */
-        #gallery-scroll-container::-webkit-scrollbar {
-            height: 12px;
-        }
-        #gallery-scroll-container::-webkit-scrollbar-track {
-            background: #1a1a1a;
-        }
-        #gallery-scroll-container::-webkit-scrollbar-thumb {
-            background-color: #8b5a2b;
-            border-radius: 6px;
-            border: 2px solid #1a1a1a;
-        }
-
-        /* --- Art Pieces --- */
-        .art-piece {
-            flex-shrink: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 320px;
-            scroll-snap-align: center;
-            opacity: 0; /* Hidden initially for fade-in */
-            animation: fadeIn 0.8s ease forwards;
-        }
-
-        .art-piece.featured {
-            width: 480px;
-        }
-
-        /* Staggered animation delay handled in JS or nth-child */
-        .art-piece:nth-child(1) { animation-delay: 0.1s; }
-        .art-piece:nth-child(2) { animation-delay: 0.2s; }
-        .art-piece:nth-child(3) { animation-delay: 0.3s; }
-        .art-piece:nth-child(4) { animation-delay: 0.4s; }
-        .art-piece:nth-child(5) { animation-delay: 0.5s; }
-
-        /* --- Frames --- */
-        .frame {
-            position: relative;
-            box-shadow: 10px 10px 25px rgba(0,0,0,0.6);
-            padding: 12px;
-            background-color: #4a2a0a;
-            width: 100%;
-            transition: transform 0.3s ease;
-        }
-
-        .frame:hover {
-            transform: scale(1.02) translateY(-5px);
-            z-index: 10;
-        }
-
-        /* Glass Reflection */
-        .frame::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.01) 50%, rgba(0,0,0,0) 100%);
-            pointer-events: none;
-            mix-blend-mode: overlay;
-        }
-        
-        /* Frame Textures */
-        .frame-wood {
-            border: 8px solid #3e2723;
-            outline: 2px solid #5d4037;
-            background: repeating-linear-gradient(45deg, #3e2723, #3e2723 10px, #4e342e 10px, #4e342e 20px);
-        }
-        .frame-dark-wood {
-            border: 8px solid #281a14;
-            outline: 2px solid #3e2723;
-            background: #281a14;
-        }
-        .frame-black {
-            border: 8px solid #000;
-            outline: 1px solid #333;
-            background: #111;
-        }
-
-        .frame img {
-            display: block;
-            width: 100%;
-            height: auto;
-            border: 2px solid rgba(0,0,0,0.5);
-        }
-
-        /* --- Plaques --- */
-        .plaque {
-            margin-top: 1.5rem;
-            background: linear-gradient(to bottom, #f0e68c 0%, #d4af37 50%, #b98b1d 100%);
-            padding: 1rem;
-            width: 90%;
-            border: 2px solid #8b5a2b;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.4);
-            text-align: center;
-            border-radius: 2px;
-            color: #222;
-        }
-        
-        .art-piece.featured .plaque {
-             background: linear-gradient(to bottom, #fffacd 0%, #ffd700 50%, #cfa500 100%);
-             border: 2px solid #fff;
-             box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
-        }
-
-        .plaque h3 {
-            font-size: 1.1rem;
-            font-weight: bold;
-            margin-bottom: 0.25rem;
-            text-transform: uppercase;
-        }
-        .plaque p {
-            font-size: 0.85rem;
-            font-style: italic;
-        }
-
-        /* Audio Button */
-        .audio-btn {
-            margin-top: -15px; /* Pull up to overlap plaque slightly or just below */
-            margin-bottom: 0.5rem;
-            z-index: 5;
-            background: #222;
-            color: #d4af37;
-            border: 1px solid #d4af37;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
-        }
-        .audio-btn:hover {
-            background: #d4af37;
-            color: #222;
-            transform: scale(1.1);
-        }
-
-        /* --- The Secret Archive (Ducks) --- */
-        #secret-archive {
-            background-color: #1a1a1a;
-            padding: 4rem 2rem;
-            border-top: 1px solid #333;
-            text-align: center;
-            background-image: radial-gradient(circle at center, #2a2a2a 0%, #1a1a1a 100%);
-        }
-
-        .duck-wrapper {
-            max-width: 600px;
-            margin: 0 auto 4rem auto;
-            opacity: 0.7;
-            transition: opacity 0.3s;
-        }
-        .duck-wrapper:hover {
-            opacity: 1;
-        }
-
-        /* --- Mobile Responsiveness --- */
-        @media (max-width: 768px) {
-            #gallery-scroll-container {
-                flex-direction: column; /* Stack vertically on mobile */
-                overflow-x: hidden;
-                padding: 2rem 1rem;
-                gap: 3rem;
-            }
-            .art-piece, .art-piece.featured {
-                width: 100%;
-                max-width: 350px;
-            }
-            .duck-wrapper {
-                 /* Hide ducks on mobile per user request in original file */
-                 display: none;
-            }
-        }
-    </style>
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="flex flex-col min-h-screen">
+<body class="flex flex-col min-h-screen gallery-page">
 
-    <!-- Header with Music Control -->
+    <!-- Header -->
     <header class="text-center p-6 md:p-8 z-20 relative">
         <h1 class="text-3xl md:text-5xl font-bold text-[#f0f0f0] mb-2 text-shadow">Train Gallery</h1>
         <p class="text-[#bbb] text-base md:text-lg mb-4 italic">An interactive collection of my favourite trains.</p>
         
-        <!-- Visible Audio Toggle (Autoplay is unreliable) -->
         <button id="music-toggle" class="bg-[#3a3a3a] border border-[#d4af37] text-[#d4af37] px-4 py-2 text-sm uppercase tracking-widest hover:bg-[#d4af37] hover:text-black transition-colors rounded-none">
             <span id="music-icon">▶</span> Play Gallery Ambience
         </button>
     </header>
 
-    <nav class="flex justify-center bg-[#222] border-b border-[#333] p-2 flex-wrap sticky top-0 z-30 shadow-md">
-        <a href="index.html" class="nav-link">Back Home</a>
-        <a href="#" class="nav-link" style="color: #fff; border-color: #fff;">Gallery View</a>
-    </nav>
+    <!-- Nav injected by js/main.js -->
 
-    <!-- Main Content -->
     <main class="flex-grow w-full">
-        
-        <!-- Info Intro -->
         <div class="max-w-3xl mx-auto text-center p-8 text-gray-300">
             <h2 class="text-2xl mb-4 border-b border-gray-600 pb-2 inline-block font-serif">The Collection</h2>
             <p>Most photos were taken at the National Railway Museum in York. <br>The Stirling Single is my absolute favorite!</p>
         </div>
 
-        <!-- The Gallery Scroll Area -->
         <div id="gallery-scroll-container">
-            <!-- Items injected via JS -->
+            <!-- Items injected by js/main.js -->
         </div>
 
-        <!-- The Secret Archive (Ducks) -->
         <section id="secret-archive">
             <h2 class="text-2xl text-gray-500 mb-8 font-serif">The Secret Archive</h2>
-            
             <div class="duck-wrapper">
                 <p class="text-lg text-[#777] mb-4 font-serif">...you reached the end. Here's a duck.</p>
                 <img src="https://random-d.uk/api/v2/randomimg?t=1" alt="A random duck" class="mx-auto border-4 border-gray-700 w-64 h-64 object-cover shadow-2xl" onerror="this.src='https://placehold.co/256x256/333/777?text=Duck+Unavailable';">
             </div>
-
             <div class="duck-wrapper">
                 <p class="text-lg text-[#777] mb-4 font-serif">...if you want another picture of a duck...</p>
                  <p class="text-lg text-[#777] mb-4 font-serif">yes?</p>
                 <img src="https://random-d.uk/api/v2/randomimg?t=2" alt="Another random duck" class="mx-auto border-4 border-gray-700 w-64 h-64 object-cover shadow-2xl" onerror="this.src='https://placehold.co/256x256/333/777?text=Duck+Unavailable';">
             </div>
         </section>
-
     </main>
 
-    <footer class="text-center p-4 bg-[#1a1a1a] text-[#555] border-t border-[#333] text-sm mt-auto">
-        <p>© 2025 Aaron’s World</p>
-    </footer>
+    <!-- Footer injected by js/main.js -->
 
-    <!-- Audio Element (Background) -->
+    <!-- Audio Elements -->
     <audio id="bg-music" loop>
         <source src="https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/Velvet%20Rails.mp3" type="audio/mpeg">
     </audio>
-
-    <!-- Voice Note Player -->
     <audio id="voice-player"></audio>
 
-    <script>
-        // --- Full Gallery Data from User ---
-        const galleryItems = [
-            {
-                title: "Henry Oakley",
-                caption: "GNR Class C1 \"Henry Oakley\"<br>National Railway Museum",
-                src: "https://i.ibb.co/JF5PTXW7/AP1-Gcz-MOO4-MOzy3-V-L7c-Xe-Jsxc-XDgqe9-JDHs-TJK-Qy-Ln-PKVj-Qj-NFBGNHV6-E6i-W-Yw2-H6-JS5s-Lg-exxah-R.jpg",
-                audioSrc: "https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/HenryOakley.mp3",
-                featured: false
-            },
-            {
-                title: "Mallard",
-                caption: "LNER Class A4 \"Mallard\"<br>National Railway Museum",
-                src: "https://i.ibb.co/DfCZK7j1/AP1-Gcz-Mf8-Dafp8-KVxh-Onsf-DPhl-YGCd-MPUoc-PJMg-VT4g7sk-AYyx-G-npfou-Xq5-W-WV-CFKm-HHf-DL6x-R5-OYPk.jpg",
-                audioSrc: "https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/Mallard.mp3",
-                featured: false
-            },
-            {
-                title: "KF7 Class",
-                caption: "Chinese KF7 Class<br>National Railway Museum",
-                src: "https://i.ibb.co/NHyxcYM/AP1-Gcz-NSrq-G1-TIW9mj-Hp-X2-JXa-JUUvr6i3-Ze-FOf-NUj-UDBaj-Q-r-Xrs-J9jkl-UPYCto-JBO4t-BABo001-WQ9-Vz.jpg",
-                audioSrc: "https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/KF7.mp3",
-                featured: false
-            },
-            {
-                title: "Boxhill",
-                caption: "LB&SCR A1 Class \"Boxhill\"<br>National Railway Museum",
-                src: "https://i.ibb.co/8gwmmyWw/AP1-Gcz-Mwf7-J-j3s11-Fl-Oew-I2-Hmx-Irgm-I-epf5-W3veg-C1-GJin0swi-Mmf-TQKRr-Ab-NX2r-Qa-NOMTx-Xl-M1-n.jpg",
-                audioSrc: "https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/Boxhill.mp3",
-                featured: false
-            },
-            {
-                title: "Stirling Single",
-                caption: "GNR Class A2 Stirling Single on the turntable<br>National Railway Museum<br><em>My favorite photo!</em>",
-                src: "https://i.ibb.co/mCk6qn9k/AP1-Gcz-MOL-Eg-KBy-KWEQOCvrq-XIZp-Iz-V7-Xn-M72-A2-TC3-S4-M33-GJx-IGgghp-FOy-NBGr9uq-Vn86aqk6-Abq4-DD.jpg",
-                audioSrc: "https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/StirlingSingle.mp3",
-                featured: true
-            },
-            {
-                title: "Rocket",
-                caption: "Replica of Stephenson's Rocket<br>National Railway Museum",
-                src: "https://i.ibb.co/m5Lc5yHv/AP1-Gcz-Pz9p-RHa-U45hk-DB57-Yu4-x6-PT1-J3yw-H1r-Bxo-Cy-AIbi-K-AEps3-XYn1-Jq-W3-NDIJBc-VT08-JD2-MImlp.jpg",
-                audioSrc: "https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/Rocket.mp3",
-                featured: false
-            },
-            {
-                title: "Duchess of Hamilton",
-                caption: "LMS Coronation Class \"Duchess of Hamilton\"<br>National Railway Museum",
-                src: "https://i.ibb.co/9H5VPvyP/AP1-Gcz-NOKveq-nl3qrb-Agl-HBg-Hjf-ROO4pm-Vu-FFgd-Pw3aamruu5q-Gv-JGRzn-Kz-H5a-K7-G4d-P5ypcb2ll-VJVvj.jpg",
-                audioSrc: "https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/DuchessofHamilton.mp3",
-                featured: false
-            },
-            {
-                title: "James Spooner",
-                caption: "\"James Spooner\" Double Fairlie<br>Ffestiniog Railway, Wales",
-                src: "https://i.ibb.co/G3pd6j7C/AP1-Gcz-OR04-VD-Zq-GBF005zd-XD2m-Oj-FZZZgv-So-EN3d-UTl-JAs-Ro-Qr-LKw-KQGXMdgw-Pyg-Qm0w-FQw-Wwtx-Je-S.jpg",
-                audioSrc: "https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/JamesSpooner.mp3",
-                featured: false
-            },
-            {
-                title: "NGG16 130",
-                caption: "NGG16 Class Garratt No. 130<br>Welsh Highland Railway, Wales",
-                src: "https://i.ibb.co/q274mKm/1000114673-4025f027-4d92-41ca-81ec-5adc5dc358fb-png.jpg",
-                audioSrc: "https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/NGG16.mp3",
-                featured: false
-            }
-        ];
-
-        // --- Init Gallery ---
-        document.addEventListener('DOMContentLoaded', () => {
-            const container = document.getElementById('gallery-scroll-container');
-            
-            galleryItems.forEach((item, index) => {
-                const artPiece = document.createElement('div');
-                artPiece.className = `art-piece ${item.featured ? 'featured' : ''}`;
-                
-                // Determine frame style cyclically if not featured
-                let frameStyle = 'frame-wood';
-                if (!item.featured) {
-                    if (index % 3 === 1) frameStyle = 'frame-dark-wood';
-                    if (index % 3 === 2) frameStyle = 'frame-black';
-                } else {
-                    frameStyle = 'frame-wood'; // Featured usually gets robust wood
-                }
-                
-                artPiece.innerHTML = `
-                    <div class="frame ${frameStyle}">
-                        <img src="${item.src}" alt="${item.title}" loading="lazy" 
-                             onerror="this.src='https://placehold.co/300x200/4a2a0a/d4af37?text=Image+Unavailable'">
-                    </div>
-                    <div class="plaque">
-                        <p>${item.caption}</p>
-                    </div>
-                    ${item.audioSrc ? `<button class="audio-btn" data-src="${item.audioSrc}" title="Play Audio Guide">🔊</button>` : ''}
-                `;
-                container.appendChild(artPiece);
-            });
-
-            // --- Audio Logic ---
-            const musicBtn = document.getElementById('music-toggle');
-            const musicIcon = document.getElementById('music-icon');
-            const bgAudio = document.getElementById('bg-music');
-            const voiceAudio = document.getElementById('voice-player');
-            let isMusicPlaying = false;
-
-            // 1. Toggle Background Music
-            musicBtn.addEventListener('click', () => {
-                if (!isMusicPlaying) {
-                    bgAudio.volume = 0.4; // Set a pleasant background volume
-                    bgAudio.play().then(() => {
-                        isMusicPlaying = true;
-                        musicIcon.textContent = "⏸";
-                        musicBtn.innerHTML = '<span id="music-icon">⏸</span> Pause Ambience';
-                        musicBtn.classList.add('bg-[#d4af37]', 'text-black');
-                    }).catch(e => console.log("Audio play failed", e));
-                } else {
-                    bgAudio.pause();
-                    isMusicPlaying = false;
-                    musicIcon.textContent = "▶";
-                    musicBtn.innerHTML = '<span id="music-icon">▶</span> Play Gallery Ambience';
-                    musicBtn.classList.remove('bg-[#d4af37]', 'text-black');
-                }
-            });
-
-            // 2. Play Voice Note (pausing music temporarily)
-            container.addEventListener('click', (e) => {
-                const btn = e.target.closest('.audio-btn');
-                if (btn) {
-                    const src = btn.dataset.src;
-                    
-                    // Stop any current voice
-                    voiceAudio.pause();
-                    
-                    // Pause Background music if playing
-                    if (isMusicPlaying) {
-                        bgAudio.pause();
-                    }
-
-                    // Play Voice
-                    voiceAudio.src = src;
-                    voiceAudio.play();
-                }
-            });
-
-            // 3. Resume Music when Voice Ends
-            voiceAudio.addEventListener('ended', () => {
-                if (isMusicPlaying) {
-                    bgAudio.play();
-                }
-            });
-        });
-    </script>
+    <!-- Main Logic -->
+    <script src="js/main.js"></script>
 </body>
 </html>
