@@ -30,28 +30,21 @@
 
     <!-- Nav injected by js/main.js -->
 
-    <main class="flex-grow w-full">
-        <div class="max-w-3xl mx-auto text-center p-8 text-gray-600">
-            <h2 class="text-3xl font-bold text-center border-b-4 border-gray-200 pb-2 text-gray-700 px-8 inline-block mb-4">The Collection</h2>
-            <p class="text-lg">Most photos were taken at the National Railway Museum in York. <br>The Stirling Single is my absolute favorite!</p>
+    <main class="flex-grow w-full flex flex-col items-center">
+        
+        <!-- Intro Card (Matches Index Info-Box) -->
+        <div class="w-full max-w-3xl p-6 mt-8">
+            <div class="info-box rounded-md p-8 text-center text-gray-700">
+                <h2 class="text-3xl font-bold text-center border-b-4 border-gray-200 pb-2 text-gray-800 px-8 inline-block mb-4 font-serif">The Collection</h2>
+                <p class="text-lg leading-relaxed">Most photos were taken at the National Railway Museum in York. <br>The <span class="font-semibold text-amber-800">Stirling Single</span> is my absolute favorite!</p>
+            </div>
         </div>
 
-        <div id="gallery-scroll-container">
+        <!-- Scroll Container (Full Width) -->
+        <div id="gallery-scroll-container" class="w-full">
             <!-- Items injected by js/main.js -->
         </div>
 
-        <section id="secret-archive">
-            <h2 class="text-2xl text-gray-400 mb-8 font-serif">The Secret Archive</h2>
-            <div class="duck-wrapper">
-                <p class="text-lg text-[#777] mb-4 font-serif">...you reached the end. Here's a duck.</p>
-                <img src="https://random-d.uk/api/v2/randomimg?t=1" alt="A random duck" class="mx-auto border-4 border-white shadow-lg w-64 h-64 object-cover" onerror="this.src='https://placehold.co/256x256/333/777?text=Duck+Unavailable';">
-            </div>
-            <div class="duck-wrapper">
-                <p class="text-lg text-[#777] mb-4 font-serif">...if you want another picture of a duck...</p>
-                 <p class="text-lg text-[#777] mb-4 font-serif">yes?</p>
-                <img src="https://random-d.uk/api/v2/randomimg?t=2" alt="Another random duck" class="mx-auto border-4 border-white shadow-lg w-64 h-64 object-cover" onerror="this.src='https://placehold.co/256x256/333/777?text=Duck+Unavailable';">
-            </div>
-        </section>
     </main>
 
     <!-- Footer injected by js/main.js -->
