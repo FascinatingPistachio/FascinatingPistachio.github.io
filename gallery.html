@@ -11,14 +11,19 @@
     <!-- Custom Styles -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="flex flex-col min-h-screen gallery-page">
+<body class="flex flex-col min-h-screen">
 
-    <!-- Header -->
-    <header class="text-center p-6 md:p-8 z-20 relative">
-        <h1 class="text-3xl md:text-5xl font-bold text-[#f0f0f0] mb-2 text-shadow">Train Gallery</h1>
-        <p class="text-[#bbb] text-base md:text-lg mb-4 italic">An interactive collection of my favourite trains.</p>
+    <!-- Header (Identical to Main Page) -->
+    <header class="bg-[#f5f5f0] text-center pt-10 pb-6 border-b border-[#ccc] z-20 relative shadow-sm">
+        <div class="max-w-4xl mx-auto px-4">
+            <h1 class="text-4xl md:text-6xl font-bold text-[#222] mb-3 tracking-wide drop-shadow-sm">
+                Train Gallery
+            </h1>
+            <div class="h-1 w-24 bg-gray-300 mx-auto mb-3 rounded-full"></div>
+            <p class="text-[#555] text-lg md:text-xl italic serif-font">An interactive collection of my favourite trains.</p>
+        </div>
         
-        <button id="music-toggle" class="bg-[#3a3a3a] border border-[#d4af37] text-[#d4af37] px-4 py-2 text-sm uppercase tracking-widest hover:bg-[#d4af37] hover:text-black transition-colors rounded-none">
+        <button id="music-toggle" class="mt-4 bg-[#e8e6e3] border border-[#bbb] text-[#555] px-4 py-2 text-sm uppercase tracking-widest hover:bg-[#d4af37] hover:text-white hover:border-[#d4af37] transition-colors rounded-sm shadow-sm">
             <span id="music-icon">▶</span> Play Gallery Ambience
         </button>
     </header>
@@ -26,25 +31,26 @@
     <!-- Nav injected by js/main.js -->
 
     <main class="flex-grow w-full">
-        <div class="max-w-3xl mx-auto text-center p-8 text-gray-300">
-            <h2 class="text-2xl mb-4 border-b border-gray-600 pb-2 inline-block font-serif">The Collection</h2>
-            <p>Most photos were taken at the National Railway Museum in York. <br>The Stirling Single is my absolute favorite!</p>
+        <div class="max-w-3xl mx-auto text-center p-8 text-gray-600">
+            <h2 class="text-3xl font-bold text-center border-b-4 border-gray-200 pb-2 text-gray-700 px-8 inline-block mb-4">The Collection</h2>
+            <p class="text-lg">Most photos were taken at the National Railway Museum in York. <br>The Stirling Single is my absolute favorite!</p>
         </div>
 
+        <!-- Scroll Container (Styled in CSS) -->
         <div id="gallery-scroll-container">
             <!-- Items injected by js/main.js -->
         </div>
 
         <section id="secret-archive">
-            <h2 class="text-2xl text-gray-500 mb-8 font-serif">The Secret Archive</h2>
+            <h2 class="text-2xl text-gray-400 mb-8 font-serif">The Secret Archive</h2>
             <div class="duck-wrapper">
                 <p class="text-lg text-[#777] mb-4 font-serif">...you reached the end. Here's a duck.</p>
-                <img src="https://random-d.uk/api/v2/randomimg?t=1" alt="A random duck" class="mx-auto border-4 border-gray-700 w-64 h-64 object-cover shadow-2xl" onerror="this.src='https://placehold.co/256x256/333/777?text=Duck+Unavailable';">
+                <img src="https://random-d.uk/api/v2/randomimg?t=1" alt="A random duck" class="mx-auto border-4 border-white shadow-lg w-64 h-64 object-cover" onerror="this.src='https://placehold.co/256x256/333/777?text=Duck+Unavailable';">
             </div>
             <div class="duck-wrapper">
                 <p class="text-lg text-[#777] mb-4 font-serif">...if you want another picture of a duck...</p>
                  <p class="text-lg text-[#777] mb-4 font-serif">yes?</p>
-                <img src="https://random-d.uk/api/v2/randomimg?t=2" alt="Another random duck" class="mx-auto border-4 border-gray-700 w-64 h-64 object-cover shadow-2xl" onerror="this.src='https://placehold.co/256x256/333/777?text=Duck+Unavailable';">
+                <img src="https://random-d.uk/api/v2/randomimg?t=2" alt="Another random duck" class="mx-auto border-4 border-white shadow-lg w-64 h-64 object-cover" onerror="this.src='https://placehold.co/256x256/333/777?text=Duck+Unavailable';">
             </div>
         </section>
     </main>
