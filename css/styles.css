@@ -13,7 +13,6 @@ body {
   font-family: 'Lato', sans-serif;
   background-color: #e8e6e3;
   color: #222;
-  /* Shared noise texture for all pages */
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
   overflow-x: hidden;
 }
@@ -64,9 +63,17 @@ h1, h2, h3, .serif-font, .plaque p, .caption {
    3. Navbar & Footer
    ========================================= */
 .nav-link {
-    transition: all 0.2s ease;
+    transition: color 0.2s ease;
 }
-/* Active link styles injected by JS classes (bg-blue-100 etc) */
+
+/* View Transition Animation for the active pill.
+   When navigating, the element with this name will 'morph'
+   from its old position to its new position.
+*/
+::view-transition-group(active-nav-pill) {
+    animation-duration: 0.5s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
 
 /* =========================================
    4. Loom Animation
@@ -114,7 +121,6 @@ h1, h2, h3, .serif-font, .plaque p, .caption {
 /* =========================================
    5. Gallery Components (Frames/Plaques)
    ========================================= */
-/* Scroll Container - Matching the light theme */
 #gallery-scroll-container {
     display: flex;
     overflow-x: auto;
@@ -124,7 +130,6 @@ h1, h2, h3, .serif-font, .plaque p, .caption {
     -webkit-overflow-scrolling: touch;
     align-items: center;
     min-height: 70vh;
-    /* Custom Scrollbar */
     scrollbar-width: thin;
     scrollbar-color: #8b5a2b #e8e6e3;
 }
@@ -157,9 +162,8 @@ h1, h2, h3, .serif-font, .plaque p, .caption {
 .art-piece:nth-child(1) { animation-delay: 0.1s; }
 .art-piece:nth-child(2) { animation-delay: 0.2s; }
 .art-piece:nth-child(3) { animation-delay: 0.3s; }
-/* ... continue staggering if needed */
 
-/* Frames - Kept dark wood for contrast against light wall */
+/* Frames */
 .frame {
     position: relative;
     box-shadow: 
@@ -252,7 +256,6 @@ h1, h2, h3, .serif-font, .plaque p, .caption {
     padding: 4rem 2rem;
     border-top: 1px solid #ccc;
     text-align: center;
-    /* Inset shadow to make it feel like a different section */
     box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
 }
 .duck-wrapper {
