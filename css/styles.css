@@ -1,0 +1,327 @@
+/* =========================================
+   1. Global & Variables
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@400;700&display=swap');
+
+:root {
+  --paper-bg: #fdfbf7;
+  --paper-border: #d1d5db;
+  --accent: #4a5568;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: #e8e6e3;
+  color: #222;
+  /* Subtle noise texture */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  overflow-x: hidden;
+}
+
+h1, h2, h3, .serif-font, .plaque p, .caption {
+  font-family: 'Playfair Display', serif;
+}
+
+/* =========================================
+   2. Components (Info Box, Anime)
+   ========================================= */
+.info-box {
+  background-color: var(--paper-bg);
+  border: 1px solid var(--paper-border);
+  box-shadow: 
+    0 10px 15px -3px rgba(0, 0, 0, 0.1), 
+    0 4px 6px -2px rgba(0, 0, 0, 0.05),
+    inset 0 0 40px rgba(255, 255, 255, 0.5);
+  position: relative;
+}
+
+.info-box::before {
+  content: '';
+  position: absolute;
+  top: 6px; left: 6px; right: 6px; bottom: 6px;
+  border: 1px dashed #cbd5e0;
+  pointer-events: none;
+  border-radius: 4px;
+}
+
+/* Anime Covers */
+.anime-cover-container {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.anime-cover-container:hover {
+  transform: translateY(-8px) rotate(1deg);
+  z-index: 10;
+}
+.anime-cover {
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease;
+}
+.anime-cover-container:hover .anime-cover {
+  box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+}
+
+/* =========================================
+   3. Navbar & Footer
+   ========================================= */
+.nav-link {
+    transition: all 0.2s ease;
+}
+/* Active link styles injected by JS classes (bg-blue-100 etc) */
+
+/* =========================================
+   4. Loom Animation
+   ========================================= */
+@keyframes loom-shake {
+  0%, 100% { transform: translate(0, 0) rotate(0); }
+  25% { transform: translate(-1px, 1px) rotate(-1deg); }
+  50% { transform: translate(1px, -1px) rotate(1deg); }
+  75% { transform: translate(-1px, 1px) rotate(0deg); }
+}
+.shake {
+  animation: loom-shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+.loom-text {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease-out, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateY(10px);
+}
+.loom-text.visible {
+  opacity: 1;
+  transform: translate(-50%, -50%) translateY(0);
+}
+.loom-text-wrapper {
+  position: relative;
+  height: 4rem; width: 100%;
+}
+@media (min-width: 640px) {
+  .loom-text-wrapper { height: 8rem; width: 160px; }
+}
+#image-loom-viewer {
+  will-change: transform;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.15);
+}
+.texture-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+/* =========================================
+   5. GALLERY PAGE OVERRIDES (Dark Mode)
+   ========================================= */
+body.gallery-page {
+    background-color: #2a2a2a;
+    color: #f0f0f0;
+    /* Darker noise texture */
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23333333' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Header Override */
+body.gallery-page header {
+    background: linear-gradient(to bottom, #1a1a1a, #222);
+    border-bottom: 2px solid #8b5a2b;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+/* Navbar Override (Targeting injected elements) */
+body.gallery-page nav#main-nav {
+    background-color: #222 !important;
+    border-bottom-color: #333 !important;
+}
+
+body.gallery-page nav#main-nav .nav-link {
+    background-color: #3a3a3a;
+    color: #d4af37; /* Gold */
+    border: 1px solid #8b5a2b;
+    font-weight: 400;
+}
+
+body.gallery-page nav#main-nav .nav-link:hover {
+    background-color: #4a4a4a;
+    color: #fff;
+    border-color: #d4af37;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+/* Active State Override for Gallery */
+body.gallery-page nav#main-nav .nav-link.active-link {
+    background-color: #d4af37 !important;
+    color: #000 !important;
+    font-weight: bold !important;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+}
+
+/* Footer Override */
+body.gallery-page footer {
+    background-color: #1a1a1a !important;
+    color: #777 !important;
+    border-top-color: #333 !important;
+}
+body.gallery-page footer a { color: #999 !important; }
+
+
+/* =========================================
+   6. Gallery Components (Frames/Plaques)
+   ========================================= */
+#gallery-scroll-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 4rem;
+    padding: 4rem 4rem 6rem 4rem;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    align-items: center;
+    min-height: 80vh;
+    scrollbar-width: thin;
+    scrollbar-color: #8b5a2b #1a1a1a;
+}
+
+#gallery-scroll-container::-webkit-scrollbar { height: 12px; }
+#gallery-scroll-container::-webkit-scrollbar-track { background: #1a1a1a; }
+#gallery-scroll-container::-webkit-scrollbar-thumb {
+    background-color: #8b5a2b;
+    border-radius: 6px;
+    border: 2px solid #1a1a1a;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.art-piece {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 320px;
+    scroll-snap-align: center;
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+}
+.art-piece.featured { width: 480px; }
+.art-piece:nth-child(1) { animation-delay: 0.1s; }
+.art-piece:nth-child(2) { animation-delay: 0.2s; }
+.art-piece:nth-child(3) { animation-delay: 0.3s; }
+/* ... continue staggering if needed */
+
+/* Frames */
+.frame {
+    position: relative;
+    box-shadow: 10px 10px 25px rgba(0,0,0,0.6);
+    padding: 12px;
+    background-color: #4a2a0a;
+    width: 100%;
+    transition: transform 0.3s ease;
+}
+.frame:hover {
+    transform: scale(1.02) translateY(-5px);
+    z-index: 10;
+}
+.frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.01) 50%, rgba(0,0,0,0) 100%);
+    pointer-events: none;
+    mix-blend-mode: overlay;
+}
+.frame-wood {
+    border: 8px solid #3e2723;
+    outline: 2px solid #5d4037;
+    background: repeating-linear-gradient(45deg, #3e2723, #3e2723 10px, #4e342e 10px, #4e342e 20px);
+}
+.frame-dark-wood {
+    border: 8px solid #281a14;
+    outline: 2px solid #3e2723;
+    background: #281a14;
+}
+.frame-black {
+    border: 8px solid #000;
+    outline: 1px solid #333;
+    background: #111;
+}
+.frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 2px solid rgba(0,0,0,0.5);
+}
+
+/* Plaques */
+.plaque {
+    margin-top: 1.5rem;
+    background: linear-gradient(to bottom, #f0e68c 0%, #d4af37 50%, #b98b1d 100%);
+    padding: 1rem;
+    width: 90%;
+    border: 2px solid #8b5a2b;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+    text-align: center;
+    border-radius: 2px;
+    color: #222;
+}
+.art-piece.featured .plaque {
+     background: linear-gradient(to bottom, #fffacd 0%, #ffd700 50%, #cfa500 100%);
+     border: 2px solid #fff;
+     box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+}
+
+/* Audio Button */
+.audio-btn {
+    margin-top: -15px;
+    margin-bottom: 0.5rem;
+    z-index: 5;
+    background: #222;
+    color: #d4af37;
+    border: 1px solid #d4af37;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+.audio-btn:hover {
+    background: #d4af37;
+    color: #222;
+    transform: scale(1.1);
+}
+
+/* Secret Archive */
+#secret-archive {
+    background-color: #1a1a1a;
+    padding: 4rem 2rem;
+    border-top: 1px solid #333;
+    text-align: center;
+    background-image: radial-gradient(circle at center, #2a2a2a 0%, #1a1a1a 100%);
+}
+.duck-wrapper {
+    max-width: 600px;
+    margin: 0 auto 4rem auto;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+.duck-wrapper:hover { opacity: 1; }
+
+@media (max-width: 768px) {
+    #gallery-scroll-container {
+        flex-direction: column;
+        overflow-x: hidden;
+        padding: 2rem 1rem;
+        gap: 3rem;
+    }
+    .art-piece, .art-piece.featured {
+        width: 100%;
+        max-width: 350px;
+    }
+    .duck-wrapper { display: none; }
+}
