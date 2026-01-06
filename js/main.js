@@ -15,19 +15,33 @@ document.addEventListener("DOMContentLoaded", () => {
    1. Shared Layout (Nav & Footer)
    ========================================= */
 function initSharedLayout() {
-    // --- Inject Navbar ---
+    // --- 1. Inject View Transition Meta Tag ---
+    // This enables the seamless morphing between pages in supported browsers (Chrome/Edge/Safari 18+)
+    if (!document.querySelector('meta[name="view-transition"]')) {
+        const meta = document.createElement('meta');
+        meta.name = 'view-transition';
+        meta.content = 'same-origin';
+        document.head.appendChild(meta);
+    }
+
+    // --- 2. Inject Navbar (FIXED AT TOP) ---
+    // We use 'afterbegin' on body to ensure it's always at the top (Y=0)
     const navHTML = `
-      <nav id="main-nav" class="flex justify-center bg-[#f7f7f2] border-b border-[#ccc] p-2 flex-wrap sticky top-0 z-30 shadow-md backdrop-blur-sm bg-opacity-95 transition-colors duration-300">
-        <a href="index.html" class="nav-link" data-page="index.html">Home</a>
-        <a href="gallery.html" class="nav-link" data-page="gallery.html">Train Gallery</a>
-        <a href="#" class="nav-link" data-page="about">About</a>
+      <nav id="main-nav" class="fixed top-0 left-0 w-full flex justify-center bg-[#f7f7f2]/95 border-b border-[#ccc] p-3 flex-wrap z-50 backdrop-blur-sm shadow-sm transition-colors duration-300">
+        <div class="flex items-center gap-2">
+            <a href="index.html" class="nav-link relative" data-page="index.html">Home</a>
+            <a href="gallery.html" class="nav-link relative" data-page="gallery.html">Train Gallery</a>
+            <a href="about.html" class="nav-link relative" data-page="about.html">About</a>
+        </div>
       </nav>
     `;
     
-    const header = document.querySelector("header");
-    if (header) header.insertAdjacentHTML("afterend", navHTML);
+    document.body.insertAdjacentHTML("afterbegin", navHTML);
+    
+    // Add padding to body so content doesn't hide behind fixed nav
+    document.body.classList.add('pt-20');
   
-    // --- Inject Footer ---
+    // --- 3. Inject Footer ---
     const currentYear = new Date().getFullYear();
     const footerHTML = `
       <footer class="text-center p-6 bg-[#f5f5f0] text-[#555] border-t border-[#ccc] text-sm mt-auto">
@@ -37,8 +51,7 @@ function initSharedLayout() {
     `;
     document.body.insertAdjacentHTML("beforeend", footerHTML);
   
-    // --- Highlight Active Link ---
-    // Get current filename (e.g., "gallery.html") or default to "index.html"
+    // --- 4. Highlight Active Link & Setup Animation ---
     const path = location.pathname.split("/").pop();
     const currentPage = path === "" ? "index.html" : path;
   
@@ -46,10 +59,13 @@ function initSharedLayout() {
       const targetPage = link.getAttribute("data-page");
       
       // Base styles for all links
-      link.classList.add("font-medium", "rounded-lg", "px-4", "py-2", "border", "border-transparent");
+      link.classList.add("font-medium", "rounded-full", "px-5", "py-2", "text-sm", "transition-colors");
   
       if (targetPage === currentPage) {
-        link.classList.add("active-link", "font-semibold");
+        link.classList.add("active-link", "font-bold", "text-blue-900");
+        // Add the background "pill" for the active state
+        // We use view-transition-name in CSS to animate this specific element moving between pages
+        link.innerHTML += `<span class="absolute inset-0 bg-blue-100 rounded-full -z-10 shadow-sm" style="view-transition-name: active-nav-pill;"></span>`;
       } else {
         link.classList.add("text-gray-600", "hover:text-gray-900", "hover:bg-gray-200");
       }
@@ -232,14 +248,14 @@ function initGallery() {
                     isMusicPlaying = true;
                     musicIcon.textContent = "⏸";
                     musicBtn.innerHTML = '<span id="music-icon">⏸</span> Pause Ambience';
-                    musicBtn.classList.add('bg-[#d4af37]', 'text-black');
+                    musicBtn.classList.add('bg-[#d4af37]', 'text-white');
                 }).catch(e => console.log("Audio play failed", e));
             } else {
                 bgAudio.pause();
                 isMusicPlaying = false;
                 musicIcon.textContent = "▶";
                 musicBtn.innerHTML = '<span id="music-icon">▶</span> Play Gallery Ambience';
-                musicBtn.classList.remove('bg-[#d4af37]', 'text-black');
+                musicBtn.classList.remove('bg-[#d4af37]', 'text-white');
             }
         });
     }
