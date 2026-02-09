@@ -34,6 +34,7 @@ function initSharedLayout() {
             <a href="index.html#avatars" class="nav-link relative">Avatars</a>
             <a href="index.html#skills" class="nav-link relative">Skills</a>
             <a href="index.html#experience" class="nav-link relative">Experience</a>
+            <a href="index.html#team" class="nav-link relative">Team</a>
             <a href="gallery.html" class="nav-link relative" data-page="gallery.html">Gallery</a>
         </div>
       </nav>
