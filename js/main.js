@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
     initSharedLayout();
-    
+
     // Conditional Logic based on elements present on the page
     if (document.getElementById('loom-container')) {
         initImageLoom();
     }
-    
+
     if (document.getElementById('gallery-scroll-container')) {
         initGallery();
     }
@@ -30,38 +30,41 @@ function initSharedLayout() {
       <nav id="main-nav" class="fixed top-0 left-0 w-full flex justify-center bg-[#f7f7f2]/95 border-b border-[#ccc] p-3 flex-wrap z-50 backdrop-blur-sm shadow-sm transition-colors duration-300">
         <div class="flex items-center gap-2">
             <a href="index.html" class="nav-link relative" data-page="index.html">Home</a>
-            <a href="gallery.html" class="nav-link relative" data-page="gallery.html">Train Gallery</a>
-            <a href="about.html" class="nav-link relative" data-page="about.html">About</a>
+            <a href="index.html#projects" class="nav-link relative">Projects</a>
+            <a href="index.html#avatars" class="nav-link relative">Avatars</a>
+            <a href="index.html#skills" class="nav-link relative">Skills</a>
+            <a href="index.html#experience" class="nav-link relative">Experience</a>
+            <a href="gallery.html" class="nav-link relative" data-page="gallery.html">Gallery</a>
         </div>
       </nav>
     `;
-    
+
     document.body.insertAdjacentHTML("afterbegin", navHTML);
-    
+
     // Add padding to body so content doesn't hide behind fixed nav
     document.body.classList.add('pt-20');
-  
+
     // --- 3. Inject Footer ---
     const currentYear = new Date().getFullYear();
     const footerHTML = `
       <footer class="text-center p-6 bg-[#f5f5f0] text-[#555] border-t border-[#ccc] text-sm mt-auto">
-        <p>© 2025${currentYear > 2025 ? "–" + currentYear : ""} Aaron’s World — Built with ❤️ on 
-        <a href="https://neocities.org" target="_blank" class="text-[#555] underline">Neocities</a></p>
+        <p>© 2025${currentYear > 2025 ? "–" + currentYear : ""} Aaron — Built with ❤️ and deployed on 
+        <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" class="text-[#555] underline">Vercel</a></p>
       </footer>
     `;
     document.body.insertAdjacentHTML("beforeend", footerHTML);
-  
+
     // --- 4. Highlight Active Link & Setup Animation ---
     const path = location.pathname.split("/").pop();
     const currentPage = path === "" ? "index.html" : path;
-  
+
     document.querySelectorAll(".nav-link").forEach(link => {
       const targetPage = link.getAttribute("data-page");
-      
+
       // Base styles for all links
       link.classList.add("font-medium", "rounded-full", "px-5", "py-2", "text-sm", "transition-colors");
-  
-      if (targetPage === currentPage) {
+
+      if (targetPage && targetPage === currentPage) {
         link.classList.add("active-link", "font-bold", "text-blue-900");
         // Add the background "pill" for the active state
         // We use view-transition-name in CSS to animate this specific element moving between pages
@@ -81,9 +84,9 @@ function initImageLoom() {
     const leftText = document.getElementById('loom-text-left');
     const rightText = document.getElementById('loom-text-right');
     const container = document.getElementById('loom-container');
-    
+
     let isPaused = false;
-    
+
     if (reel && viewer && leftText && rightText && container) {
       let currentIndex = 0;
       const totalImages = 3;
@@ -111,7 +114,7 @@ function initImageLoom() {
 
           viewer.classList.add('shake');
           reel.style.transform = `translateY(-${currentIndex * (100 / totalImages)}%)`;
-          
+
           setTimeout(() => {
               leftText.classList.add('visible');
               rightText.classList.add('visible');
@@ -119,20 +122,20 @@ function initImageLoom() {
 
           setTimeout(() => {
             viewer.classList.remove('shake');
-          }, 400); 
+          }, 400);
         }, 500);
       }
 
       // Initial Load
       leftText.innerHTML = slideData[0].left;
       rightText.innerHTML = slideData[0].right;
-      
+
       setTimeout(() => {
           leftText.classList.add('visible');
           rightText.classList.add('visible');
       }, 200);
 
-      setInterval(changeSlide, 5000); 
+      setInterval(changeSlide, 5000);
     }
 }
 
@@ -207,18 +210,18 @@ function initGallery() {
     ];
 
     const container = document.getElementById('gallery-scroll-container');
-    
+
     // Inject Items
     galleryItems.forEach((item, index) => {
         const artPiece = document.createElement('div');
         artPiece.className = `art-piece ${item.featured ? 'featured' : ''}`;
-        
+
         let frameStyle = 'frame-wood';
         if (!item.featured) {
             if (index % 3 === 1) frameStyle = 'frame-dark-wood';
             if (index % 3 === 2) frameStyle = 'frame-black';
         }
-        
+
         artPiece.innerHTML = `
             <div class="frame ${frameStyle}">
                 <img src="${item.src}" alt="${item.title}" loading="lazy" 

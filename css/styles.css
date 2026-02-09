@@ -21,6 +21,19 @@ h1, h2, h3, .serif-font, .plaque p, .caption {
   font-family: 'Playfair Display', serif;
 }
 
+* {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* =========================================
    2. Components (Info Box, Anime)
    ========================================= */
@@ -41,6 +54,34 @@ h1, h2, h3, .serif-font, .plaque p, .caption {
   border: 1px dashed #cbd5e0;
   pointer-events: none;
   border-radius: 4px;
+}
+
+/* Avatar Grid */
+.avatar-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  background: #fff;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  box-shadow: 0 6px 12px rgba(15, 23, 42, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.avatar-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+}
+.avatar-image {
+  width: 96px;
+  height: 96px;
+  border-radius: 999px;
+  border: 3px solid #f1f5f9;
+  object-fit: cover;
+  margin: 0 auto 0.75rem;
+  background: #f8fafc;
+}
+.avatar-label {
+  font-weight: 600;
+  color: #475569;
 }
 
 /* Anime Covers */
@@ -132,6 +173,7 @@ h1, h2, h3, .serif-font, .plaque p, .caption {
     min-height: 70vh;
     scrollbar-width: thin;
     scrollbar-color: #8b5a2b #e8e6e3;
+    scroll-snap-type: x mandatory;
 }
 
 #gallery-scroll-container::-webkit-scrollbar { height: 12px; }
@@ -162,6 +204,13 @@ h1, h2, h3, .serif-font, .plaque p, .caption {
 .art-piece:nth-child(1) { animation-delay: 0.1s; }
 .art-piece:nth-child(2) { animation-delay: 0.2s; }
 .art-piece:nth-child(3) { animation-delay: 0.3s; }
+.art-piece .plaque {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.art-piece:hover .plaque {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 18px rgba(0, 0, 0, 0.15);
+}
 
 /* Frames */
 .frame {
