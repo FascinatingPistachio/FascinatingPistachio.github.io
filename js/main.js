@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (document.getElementById('gallery-scroll-container')) {
         initGallery();
     }
+
+    initAvatarCycle();
 });
 
 /* =========================================
@@ -76,7 +78,31 @@ function initSharedLayout() {
 }
 
 /* =========================================
-   2. Home Page Logic (Image Loom)
+   2. Avatar Cycle (Hero)
+   ========================================= */
+function initAvatarCycle() {
+    const avatar = document.getElementById('hero-avatar');
+    if (!avatar) return;
+
+    const list = avatar.dataset.avatarList;
+    if (!list) return;
+
+    const avatars = list.split('|').filter(Boolean);
+    if (avatars.length <= 1) return;
+
+    let index = 0;
+    setInterval(() => {
+        index = (index + 1) % avatars.length;
+        avatar.classList.add('fade-out');
+        setTimeout(() => {
+            avatar.src = avatars[index];
+            avatar.classList.remove('fade-out');
+        }, 300);
+    }, 4000);
+}
+
+/* =========================================
+   3. Home Page Logic (Image Loom)
    ========================================= */
 function initImageLoom() {
     const reel = document.getElementById('image-loom-reel');
@@ -140,7 +166,7 @@ function initImageLoom() {
 }
 
 /* =========================================
-   3. Gallery Logic (Audio & Scroll)
+   4. Gallery Logic (Audio & Scroll)
    ========================================= */
 function initGallery() {
     const galleryItems = [
