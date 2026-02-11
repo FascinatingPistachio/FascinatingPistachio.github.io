@@ -1,14 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
     initSharedLayout();
-    
+
     // Conditional Logic based on elements present on the page
     if (document.getElementById('loom-container')) {
         initImageLoom();
     }
-    
+
     if (document.getElementById('gallery-scroll-container')) {
         initGallery();
     }
+
+    initAvatarCycle();
 });
 
 /* =========================================
@@ -30,38 +32,41 @@ function initSharedLayout() {
       <nav id="main-nav" class="fixed top-0 left-0 w-full flex justify-center bg-[#f7f7f2]/95 border-b border-[#ccc] p-3 flex-wrap z-50 backdrop-blur-sm shadow-sm transition-colors duration-300">
         <div class="flex items-center gap-2">
             <a href="index.html" class="nav-link relative" data-page="index.html">Home</a>
-            <a href="gallery.html" class="nav-link relative" data-page="gallery.html">Train Gallery</a>
-            <a href="about.html" class="nav-link relative" data-page="about.html">About</a>
+            <a href="index.html#projects" class="nav-link relative">Projects</a>
+            <a href="index.html#accounts" class="nav-link relative">Accounts</a>
+            <a href="index.html#hobbies" class="nav-link relative">Hobbies</a>
+            <a href="index.html#team" class="nav-link relative">Team</a>
+            <a href="gallery.html" class="nav-link relative" data-page="gallery.html">Gallery</a>
         </div>
       </nav>
     `;
-    
+
     document.body.insertAdjacentHTML("afterbegin", navHTML);
-    
+
     // Add padding to body so content doesn't hide behind fixed nav
     document.body.classList.add('pt-20');
-  
+
     // --- 3. Inject Footer ---
     const currentYear = new Date().getFullYear();
     const footerHTML = `
       <footer class="text-center p-6 bg-[#f5f5f0] text-[#555] border-t border-[#ccc] text-sm mt-auto">
-        <p>© 2025${currentYear > 2025 ? "–" + currentYear : ""} Aaron’s World — Built with ❤️ on 
-        <a href="https://neocities.org" target="_blank" class="text-[#555] underline">Neocities</a></p>
+        <p>© 2025${currentYear > 2025 ? "–" + currentYear : ""} Aaron — Built with ❤️ and deployed on 
+        <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" class="text-[#555] underline">Vercel</a></p>
       </footer>
     `;
     document.body.insertAdjacentHTML("beforeend", footerHTML);
-  
+
     // --- 4. Highlight Active Link & Setup Animation ---
     const path = location.pathname.split("/").pop();
     const currentPage = path === "" ? "index.html" : path;
-  
+
     document.querySelectorAll(".nav-link").forEach(link => {
       const targetPage = link.getAttribute("data-page");
-      
+
       // Base styles for all links
       link.classList.add("font-medium", "rounded-full", "px-5", "py-2", "text-sm", "transition-colors");
-  
-      if (targetPage === currentPage) {
+
+      if (targetPage && targetPage === currentPage) {
         link.classList.add("active-link", "font-bold", "text-blue-900");
         // Add the background "pill" for the active state
         // We use view-transition-name in CSS to animate this specific element moving between pages
@@ -73,7 +78,31 @@ function initSharedLayout() {
 }
 
 /* =========================================
-   2. Home Page Logic (Image Loom)
+   2. Avatar Cycle (Hero)
+   ========================================= */
+function initAvatarCycle() {
+    const avatar = document.getElementById('hero-avatar');
+    if (!avatar) return;
+
+    const list = avatar.dataset.avatarList;
+    if (!list) return;
+
+    const avatars = list.split('|').filter(Boolean);
+    if (avatars.length <= 1) return;
+
+    let index = 0;
+    setInterval(() => {
+        index = (index + 1) % avatars.length;
+        avatar.classList.add('fade-out');
+        setTimeout(() => {
+            avatar.src = avatars[index];
+            avatar.classList.remove('fade-out');
+        }, 300);
+    }, 4000);
+}
+
+/* =========================================
+   3. Home Page Logic (Image Loom)
    ========================================= */
 function initImageLoom() {
     const reel = document.getElementById('image-loom-reel');
@@ -81,9 +110,9 @@ function initImageLoom() {
     const leftText = document.getElementById('loom-text-left');
     const rightText = document.getElementById('loom-text-right');
     const container = document.getElementById('loom-container');
-    
+
     let isPaused = false;
-    
+
     if (reel && viewer && leftText && rightText && container) {
       let currentIndex = 0;
       const totalImages = 3;
@@ -111,7 +140,7 @@ function initImageLoom() {
 
           viewer.classList.add('shake');
           reel.style.transform = `translateY(-${currentIndex * (100 / totalImages)}%)`;
-          
+
           setTimeout(() => {
               leftText.classList.add('visible');
               rightText.classList.add('visible');
@@ -119,25 +148,25 @@ function initImageLoom() {
 
           setTimeout(() => {
             viewer.classList.remove('shake');
-          }, 400); 
+          }, 400);
         }, 500);
       }
 
       // Initial Load
       leftText.innerHTML = slideData[0].left;
       rightText.innerHTML = slideData[0].right;
-      
+
       setTimeout(() => {
           leftText.classList.add('visible');
           rightText.classList.add('visible');
       }, 200);
 
-      setInterval(changeSlide, 5000); 
+      setInterval(changeSlide, 5000);
     }
 }
 
 /* =========================================
-   3. Gallery Logic (Audio & Scroll)
+   4. Gallery Logic (Audio & Scroll)
    ========================================= */
 function initGallery() {
     const galleryItems = [
@@ -207,18 +236,18 @@ function initGallery() {
     ];
 
     const container = document.getElementById('gallery-scroll-container');
-    
+
     // Inject Items
     galleryItems.forEach((item, index) => {
         const artPiece = document.createElement('div');
         artPiece.className = `art-piece ${item.featured ? 'featured' : ''}`;
-        
+
         let frameStyle = 'frame-wood';
         if (!item.featured) {
             if (index % 3 === 1) frameStyle = 'frame-dark-wood';
             if (index % 3 === 2) frameStyle = 'frame-black';
         }
-        
+
         artPiece.innerHTML = `
             <div class="frame ${frameStyle}">
                 <img src="${item.src}" alt="${item.title}" loading="lazy" 
@@ -231,6 +260,37 @@ function initGallery() {
         `;
         container.appendChild(artPiece);
     });
+
+    // View Controls (Grid/Carousel + Captions)
+    const gridBtn = document.getElementById('view-grid');
+    const carouselBtn = document.getElementById('view-carousel');
+    const captionsBtn = document.getElementById('toggle-captions');
+
+    function setActiveView(mode) {
+        if (mode === 'carousel') {
+            container.classList.add('gallery-carousel');
+            container.classList.remove('gallery-grid');
+            carouselBtn?.classList.add('active');
+            gridBtn?.classList.remove('active');
+        } else {
+            container.classList.remove('gallery-carousel');
+            container.classList.add('gallery-grid');
+            gridBtn?.classList.add('active');
+            carouselBtn?.classList.remove('active');
+        }
+    }
+
+    gridBtn?.addEventListener('click', () => setActiveView('grid'));
+    carouselBtn?.addEventListener('click', () => setActiveView('carousel'));
+
+    captionsBtn?.addEventListener('click', () => {
+        container.classList.toggle('gallery-hide-captions');
+        captionsBtn.textContent = container.classList.contains('gallery-hide-captions')
+            ? 'Show Captions'
+            : 'Hide Captions';
+    });
+
+    setActiveView('grid');
 
     // Audio Logic
     const musicBtn = document.getElementById('music-toggle');

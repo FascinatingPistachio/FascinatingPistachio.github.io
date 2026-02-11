@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Train Gallery - Aaron's World</title>
+    <title>Train Gallery - Aaron</title>
     
     <!-- CSS Framework -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -33,15 +33,40 @@
     <main class="flex-grow w-full flex flex-col items-center">
         
         <!-- Intro Card (Matches Index Info-Box) -->
-        <div class="w-full max-w-3xl p-6 mt-8">
+        <div class="w-full max-w-4xl p-6 mt-8">
             <div class="info-box rounded-md p-8 text-center text-gray-700">
                 <h2 class="text-3xl font-bold text-center border-b-4 border-gray-200 pb-2 text-gray-800 px-8 inline-block mb-4 font-serif">The Collection</h2>
                 <p class="text-lg leading-relaxed">Most photos were taken at the National Railway Museum in York. <br>The <span class="font-semibold text-amber-800">Stirling Single</span> is my absolute favorite!</p>
+                <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+                    <div class="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3">
+                        <p class="uppercase tracking-widest text-[11px] text-amber-700">Theme</p>
+                        <p class="font-semibold text-amber-900">Historic Steam</p>
+                    </div>
+                    <div class="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3">
+                        <p class="uppercase tracking-widest text-[11px] text-amber-700">Location</p>
+                        <p class="font-semibold text-amber-900">York, UK</p>
+                    </div>
+                    <div class="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3">
+                        <p class="uppercase tracking-widest text-[11px] text-amber-700">Tip</p>
+                        <p class="font-semibold text-amber-900">Tap 🔊 for audio stories</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="w-full max-w-6xl px-6">
+            <div class="gallery-toolbar">
+                <div class="gallery-toolbar-group">
+                    <button id="view-grid" class="gallery-view-btn active" type="button">Grid View</button>
+                    <button id="view-carousel" class="gallery-view-btn" type="button">Carousel View</button>
+                </div>
+                <button id="toggle-captions" class="gallery-view-btn" type="button">Hide Captions</button>
             </div>
         </div>
 
         <!-- Scroll Container (Full Width) -->
-        <div id="gallery-scroll-container" class="w-full">
+        <div id="gallery-scroll-container" class="w-full gallery-grid">
             <!-- Items injected by js/main.js -->
         </div>
 

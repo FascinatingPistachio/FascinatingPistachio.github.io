@@ -3,159 +3,179 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Aaron's World - Portfolio, Train Gallery, and Hobby Corner">
-  <title>Aaron's World</title>
-  
-  <!-- CSS Framework -->
+  <meta name="description" content="Aaron's portfolio featuring UserPFP, Team Gelatofish, platform avatars, and creative hobbies." />
+  <title>Aaron | Portfolio</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Custom Styles -->
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 
-<body class="min-h-screen flex flex-col selection:bg-amber-200 selection:text-amber-900">
-
-  <!-- Header -->
-  <header class="bg-[#f5f5f0] text-center pt-10 pb-6 border-b border-[#ccc] z-20 relative shadow-sm">
-    <div class="max-w-4xl mx-auto px-4">
-      <h1 class="text-4xl md:text-6xl font-bold text-[#222] mb-3 tracking-wide drop-shadow-sm">
-        Aaron's World
-      </h1>
-      <div class="h-1 w-24 bg-gray-300 mx-auto mb-3 rounded-full"></div>
-      <p class="text-[#555] text-lg md:text-xl italic serif-font">Welcome to my little corner of the web.</p>
+<body class="min-h-screen flex flex-col selection:bg-pink-200 selection:text-pink-900">
+  <header class="bg-[#f5f5f0] border-b border-[#d6d3d1] shadow-sm">
+    <div class="max-w-6xl mx-auto px-6 py-12 text-center">
+      <p class="text-xs tracking-[0.35em] uppercase text-slate-500">Portfolio</p>
+      <h1 class="mt-3 text-4xl md:text-6xl font-bold text-slate-900">Aaron</h1>
+      <p class="mt-4 text-lg text-slate-600 serif-font">Builder of UserPFP, founder of Team Gelatofish, and creator of fun web experiences.</p>
+      <div class="mt-7 flex flex-wrap justify-center gap-3">
+        <a href="#projects" class="rounded-full bg-slate-900 text-white px-6 py-2.5 font-semibold hover:bg-slate-700 transition-colors">View Projects</a>
+        <a href="#accounts" class="rounded-full border border-slate-300 bg-white px-6 py-2.5 font-semibold text-slate-700 hover:bg-slate-100 transition-colors">Accounts</a>
+      </div>
     </div>
   </header>
 
   <!-- Navigation injected by js/main.js -->
 
-  <main class="flex-grow flex flex-col items-center justify-start p-4 md:py-12 md:px-6">
-
-    <div class="info-box max-w-5xl w-full rounded-md">
-      <div class="p-6 md:p-10 relative z-10">
-        
-        <div class="flex items-center justify-center mb-10">
-            <h2 class="text-3xl font-bold text-center border-b-4 border-gray-200 pb-2 text-gray-700 px-8 inline-block">About Me</h2>
-        </div>
-
-        <!-- ===== Image Loom with Side Text ===== -->
-        <div id="loom-container" class="group flex flex-col sm:flex-row justify-center items-center gap-6 mb-12 bg-gray-100 p-8 rounded-xl border border-gray-200 shadow-inner">
-            
-            <!-- Left Text Box -->
-            <div class="loom-text-wrapper order-2 sm:order-1">
-              <div id="loom-text-left" class="loom-text text-center text-gray-600 font-serif italic text-lg leading-tight"></div>
-            </div>
-
-            <!-- Image Loom Viewer -->
-            <div class="w-52 h-52 sm:w-64 sm:h-64 relative flex-shrink-0 order-1 sm:order-2">
-                <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 w-40 h-3 bg-gradient-to-b from-gray-300 to-gray-400 rounded-full z-10 shadow-sm border border-gray-400">
-                    <div class="absolute top-1 left-2 w-1 h-1 bg-gray-500 rounded-full"></div>
-                    <div class="absolute top-1 right-2 w-1 h-1 bg-gray-500 rounded-full"></div>
-                </div>
-                
-                <div class="w-full h-full border-[6px] border-[#cbd5e0] bg-white relative overflow-hidden shadow-xl rounded-xl" id="image-loom-viewer">
-                    <div class="absolute w-full h-[300%] top-0 left-0 transition-transform duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)]" id="image-loom-reel">
-                        <!-- Slide 1 -->
-                        <div class="w-full h-[33.3333%] flex flex-col items-center justify-center p-4 relative bg-slate-50">
-                            <img src="https://i.ibb.co/TDz2pDHN/Gemini-Generated-Image-s78wyfs78wyfs78w-imgupscaler-ai-Beta-2-K-512x512.jpg" alt="Aaron's profile picture" class="w-full h-full object-contain drop-shadow-md rounded-full" onerror="this.src='https://placehold.co/160x160/e8e6e3/777777?text=Aaron';">
-                        </div>
-                        <!-- Slide 2 -->
-                        <div class="w-full h-[33.3333%] flex flex-col items-center justify-center p-4 relative bg-yellow-50">
-                            <img src="https://i.ibb.co/SsGZF4Z/Aaron-Minifig.png" alt="Aaron as a Lego minifig" class="w-full h-full object-contain drop-shadow-md" onerror="this.src='https://placehold.co/160x160/e8e6e3/777777?text=Lego';">
-                        </div>
-                        <!-- Slide 3 -->
-                        <div class="w-full h-[33.3333%] flex flex-col items-center justify-center p-4 relative bg-blue-50">
-                            <img src="https://cdn-mii.accounts.nintendo.com/2.0.0/mii_images/b55b2028ffa7765b/cac39114f9d53cb8324bbec1a8dfd6e9f3cbc5f6.png?type=face&width=270" alt="Aaron as a Mii" class="w-full h-full object-contain drop-shadow-md" onerror="this.src='https://placehold.co/160x160/e8e6e3/777777?text=Mii';">
-                        </div>
-                    </div>
-                    <div class="absolute inset-0 texture-overlay z-20"></div>
-                    <div class="absolute inset-0 pointer-events-none shadow-[inset_0_0_20px_rgba(0,0,0,0.1)] rounded-lg z-30"></div>
-                </div>
-                <div class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-40 h-3 bg-gradient-to-b from-gray-400 to-gray-300 rounded-full z-10 shadow-sm border border-gray-400"></div>
-            </div>
-            
-            <!-- Right Text Box -->
-            <div class="loom-text-wrapper order-3 sm:order-3">
-              <div id="loom-text-right" class="loom-text text-center text-gray-600 font-serif italic text-lg leading-tight"></div>
-            </div>
-        </div>
-
-        <div class="prose max-w-3xl mx-auto text-gray-700 space-y-6 text-lg leading-relaxed font-light">
-            <p>
-              <span class="text-3xl font-serif text-gray-400 float-left mr-2 mt-[-10px]">H</span>ello there! My name is <strong>Aaron</strong>. 
-              I love <span class="bg-amber-100 px-1 rounded border-b-2 border-amber-200 font-medium">steam trains</span>. Something about them has always fascinated me.
-            </p>
-            <p>
-              I sometimes paint miniatures, but I mostly enjoy playing video games like <em>Fortnite</em>, <em>Roblox</em>, <em>Minecraft</em>, or other games on my <em>Nintendo Switch</em>.
-            </p>
-            <p class="border-l-4 border-red-300 pl-4 italic bg-red-50 py-2 rounded-r">
-              I’m also into anime and have been slowly learning some Japanese. Here are a few of my favorites:
-            </p>
-        </div>
-
-        <!-- Anime Grid -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 md:gap-6 my-12 text-center">
-          <div class="anime-cover-container group cursor-pointer">
-            <a href="https://bentoroll.vercel.app/series.html?series=dr-stone" target="_blank" rel="noopener noreferrer" class="block">
-              <div class="relative overflow-hidden border-4 border-white rounded-sm shadow-md aspect-[2/3]">
-                <img src="https://i.ibb.co/bMptFwVN/60930bac0d6c0.jpg" alt="Dr. Stone" class="anime-cover w-full h-full object-cover" onerror="this.src='https://placehold.co/200x300/e2e8f0/777777?text=Dr.+Stone';">
-                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
+  <main class="flex-grow px-4 py-8 md:px-6 md:py-12">
+    <div class="max-w-6xl mx-auto space-y-8">
+      <section class="info-box rounded-2xl overflow-hidden">
+        <div class="p-6 md:p-10 grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-center relative z-10">
+          <div>
+            <p class="text-sm uppercase tracking-[0.3em] text-slate-500">Overview</p>
+            <h2 class="mt-3 text-3xl md:text-4xl font-bold text-slate-900">Making Discord customization easier and more creative.</h2>
+            <p class="mt-4 text-slate-700 text-lg leading-relaxed">I focus on practical community tools and polished frontend work. My two core projects are <strong>UserPFP</strong> and <strong>Team Gelatofish</strong>, and everything else on this site supports that mission.</p>
+            <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div class="stat-chip">
+                <span>Focus</span>
+                <strong>Product + Frontend</strong>
               </div>
-            </a>
-            <p class="anime-title mt-3 font-bold text-gray-600 text-sm tracking-tight group-hover:text-blue-600">Dr. Stone</p>
-          </div>
-          <div class="anime-cover-container group">
-            <div class="relative overflow-hidden border-4 border-white rounded-sm shadow-md aspect-[2/3]">
-              <img src="https://i.ibb.co/7NRrqKF1/MV5-BMWU1-OGEw-Nm-Qt-NGM3-MS00-YTYy-LThm-Ym-Mt-N2-Fj-Yz-Qz-Nz-Nm-NTE0-Xk-Ey-Xk-Fqc-Gc-V1.jpg" alt="Demon Slayer" class="anime-cover w-full h-full object-cover" onerror="this.src='https://placehold.co/200x300/e2e8f0/777777?text=Demon+Slayer';">
-            </div>
-            <p class="anime-title mt-3 font-bold text-gray-600 text-sm tracking-tight">Demon Slayer</p>
-          </div>
-          <div class="anime-cover-container group">
-            <div class="relative overflow-hidden border-4 border-white rounded-sm shadow-md aspect-[2/3]">
-              <img src="https://i.ibb.co/tTH2JGcg/MV5-BYTgy-ZDhm-MTEt-ZDFh-Ni00-MTc4-LTg3-Nj-Ut-YWJl-NGE5-Mzk2-Nz-Mx-Xk-Ey-Xk-Fqc-Gc-V1.jpg" alt="Death Note" class="anime-cover w-full h-full object-cover" onerror="this.src='https://placehold.co/200x300/e2e8f0/777777?text=Death+Note';">
-            </div>
-            <p class="anime-title mt-3 font-bold text-gray-600 text-sm tracking-tight">Death Note</p>
-          </div>
-          <div class="anime-cover-container group cursor-pointer">
-            <a href="https://bentoroll.vercel.app/series.html?series=gachiakuta" target="_blank" rel="noopener noreferrer" class="block">
-              <div class="relative overflow-hidden border-4 border-white rounded-sm shadow-md aspect-[2/3]">
-                <img src="https://i.ibb.co/XZj5cQcR/MV5-BZDU5-Zm-Ez-ODYt-MDU2-OS00-NTZi-LTk4-MWYt-YWUy-ZWUz-NGU2-ODdj-Xk-Ey-Xk-Fqc-Gc-V1.jpg" alt="Gachiakuta" class="anime-cover w-full h-full object-cover" onerror="this.src='https://placehold.co/200x300/e2e8f0/777777?text=Gachiakuta';">
-                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
+              <div class="stat-chip">
+                <span>Main Stack</span>
+                <strong>HTML / CSS / JS</strong>
               </div>
-            </a>
-            <p class="anime-title mt-3 font-bold text-gray-600 text-sm tracking-tight group-hover:text-blue-600">Gachiakuta</p>
-          </div>
-          <div class="anime-cover-container group">
-            <div class="relative overflow-hidden border-4 border-white rounded-sm shadow-md aspect-[2/3]">
-              <img src="https://i.ibb.co/xSKwqcGm/image.png" alt="Tougen Anki" class="anime-cover w-full h-full object-cover" onerror="this.src='https://placehold.co/200x300/e2e8f0/777777?text=Tougen+Anki';">
+              <div class="stat-chip">
+                <span>Deployment</span>
+                <strong>Vercel-ready</strong>
+              </div>
             </div>
-            <p class="anime-title mt-3 font-bold text-gray-600 text-sm tracking-tight">Tougen Anki</p>
           </div>
-        </div>
 
-        <!-- Links Card -->
-        <div class="flex flex-col md:flex-row gap-6 mt-10 border-t-2 border-dashed border-gray-300 pt-10">
-          <div class="flex-1 bg-blue-50 border border-blue-200 rounded-lg p-6 text-center hover:shadow-md transition-shadow">
-            <h3 class="text-xl font-bold text-blue-900 mb-2">Gamer Gear</h3>
-            <p class="text-gray-600 mb-4">Check out my Fortnite wishlist:</p>
-            <a href="https://fortnite.gg/wishlist?id=518159" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-blue-600 text-white font-bold py-2 px-6 rounded hover:bg-blue-700 transition-colors shadow-sm">
-              View Wishlist
-            </a>
-          </div>
-          <div class="flex-1 bg-amber-50 border border-amber-200 rounded-lg p-6 text-center hover:shadow-md transition-shadow">
-            <h3 class="text-xl font-bold text-amber-900 mb-2">Locomotives</h3>
-            <p class="text-gray-600 mb-4">Explore my collection of train photography:</p>
-            <a href="gallery.html" class="inline-flex items-center justify-center bg-amber-700 text-white font-bold py-2 px-6 rounded hover:bg-amber-800 transition-colors shadow-sm">
-              Enter Gallery
-            </a>
+          <aside class="profile-panel">
+            <div class="flex items-center gap-4">
+              <img
+                id="hero-avatar"
+                src="https://dynamicavatarapi.vercel.app/api/github/avatar?user=FascinatingPistachio&size=256"
+                alt="Aaron rotating avatar"
+                class="h-24 w-24 rounded-full border-4 border-white shadow-md"
+                data-avatar-list="https://dynamicavatarapi.vercel.app/api/github/avatar?user=FascinatingPistachio&size=256|https://raw.githubusercontent.com/UserPFP/img/main/Avatars/7/789872551731527690.gif|https://dynamicavatarapi.vercel.app/api/minecraft/face?user=Aarontendo&size=256|https://dynamicavatarapi.vercel.app/api/roblox/avatar?user=Aaronlikesbac0n&size=256|https://dynamicavatarapi.vercel.app/api/steam/avatar?user=FoxStorm1_&size=184|https://dynamicavatarapi.vercel.app/api/chess/avatar?user=Aaronlikesbacon&size=256|https://cdn-mii.accounts.nintendo.com/2.0.0/mii_images/b55b2028ffa7765b/cac39114f9d53cb8324bbec1a8dfd6e9f3cbc5f6.png?type=face&width=270"
+                onerror="this.src='https://placehold.co/160x160/e8e6e3/777777?text=Avatar';"
+              />
+              <div>
+                <p class="text-sm text-slate-500">Primary</p>
+                <p class="text-xl font-bold text-slate-800">@FascinatingPistachio</p>
+                <a href="https://github.com/FascinatingPistachio" target="_blank" rel="noopener noreferrer" class="text-blue-600 font-semibold hover:underline">GitHub Profile</a>
+              </div>
+            </div>
+            <p class="mt-4 text-sm text-slate-600">Avatar rotates between your platform images every few seconds.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section id="projects" class="info-box rounded-2xl">
+        <div class="p-6 md:p-10 relative z-10">
+          <p class="section-kicker">Projects</p>
+          <h3 class="section-title">Core work</h3>
+          <div class="mt-6 grid md:grid-cols-2 gap-6">
+            <article class="project-card">
+              <p class="project-tag">Founder Project</p>
+              <h4>UserPFP</h4>
+              <p>A project I founded focused on dynamic profile experiences, including animated avatars and API-driven images for Discord communities.</p>
+              <a href="https://userpfp.vercel.app/" target="_blank" rel="noopener noreferrer">Visit UserPFP →</a>
+            </article>
+            <article class="project-card">
+              <p class="project-tag">Team Project</p>
+              <h4>Team Gelatofish</h4>
+              <p>The team I’m building around UserPFP to manage community quality, support, and rollout of customization tools.</p>
+              <a href="https://gelatofish.vercel.app/" target="_blank" rel="noopener noreferrer">Visit Team Gelatofish →</a>
+            </article>
           </div>
         </div>
-      </div>
+      </section>
+
+      <section id="accounts" class="info-box rounded-2xl">
+        <div class="p-6 md:p-10 relative z-10">
+          <p class="section-kicker">Accounts</p>
+          <h3 class="section-title">Avatar + profile hub</h3>
+          <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+            <a class="avatar-card" href="https://github.com/FascinatingPistachio" target="_blank" rel="noopener noreferrer">
+              <img src="https://dynamicavatarapi.vercel.app/api/github/avatar?user=FascinatingPistachio&size=256" alt="GitHub avatar" class="avatar-image" />
+              <p class="avatar-label">GitHub</p>
+            </a>
+            <div class="avatar-card">
+              <img src="https://raw.githubusercontent.com/UserPFP/img/main/Avatars/7/789872551731527690.gif" alt="Discord avatar" class="avatar-image" />
+              <p class="avatar-label">Discord</p>
+            </div>
+            <div class="avatar-card">
+              <img src="https://dynamicavatarapi.vercel.app/api/minecraft/face?user=Aarontendo&size=256" alt="Minecraft avatar" class="avatar-image" />
+              <p class="avatar-label">Minecraft</p>
+            </div>
+            <a class="avatar-card" href="https://www.roblox.com/users/profile?username=Aaronlikesbac0n" target="_blank" rel="noopener noreferrer">
+              <img src="https://dynamicavatarapi.vercel.app/api/roblox/avatar?user=Aaronlikesbac0n&size=256" alt="Roblox avatar" class="avatar-image" />
+              <p class="avatar-label">Roblox</p>
+            </a>
+            <a class="avatar-card" href="https://steamcommunity.com/id/FoxStorm1_" target="_blank" rel="noopener noreferrer">
+              <img src="https://dynamicavatarapi.vercel.app/api/steam/avatar?user=FoxStorm1_&size=184" alt="Steam avatar" class="avatar-image" />
+              <p class="avatar-label">Steam</p>
+            </a>
+            <a class="avatar-card" href="https://www.chess.com/member/aaronlikesbacon" target="_blank" rel="noopener noreferrer">
+              <img src="https://dynamicavatarapi.vercel.app/api/chess/avatar?user=Aaronlikesbacon&size=256" alt="Chess.com avatar" class="avatar-image" />
+              <p class="avatar-label">Chess.com</p>
+            </a>
+            <div class="avatar-card">
+              <img src="https://dynamicavatarapi.vercel.app/api/overwatch/icon?user=Aarontendo-2585&size=128" alt="Overwatch icon" class="avatar-image" />
+              <p class="avatar-label">Overwatch</p>
+            </div>
+            <div class="avatar-card">
+              <img src="https://i.ibb.co/SsGZF4Z/Aaron-Minifig.png" alt="LEGO minifig avatar" class="avatar-image" />
+              <p class="avatar-label">LEGO</p>
+            </div>
+            <div class="avatar-card">
+              <img src="https://cdn-mii.accounts.nintendo.com/2.0.0/mii_images/b55b2028ffa7765b/cac39114f9d53cb8324bbec1a8dfd6e9f3cbc5f6.png?type=face&width=270" alt="Nintendo Mii avatar" class="avatar-image" />
+              <p class="avatar-label">Nintendo Mii</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="hobbies" class="grid lg:grid-cols-2 gap-6">
+        <article class="info-box rounded-2xl">
+          <div class="p-6 md:p-8 relative z-10">
+            <p class="section-kicker">Hobbies</p>
+            <h3 class="section-title">Anime picks</h3>
+            <div class="mt-4 flex flex-wrap gap-2 text-sm">
+              <span class="chip">Dr. Stone</span>
+              <span class="chip">Demon Slayer</span>
+              <span class="chip">Death Note</span>
+              <span class="chip">Gachiakuta</span>
+              <span class="chip">Tougen Anki</span>
+            </div>
+            <p class="mt-4 text-slate-600">These are recommendations and favorites, not project work.</p>
+          </div>
+        </article>
+        <article class="info-box rounded-2xl">
+          <div class="p-6 md:p-8 relative z-10">
+            <p class="section-kicker">Hobbies</p>
+            <h3 class="section-title">Train photography</h3>
+            <p class="text-slate-700">I also maintain a personal train gallery featuring locomotives and audio snippets from museum visits.</p>
+            <a href="gallery.html" class="inline-flex mt-4 font-semibold text-blue-600 hover:underline">Open train gallery →</a>
+          </div>
+        </article>
+      </section>
+
+      <section id="team" class="info-box rounded-2xl">
+        <div class="p-6 md:p-10 relative z-10">
+          <p class="section-kicker">Team</p>
+          <h3 class="section-title">Team Gelatofish</h3>
+          <p class="mt-3 text-slate-700 max-w-3xl">Team Gelatofish is the community side of the ecosystem — helping keep customization open, safe, and organized while supporting UserPFP growth.</p>
+          <div class="mt-5 flex flex-wrap gap-3">
+            <a href="https://gelatofish.vercel.app/" target="_blank" rel="noopener noreferrer" class="rounded-full bg-pink-600 text-white px-5 py-2.5 font-semibold hover:bg-pink-700 transition-colors">Visit Team Gelatofish</a>
+            <span class="rounded-full border border-slate-300 px-5 py-2.5 text-slate-600 font-semibold">Join Discord (Coming soon)</span>
+          </div>
+        </div>
+      </section>
     </div>
   </main>
 
   <!-- Footer injected by js/main.js -->
-
-  <!-- Main Logic -->
   <script src="js/main.js"></script>
 </body>
 </html>
