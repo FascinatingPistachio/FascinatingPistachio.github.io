@@ -33,9 +33,9 @@ function initSharedLayout() {
         <div class="flex items-center gap-2">
             <a href="index.html" class="nav-link relative" data-page="index.html">Home</a>
             <a href="index.html#projects" class="nav-link relative">Projects</a>
-            <a href="index.html#accounts" class="nav-link relative">Accounts</a>
-            <a href="index.html#hobbies" class="nav-link relative">Hobbies</a>
-            <a href="index.html#team" class="nav-link relative">Team</a>
+            <a href="index.html#skills" class="nav-link relative">Skills</a>
+            <a href="index.html#experience" class="nav-link relative">Experience</a>
+            <a href="index.html#contact" class="nav-link relative">Contact</a>
             <a href="gallery.html" class="nav-link relative" data-page="gallery.html">Gallery</a>
         </div>
       </nav>
@@ -50,7 +50,7 @@ function initSharedLayout() {
     const currentYear = new Date().getFullYear();
     const footerHTML = `
       <footer class="text-center p-6 bg-[#f5f5f0] text-[#555] border-t border-[#ccc] text-sm mt-auto">
-        <p>© 2025${currentYear > 2025 ? "–" + currentYear : ""} Aaron — Built with ❤️ and deployed on 
+        <p>© 2025${currentYear > 2025 ? "–" + currentYear : ""} Aaron Pistachio — Built with ❤️ and deployed on 
         <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" class="text-[#555] underline">Vercel</a></p>
       </footer>
     `;

@@ -3,176 +3,186 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Aaron's portfolio featuring UserPFP, Team Gelatofish, platform avatars, and creative hobbies." />
-  <title>Aaron | Portfolio</title>
+  <meta name="description" content="Portfolio of Aaron Pistachio — projects, skills, and contact information.">
+  <title>Aaron Pistachio | Portfolio</title>
 
+  <!-- CSS Framework -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 
-<body class="min-h-screen flex flex-col selection:bg-pink-200 selection:text-pink-900">
-  <header class="bg-[#f5f5f0] border-b border-[#d6d3d1] shadow-sm">
-    <div class="max-w-6xl mx-auto px-6 py-12 text-center">
-      <p class="text-xs tracking-[0.35em] uppercase text-slate-500">Portfolio</p>
-      <h1 class="mt-3 text-4xl md:text-6xl font-bold text-slate-900">Aaron</h1>
-      <p class="mt-4 text-lg text-slate-600 serif-font">Builder of UserPFP, founder of Team Gelatofish, and creator of fun web experiences.</p>
-      <div class="mt-7 flex flex-wrap justify-center gap-3">
-        <a href="#projects" class="rounded-full bg-slate-900 text-white px-6 py-2.5 font-semibold hover:bg-slate-700 transition-colors">View Projects</a>
-        <a href="#accounts" class="rounded-full border border-slate-300 bg-white px-6 py-2.5 font-semibold text-slate-700 hover:bg-slate-100 transition-colors">Accounts</a>
+<body class="min-h-screen flex flex-col selection:bg-amber-200 selection:text-amber-900">
+  <!-- Header -->
+  <header class="bg-[#f5f5f0] pt-10 pb-10 border-b border-[#ccc] z-20 relative shadow-sm">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <p class="text-sm uppercase tracking-[0.3em] text-gray-500">Portfolio</p>
+      <h1 class="text-4xl md:text-6xl font-bold text-[#222] mt-3 tracking-wide drop-shadow-sm">
+        Aaron Pistachio
+      </h1>
+      <p class="text-[#555] text-lg md:text-xl italic serif-font mt-3">
+        Front-end builder, storyteller, and hobbyist technologist.
+      </p>
+      <div class="mt-6 flex flex-wrap justify-center gap-3">
+        <a href="#projects" class="inline-flex items-center justify-center rounded-full bg-blue-600 text-white px-6 py-2 font-semibold shadow-sm hover:bg-blue-700 transition-colors">View Projects</a>
+        <a href="#contact" class="inline-flex items-center justify-center rounded-full border border-gray-300 bg-white px-6 py-2 font-semibold text-gray-700 hover:bg-gray-100 transition-colors">Contact Me</a>
       </div>
     </div>
   </header>
 
   <!-- Navigation injected by js/main.js -->
 
-  <main class="flex-grow px-4 py-8 md:px-6 md:py-12">
-    <div class="max-w-6xl mx-auto space-y-8">
-      <section class="info-box rounded-2xl overflow-hidden">
-        <div class="p-6 md:p-10 grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-center relative z-10">
-          <div>
-            <p class="text-sm uppercase tracking-[0.3em] text-slate-500">Overview</p>
-            <h2 class="mt-3 text-3xl md:text-4xl font-bold text-slate-900">Making Discord customization easier and more creative.</h2>
-            <p class="mt-4 text-slate-700 text-lg leading-relaxed">I focus on practical community tools and polished frontend work. My two core projects are <strong>UserPFP</strong> and <strong>Team Gelatofish</strong>, and everything else on this site supports that mission.</p>
-            <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <div class="stat-chip">
-                <span>Focus</span>
-                <strong>Product + Frontend</strong>
+  <main class="flex-grow flex flex-col items-center justify-start p-4 md:py-12 md:px-6">
+    <section id="top" class="info-box max-w-6xl w-full rounded-md">
+      <div class="p-6 md:p-10 relative z-10 space-y-12">
+        <div class="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-10 items-center">
+          <div class="space-y-6">
+            <div class="flex items-center gap-3 text-sm uppercase tracking-[0.3em] text-gray-500">
+              <span class="h-px w-10 bg-gray-300"></span>
+              <span>About</span>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Building memorable web experiences with heart.</h2>
+            <p class="text-gray-700 text-lg leading-relaxed">
+              I design and build friendly, fast, and accessible web experiences that feel personal. My work blends
+              front-end engineering with playful storytelling — from interactive galleries to custom fan hubs.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+                <p class="text-sm text-gray-500">Focus</p>
+                <p class="text-lg font-semibold text-gray-800">HTML • CSS • JS</p>
               </div>
-              <div class="stat-chip">
-                <span>Main Stack</span>
-                <strong>HTML / CSS / JS</strong>
+              <div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+                <p class="text-sm text-gray-500">Based in</p>
+                <p class="text-lg font-semibold text-gray-800">Online / Remote</p>
               </div>
-              <div class="stat-chip">
-                <span>Deployment</span>
-                <strong>Vercel-ready</strong>
+              <div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+                <p class="text-sm text-gray-500">Availability</p>
+                <p class="text-lg font-semibold text-gray-800">Open to collabs</p>
               </div>
             </div>
           </div>
-
-          <aside class="profile-panel">
-            <div class="flex items-center gap-4">
-              <img
-                id="hero-avatar"
-                src="https://dynamicavatarapi.vercel.app/api/github/avatar?user=FascinatingPistachio&size=256"
-                alt="Aaron rotating avatar"
-                class="h-24 w-24 rounded-full border-4 border-white shadow-md"
-                data-avatar-list="https://dynamicavatarapi.vercel.app/api/github/avatar?user=FascinatingPistachio&size=256|https://raw.githubusercontent.com/UserPFP/img/main/Avatars/7/789872551731527690.gif|https://dynamicavatarapi.vercel.app/api/minecraft/face?user=Aarontendo&size=256|https://dynamicavatarapi.vercel.app/api/roblox/avatar?user=Aaronlikesbac0n&size=256|https://dynamicavatarapi.vercel.app/api/steam/avatar?user=FoxStorm1_&size=184|https://dynamicavatarapi.vercel.app/api/chess/avatar?user=Aaronlikesbacon&size=256|https://cdn-mii.accounts.nintendo.com/2.0.0/mii_images/b55b2028ffa7765b/cac39114f9d53cb8324bbec1a8dfd6e9f3cbc5f6.png?type=face&width=270"
-                onerror="this.src='https://placehold.co/160x160/e8e6e3/777777?text=Avatar';"
-              />
+          <div class="rounded-2xl border border-gray-200 bg-gradient-to-br from-blue-50 to-amber-50 p-6 shadow-md">
+            <div class="flex items-center gap-5">
+              <img src="https://github.com/FascinatingPistachio.png" alt="GitHub avatar for FascinatingPistachio" class="h-24 w-24 rounded-full border-4 border-white shadow-md" onerror="this.src='https://placehold.co/160x160/e8e6e3/777777?text=Avatar';">
               <div>
-                <p class="text-sm text-slate-500">Primary</p>
-                <p class="text-xl font-bold text-slate-800">@FascinatingPistachio</p>
-                <a href="https://github.com/FascinatingPistachio" target="_blank" rel="noopener noreferrer" class="text-blue-600 font-semibold hover:underline">GitHub Profile</a>
+                <p class="text-sm text-gray-500">GitHub</p>
+                <p class="text-xl font-bold text-gray-800">@FascinatingPistachio</p>
+                <a href="https://github.com/FascinatingPistachio" target="_blank" rel="noopener noreferrer" class="text-blue-600 font-semibold hover:underline">View Profile</a>
               </div>
             </div>
-            <p class="mt-4 text-sm text-slate-600">Avatar rotates between your platform images every few seconds.</p>
-          </aside>
+            <div class="mt-6 space-y-3 text-gray-700">
+              <p class="font-semibold">Highlights</p>
+              <ul class="space-y-2 text-sm">
+                <li>• Builds hobby-driven experiences (trains, anime, gaming).</li>
+                <li>• Turns static ideas into polished, deployable sites.</li>
+                <li>• Ships Vercel-ready HTML portfolios.</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section id="projects" class="info-box rounded-2xl">
-        <div class="p-6 md:p-10 relative z-10">
-          <p class="section-kicker">Projects</p>
-          <h3 class="section-title">Core work</h3>
-          <div class="mt-6 grid md:grid-cols-2 gap-6">
-            <article class="project-card">
-              <p class="project-tag">Founder Project</p>
-              <h4>UserPFP</h4>
-              <p>A project I founded focused on dynamic profile experiences, including animated avatars and API-driven images for Discord communities.</p>
-              <a href="https://userpfp.vercel.app/" target="_blank" rel="noopener noreferrer">Visit UserPFP →</a>
+        <section id="projects" class="space-y-6">
+          <div class="flex items-center gap-3 text-sm uppercase tracking-[0.3em] text-gray-500">
+            <span class="h-px w-10 bg-gray-300"></span>
+            <span>Projects</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <article class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
+              <h3 class="text-xl font-bold text-gray-800">Steam Train Gallery</h3>
+              <p class="text-gray-600 mt-2">An interactive gallery with custom frames, audio notes, and smooth scroll UX.</p>
+              <div class="mt-4 flex flex-wrap gap-2 text-sm">
+                <span class="rounded-full bg-amber-100 px-3 py-1 text-amber-900">HTML</span>
+                <span class="rounded-full bg-amber-100 px-3 py-1 text-amber-900">Tailwind</span>
+                <span class="rounded-full bg-amber-100 px-3 py-1 text-amber-900">JavaScript</span>
+              </div>
+              <a href="gallery.html" class="mt-4 inline-flex items-center font-semibold text-blue-600 hover:underline">View Gallery →</a>
             </article>
-            <article class="project-card">
-              <p class="project-tag">Team Project</p>
-              <h4>Team Gelatofish</h4>
-              <p>The team I’m building around UserPFP to manage community quality, support, and rollout of customization tools.</p>
-              <a href="https://gelatofish.vercel.app/" target="_blank" rel="noopener noreferrer">Visit Team Gelatofish →</a>
+            <article class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
+              <h3 class="text-xl font-bold text-gray-800">Anime Watchlist Hub</h3>
+              <p class="text-gray-600 mt-2">A curated landing page for favorite series, with shareable cards and deep links.</p>
+              <div class="mt-4 flex flex-wrap gap-2 text-sm">
+                <span class="rounded-full bg-blue-100 px-3 py-1 text-blue-900">Content Design</span>
+                <span class="rounded-full bg-blue-100 px-3 py-1 text-blue-900">UI</span>
+              </div>
+              <a href="https://bentoroll.vercel.app" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center font-semibold text-blue-600 hover:underline">Live Demo →</a>
+            </article>
+            <article class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
+              <h3 class="text-xl font-bold text-gray-800">Gaming Wishlist Tracker</h3>
+              <p class="text-gray-600 mt-2">A clean dashboard that highlights upcoming gaming drops and wishlist moments.</p>
+              <div class="mt-4 flex flex-wrap gap-2 text-sm">
+                <span class="rounded-full bg-emerald-100 px-3 py-1 text-emerald-900">UX</span>
+                <span class="rounded-full bg-emerald-100 px-3 py-1 text-emerald-900">Branding</span>
+              </div>
+              <a href="https://fortnite.gg/wishlist?id=518159" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center font-semibold text-blue-600 hover:underline">Wishlist →</a>
             </article>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section id="accounts" class="info-box rounded-2xl">
-        <div class="p-6 md:p-10 relative z-10">
-          <p class="section-kicker">Accounts</p>
-          <h3 class="section-title">Avatar + profile hub</h3>
-          <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-            <a class="avatar-card" href="https://github.com/FascinatingPistachio" target="_blank" rel="noopener noreferrer">
-              <img src="https://dynamicavatarapi.vercel.app/api/github/avatar?user=FascinatingPistachio&size=256" alt="GitHub avatar" class="avatar-image" />
-              <p class="avatar-label">GitHub</p>
-            </a>
-            <div class="avatar-card">
-              <img src="https://raw.githubusercontent.com/UserPFP/img/main/Avatars/7/789872551731527690.gif" alt="Discord avatar" class="avatar-image" />
-              <p class="avatar-label">Discord</p>
+        <section id="skills" class="space-y-6">
+          <div class="flex items-center gap-3 text-sm uppercase tracking-[0.3em] text-gray-500">
+            <span class="h-px w-10 bg-gray-300"></span>
+            <span>Skills</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+              <h3 class="text-lg font-bold text-gray-800">Front-End</h3>
+              <div class="mt-4 flex flex-wrap gap-2 text-sm">
+                <span class="rounded-full bg-gray-100 px-3 py-1 text-gray-700">Semantic HTML</span>
+                <span class="rounded-full bg-gray-100 px-3 py-1 text-gray-700">Tailwind CSS</span>
+                <span class="rounded-full bg-gray-100 px-3 py-1 text-gray-700">Responsive Design</span>
+                <span class="rounded-full bg-gray-100 px-3 py-1 text-gray-700">Accessibility</span>
+              </div>
             </div>
-            <div class="avatar-card">
-              <img src="https://dynamicavatarapi.vercel.app/api/minecraft/face?user=Aarontendo&size=256" alt="Minecraft avatar" class="avatar-image" />
-              <p class="avatar-label">Minecraft</p>
-            </div>
-            <a class="avatar-card" href="https://www.roblox.com/users/profile?username=Aaronlikesbac0n" target="_blank" rel="noopener noreferrer">
-              <img src="https://dynamicavatarapi.vercel.app/api/roblox/avatar?user=Aaronlikesbac0n&size=256" alt="Roblox avatar" class="avatar-image" />
-              <p class="avatar-label">Roblox</p>
-            </a>
-            <a class="avatar-card" href="https://steamcommunity.com/id/FoxStorm1_" target="_blank" rel="noopener noreferrer">
-              <img src="https://dynamicavatarapi.vercel.app/api/steam/avatar?user=FoxStorm1_&size=184" alt="Steam avatar" class="avatar-image" />
-              <p class="avatar-label">Steam</p>
-            </a>
-            <a class="avatar-card" href="https://www.chess.com/member/aaronlikesbacon" target="_blank" rel="noopener noreferrer">
-              <img src="https://dynamicavatarapi.vercel.app/api/chess/avatar?user=Aaronlikesbacon&size=256" alt="Chess.com avatar" class="avatar-image" />
-              <p class="avatar-label">Chess.com</p>
-            </a>
-            <div class="avatar-card">
-              <img src="https://dynamicavatarapi.vercel.app/api/overwatch/icon?user=Aarontendo-2585&size=128" alt="Overwatch icon" class="avatar-image" />
-              <p class="avatar-label">Overwatch</p>
-            </div>
-            <div class="avatar-card">
-              <img src="https://i.ibb.co/SsGZF4Z/Aaron-Minifig.png" alt="LEGO minifig avatar" class="avatar-image" />
-              <p class="avatar-label">LEGO</p>
-            </div>
-            <div class="avatar-card">
-              <img src="https://cdn-mii.accounts.nintendo.com/2.0.0/mii_images/b55b2028ffa7765b/cac39114f9d53cb8324bbec1a8dfd6e9f3cbc5f6.png?type=face&width=270" alt="Nintendo Mii avatar" class="avatar-image" />
-              <p class="avatar-label">Nintendo Mii</p>
+            <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+              <h3 class="text-lg font-bold text-gray-800">Creative</h3>
+              <div class="mt-4 flex flex-wrap gap-2 text-sm">
+                <span class="rounded-full bg-gray-100 px-3 py-1 text-gray-700">Visual Storytelling</span>
+                <span class="rounded-full bg-gray-100 px-3 py-1 text-gray-700">Content Curation</span>
+                <span class="rounded-full bg-gray-100 px-3 py-1 text-gray-700">Miniature Painting</span>
+                <span class="rounded-full bg-gray-100 px-3 py-1 text-gray-700">Photo Editing</span>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section id="hobbies" class="grid lg:grid-cols-2 gap-6">
-        <article class="info-box rounded-2xl">
-          <div class="p-6 md:p-8 relative z-10">
-            <p class="section-kicker">Hobbies</p>
-            <h3 class="section-title">Anime picks</h3>
-            <div class="mt-4 flex flex-wrap gap-2 text-sm">
-              <span class="chip">Dr. Stone</span>
-              <span class="chip">Demon Slayer</span>
-              <span class="chip">Death Note</span>
-              <span class="chip">Gachiakuta</span>
-              <span class="chip">Tougen Anki</span>
+        <section id="experience" class="space-y-6">
+          <div class="flex items-center gap-3 text-sm uppercase tracking-[0.3em] text-gray-500">
+            <span class="h-px w-10 bg-gray-300"></span>
+            <span>Experience</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+              <p class="text-sm text-gray-500">2023 — Present</p>
+              <h3 class="text-lg font-bold text-gray-800 mt-2">Personal Portfolio Studio</h3>
+              <p class="text-gray-600 mt-2">Designing and shipping custom landing pages, galleries, and hobby showcases.</p>
             </div>
-            <p class="mt-4 text-slate-600">These are recommendations and favorites, not project work.</p>
+            <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+              <p class="text-sm text-gray-500">2021 — 2023</p>
+              <h3 class="text-lg font-bold text-gray-800 mt-2">Community Creator</h3>
+              <p class="text-gray-600 mt-2">Built fan resources, curated media archives, and collaborated with fellow gamers.</p>
+            </div>
           </div>
-        </article>
-        <article class="info-box rounded-2xl">
-          <div class="p-6 md:p-8 relative z-10">
-            <p class="section-kicker">Hobbies</p>
-            <h3 class="section-title">Train photography</h3>
-            <p class="text-slate-700">I also maintain a personal train gallery featuring locomotives and audio snippets from museum visits.</p>
-            <a href="gallery.html" class="inline-flex mt-4 font-semibold text-blue-600 hover:underline">Open train gallery →</a>
-          </div>
-        </article>
-      </section>
+        </section>
 
-      <section id="team" class="info-box rounded-2xl">
-        <div class="p-6 md:p-10 relative z-10">
-          <p class="section-kicker">Team</p>
-          <h3 class="section-title">Team Gelatofish</h3>
-          <p class="mt-3 text-slate-700 max-w-3xl">Team Gelatofish is the community side of the ecosystem — helping keep customization open, safe, and organized while supporting UserPFP growth.</p>
-          <div class="mt-5 flex flex-wrap gap-3">
-            <a href="https://gelatofish.vercel.app/" target="_blank" rel="noopener noreferrer" class="rounded-full bg-pink-600 text-white px-5 py-2.5 font-semibold hover:bg-pink-700 transition-colors">Visit Team Gelatofish</a>
-            <span class="rounded-full border border-slate-300 px-5 py-2.5 text-slate-600 font-semibold">Join Discord (Coming soon)</span>
+        <section id="contact" class="space-y-6">
+          <div class="flex items-center gap-3 text-sm uppercase tracking-[0.3em] text-gray-500">
+            <span class="h-px w-10 bg-gray-300"></span>
+            <span>Contact</span>
           </div>
-        </div>
-      </section>
-    </div>
+          <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+            <p class="text-gray-700 text-lg">Let’s build something fun together. I’m always open to new collaborations and ideas.</p>
+            <div class="mt-4 flex flex-wrap gap-3">
+              <a href="mailto:hello@example.com" class="inline-flex items-center justify-center rounded-full bg-gray-900 text-white px-6 py-2 font-semibold shadow-sm hover:bg-gray-800 transition-colors">Email Me</a>
+              <a href="https://github.com/FascinatingPistachio" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center rounded-full border border-gray-300 bg-white px-6 py-2 font-semibold text-gray-700 hover:bg-gray-100 transition-colors">GitHub</a>
+              <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center rounded-full border border-gray-300 bg-white px-6 py-2 font-semibold text-gray-700 hover:bg-gray-100 transition-colors">Vercel Deploy</a>
+            </div>
+            <p class="text-sm text-gray-500 mt-4">Replace the email and links with your own contact info before publishing.</p>
+          </div>
+        </section>
+      </div>
+    </section>
   </main>
 
   <!-- Footer injected by js/main.js -->
