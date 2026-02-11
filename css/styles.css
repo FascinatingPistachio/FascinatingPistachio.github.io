@@ -78,7 +78,6 @@ h1, h2, h3, .serif-font, .plaque p, .caption {
   object-fit: cover;
   margin: 0 auto 0.75rem;
   background: #f8fafc;
-  transition: opacity 0.3s ease;
 }
 .avatar-label {
   font-weight: 600;
@@ -95,9 +94,6 @@ h1, h2, h3, .serif-font, .plaque p, .caption {
 .avatar-meta {
   font-size: 0.75rem;
   color: #94a3b8;
-}
-.fade-out {
-  opacity: 0;
 }
 
 /* Anime Covers */
