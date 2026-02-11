@@ -261,6 +261,37 @@ function initGallery() {
         container.appendChild(artPiece);
     });
 
+    // View Controls (Grid/Carousel + Captions)
+    const gridBtn = document.getElementById('view-grid');
+    const carouselBtn = document.getElementById('view-carousel');
+    const captionsBtn = document.getElementById('toggle-captions');
+
+    function setActiveView(mode) {
+        if (mode === 'carousel') {
+            container.classList.add('gallery-carousel');
+            container.classList.remove('gallery-grid');
+            carouselBtn?.classList.add('active');
+            gridBtn?.classList.remove('active');
+        } else {
+            container.classList.remove('gallery-carousel');
+            container.classList.add('gallery-grid');
+            gridBtn?.classList.add('active');
+            carouselBtn?.classList.remove('active');
+        }
+    }
+
+    gridBtn?.addEventListener('click', () => setActiveView('grid'));
+    carouselBtn?.addEventListener('click', () => setActiveView('carousel'));
+
+    captionsBtn?.addEventListener('click', () => {
+        container.classList.toggle('gallery-hide-captions');
+        captionsBtn.textContent = container.classList.contains('gallery-hide-captions')
+            ? 'Show Captions'
+            : 'Hide Captions';
+    });
+
+    setActiveView('grid');
+
     // Audio Logic
     const musicBtn = document.getElementById('music-toggle');
     const musicIcon = document.getElementById('music-icon');

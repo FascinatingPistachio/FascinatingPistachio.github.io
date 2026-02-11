@@ -174,11 +174,60 @@ h1, h2, h3, .serif-font, .plaque p, .caption {
 /* =========================================
    5. Gallery Components (Frames/Plaques)
    ========================================= */
+.gallery-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin: 0.5rem 0 1rem;
+}
+
+.gallery-toolbar-group {
+    display: inline-flex;
+    gap: 0.5rem;
+}
+
+.gallery-view-btn {
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #334155;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 0.45rem 0.9rem;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.gallery-view-btn:hover {
+    background: #f1f5f9;
+}
+
+.gallery-view-btn.active {
+    background: #0f172a;
+    color: #fff;
+    border-color: #0f172a;
+}
+
+.gallery-hide-captions .plaque {
+    display: none;
+}
+
 #gallery-scroll-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 2rem 1.5rem 4rem 1.5rem;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+#gallery-scroll-container.gallery-carousel {
     display: flex;
     overflow-x: auto;
-    gap: 4rem;
-    padding: 4rem 4rem 6rem 4rem;
+    gap: 3rem;
+    padding: 3rem 2.5rem 5rem 2.5rem;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     align-items: center;
@@ -203,16 +252,18 @@ h1, h2, h3, .serif-font, .plaque p, .caption {
 }
 
 .art-piece {
-    flex-shrink: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 320px;
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
     scroll-snap-align: center;
     opacity: 0;
     animation: fadeIn 0.8s ease forwards;
 }
-.art-piece.featured { width: 480px; }
+#gallery-scroll-container.gallery-carousel .art-piece { width: 320px; }
+#gallery-scroll-container.gallery-carousel .art-piece.featured { width: 480px; }
 .art-piece:nth-child(1) { animation-delay: 0.1s; }
 .art-piece:nth-child(2) { animation-delay: 0.2s; }
 .art-piece:nth-child(3) { animation-delay: 0.3s; }
@@ -314,14 +365,117 @@ h1, h2, h3, .serif-font, .plaque p, .caption {
 /* Removed Secret Archive styles as they are no longer used */
 
 @media (max-width: 768px) {
-    #gallery-scroll-container {
-        flex-direction: column;
-        overflow-x: hidden;
-        padding: 2rem 1rem;
-        gap: 3rem;
+    #gallery-scroll-container,
+    #gallery-scroll-container.gallery-carousel {
+        grid-template-columns: 1fr;
+        padding: 1.5rem 1rem 3rem 1rem;
+        gap: 2rem;
+        display: grid;
+        overflow-x: visible;
     }
-    .art-piece, .art-piece.featured {
+    .art-piece,
+    #gallery-scroll-container.gallery-carousel .art-piece,
+    #gallery-scroll-container.gallery-carousel .art-piece.featured {
         width: 100%;
-        max-width: 350px;
+        max-width: 360px;
     }
+}
+
+/* =========================================
+   6. Portfolio Refresh Components
+   ========================================= */
+.section-kicker {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: #64748b;
+}
+
+.section-title {
+  margin-top: 0.5rem;
+  font-size: 1.8rem;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.stat-chip {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.stat-chip span {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.stat-chip strong {
+  font-size: 0.95rem;
+  color: #0f172a;
+}
+
+.profile-panel {
+  background: linear-gradient(135deg, #eff6ff 0%, #fdf2f8 100%);
+  border: 1px solid #dbeafe;
+  border-radius: 16px;
+  padding: 1.25rem;
+}
+
+.project-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  background: #fff;
+  padding: 1.25rem;
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 24px rgba(15, 23, 42, 0.12);
+}
+
+.project-card h4 {
+  margin-top: 0.35rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.project-card p {
+  margin-top: 0.5rem;
+  color: #475569;
+}
+
+.project-card a {
+  display: inline-flex;
+  margin-top: 0.8rem;
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.project-card a:hover { text-decoration: underline; }
+
+.project-tag {
+  display: inline-flex;
+  background: #f1f5f9;
+  color: #334155;
+  font-size: 0.72rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.chip {
+  border-radius: 999px;
+  background: #fce7f3;
+  color: #9d174d;
+  padding: 0.3rem 0.65rem;
+  font-weight: 600;
 }
