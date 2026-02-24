@@ -9,6 +9,117 @@
   --accent: #4a5568;
 }
 
+
+
+/* =========================================
+   Neocities-inspired homepage theme
+   ========================================= */
+:root {
+  --neo-grid: rgba(255, 255, 255, 0.45);
+  --neo-ink: #2c145a;
+}
+
+.retro-hero {
+  background: linear-gradient(130deg, #ffb3df 0%, #9ee7ff 45%, #fff8a3 100%);
+}
+
+.retro-pill {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  background: #ffffff;
+  border: 2px solid #000;
+  padding: 0.5rem 0.85rem;
+  box-shadow: 3px 3px 0 #000;
+}
+
+.retro-marquee {
+  background: #190f36;
+  color: #ffe66e;
+  border: 2px dashed #fff;
+  padding: 0.45rem;
+  font-weight: 700;
+}
+
+.retro-btn {
+  border: 2px solid #000;
+  background: #ffec70;
+  color: #140b30;
+  font-weight: 700;
+  padding: 0.55rem 1rem;
+  box-shadow: 3px 3px 0 #000;
+}
+.retro-btn.alt { background: #bde7ff; }
+
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.badge-row span {
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: #fff;
+  border: 2px solid #000;
+  padding: 0.2rem 0.5rem;
+}
+
+.retro-panel {
+  border: 2px solid #000;
+  background: repeating-linear-gradient(0deg, #fdf7ff, #fdf7ff 26px, #f2edff 26px, #f2edff 52px);
+  padding: 1rem;
+  box-shadow: 5px 5px 0 #000;
+}
+
+.retro-section-title {
+  display: inline-block;
+  margin-bottom: 0.8rem;
+  font-size: 1.4rem;
+  color: var(--neo-ink);
+  border-bottom: 3px dotted #6a46c8;
+}
+
+.retro-mini-card {
+  border: 2px solid #000;
+  background: #fff;
+  padding: 0.65rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.retro-card {
+  border: 2px solid #000;
+  background: #fff;
+  padding: 1rem;
+  box-shadow: 4px 4px 0 #000;
+}
+.retro-card h3 { font-weight: 700; margin-bottom: 0.4rem; color: #2f1367; }
+.retro-card a { color: #4f1bd7; font-weight: 700; text-decoration: underline; }
+
+.retro-terminal {
+  border: 2px solid #000;
+  background: #0d0d0d;
+  color: #71ff8f;
+  font-family: "Courier New", monospace;
+  padding: 1rem;
+}
+
+.webring {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 2px dashed #000;
+  background: #fef3ff;
+  padding: 0.4rem 0.7rem;
+  font-size: 0.9rem;
+}
+
+.blink { animation: blink 1s step-end infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
 body {
   font-family: 'Lato', sans-serif;
   background-color: #e8e6e3;
