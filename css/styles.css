@@ -120,6 +120,106 @@
 .blink { animation: blink 1s step-end infinite; }
 @keyframes blink { 50% { opacity: 0; } }
 
+
+/* Upgraded neon-retro effects */
+.animated-grid {
+  background: radial-gradient(circle at 10% 20%, #150530 0%, #2d1266 35%, #12091f 100%);
+  position: relative;
+}
+.animated-grid::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+  background-size: 32px 32px;
+  animation: driftGrid 18s linear infinite;
+  z-index: -1;
+}
+
+.retro-hero {
+  background: linear-gradient(120deg, #ff7fd1 0%, #63d4ff 33%, #8ef88a 66%, #ffe36f 100%);
+  background-size: 240% 240%;
+  animation: heroShift 10s ease infinite;
+}
+
+.neon-pop {
+  animation: neonFlicker 2.8s ease-in-out infinite;
+}
+
+.sparkle-row span {
+  animation: badgePulse 2.5s ease-in-out infinite;
+}
+.sparkle-row span:nth-child(2) { animation-delay: .3s; }
+.sparkle-row span:nth-child(3) { animation-delay: .6s; }
+.sparkle-row span:nth-child(4) { animation-delay: .9s; }
+
+.retro-btn {
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+.retro-btn:hover {
+  transform: translate(-2px, -2px) scale(1.04) rotate(-1deg);
+  box-shadow: 6px 6px 0 #000;
+  filter: saturate(1.15);
+}
+
+.retro-card, .retro-panel, .retro-mini-card {
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.retro-card:hover, .retro-panel:hover, .retro-mini-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 8px 8px 0 #000;
+}
+
+.retro-section-title {
+  position: relative;
+}
+.retro-section-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #ff49bb, #63d4ff, #7dff74);
+  animation: scanline 2.5s linear infinite;
+}
+
+.animated-section {
+  animation: riseIn .7s ease both;
+}
+
+@keyframes heroShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes driftGrid {
+  from { transform: translateY(0); }
+  to { transform: translateY(32px); }
+}
+@keyframes neonFlicker {
+  0%, 100% { text-shadow: 0 0 0 transparent, 0 0 8px rgba(255,255,255,.5); }
+  40% { text-shadow: 0 0 10px #ff8fe3, 0 0 20px #77e6ff, 0 0 26px #ffea8f; }
+  65% { text-shadow: 0 0 5px #fff; }
+}
+@keyframes badgePulse {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+@keyframes scanline {
+  0% { opacity: 0.4; transform: scaleX(0.92); }
+  50% { opacity: 1; transform: scaleX(1); }
+  100% { opacity: 0.4; transform: scaleX(0.92); }
+}
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
 body {
   font-family: 'Lato', sans-serif;
   background-color: #e8e6e3;
