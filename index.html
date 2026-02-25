@@ -3,189 +3,128 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Portfolio of Aaron Pistachio — projects, skills, and contact information.">
-  <title>Aaron Pistachio | Portfolio</title>
-
-  <!-- CSS Framework -->
+  <meta name="description" content="Aaron's personal retro homepage with projects, hobbies, and contact links.">
+  <title>Aaron's Pixel Home</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Custom Styles -->
   <link rel="stylesheet" href="css/styles.css">
 </head>
 
-<body class="min-h-screen flex flex-col selection:bg-amber-200 selection:text-amber-900">
-  <!-- Header -->
-  <header class="bg-[#f5f5f0] pt-10 pb-10 border-b border-[#ccc] z-20 relative shadow-sm">
-    <div class="max-w-6xl mx-auto px-6 text-center">
-      <p class="text-sm uppercase tracking-[0.3em] text-gray-500">Portfolio</p>
-      <h1 class="text-4xl md:text-6xl font-bold text-[#222] mt-3 tracking-wide drop-shadow-sm">
-        Aaron Pistachio
-      </h1>
-      <p class="text-[#555] text-lg md:text-xl italic serif-font mt-3">
-        Front-end builder, storyteller, and hobbyist technologist.
-      </p>
-      <div class="mt-6 flex flex-wrap justify-center gap-3">
-        <a href="#projects" class="inline-flex items-center justify-center rounded-full bg-blue-600 text-white px-6 py-2 font-semibold shadow-sm hover:bg-blue-700 transition-colors">View Projects</a>
-        <a href="#contact" class="inline-flex items-center justify-center rounded-full border border-gray-300 bg-white px-6 py-2 font-semibold text-gray-700 hover:bg-gray-100 transition-colors">Contact Me</a>
+<body class="min-h-screen flex flex-col selection:bg-cyan-300 selection:text-slate-900 animated-grid">
+  <header class="retro-hero pt-10 pb-8 border-b-4 border-black relative z-20">
+    <div class="max-w-6xl mx-auto px-6 text-center space-y-4">
+      <p class="retro-pill">WELCOME TO AARON'S CORNER OF THE WEB ✦ EST. 2025</p>
+      <h1 class="text-4xl md:text-6xl font-bold text-[#dbeafe] drop-shadow-[2px_2px_0_#020617] neon-pop">Hey, I'm Aaron 👋</h1>
+      <p class="text-xl text-[#33235d] serif-font">I build playful front-end projects inspired by trains, anime, and games.</p>
+      <marquee behavior="alternate" scrollamount="6" class="retro-marquee">★ Currently collecting railway photos + tweaking this homepage nightly ★</marquee>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="#projects" class="retro-btn">See My Projects</a>
+        <a href="#contact" class="retro-btn alt">Get In Touch</a>
+      </div>
+      <div class="badge-row sparkle-row" aria-label="retro badges">
+        <span>HTML 4EVER</span>
+        <span>TRAIN NERD</span>
+        <span>ANIME FAN</span>
+        <span>HANDMADE SITE</span>
       </div>
     </div>
   </header>
 
-  <!-- Navigation injected by js/main.js -->
-
-  <main class="flex-grow flex flex-col items-center justify-start p-4 md:py-12 md:px-6">
+  <main class="flex-grow flex flex-col items-center justify-start p-4 md:py-10 md:px-6">
     <section id="top" class="info-box max-w-6xl w-full rounded-md">
-      <div class="p-6 md:p-10 relative z-10 space-y-12">
-        <div class="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-10 items-center">
-          <div class="space-y-6">
-            <div class="flex items-center gap-3 text-sm uppercase tracking-[0.3em] text-gray-500">
-              <span class="h-px w-10 bg-gray-300"></span>
-              <span>About</span>
-            </div>
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Building memorable web experiences with heart.</h2>
-            <p class="text-gray-700 text-lg leading-relaxed">
-              I design and build friendly, fast, and accessible web experiences that feel personal. My work blends
-              front-end engineering with playful storytelling — from interactive galleries to custom fan hubs.
-            </p>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
-                <p class="text-sm text-gray-500">Focus</p>
-                <p class="text-lg font-semibold text-gray-800">HTML • CSS • JS</p>
-              </div>
-              <div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
-                <p class="text-sm text-gray-500">Based in</p>
-                <p class="text-lg font-semibold text-gray-800">Online / Remote</p>
-              </div>
-              <div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
-                <p class="text-sm text-gray-500">Availability</p>
-                <p class="text-lg font-semibold text-gray-800">Open to collabs</p>
-              </div>
-            </div>
+      <div class="p-6 md:p-10 relative z-10 space-y-10">
+        <section class="retro-panel">
+          <h2 class="retro-section-title">About Me</h2>
+          <p class="text-lg text-[#2f2c40] leading-relaxed">I'm a hobbyist front-end creator who likes websites that feel personal, quirky, and alive. I grew up loving old-school web aesthetics, so I mix modern responsiveness with retro style, little interactions, and lots of personality.</p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-5">
+            <div class="retro-mini-card"><strong>Favorite stack</strong><span>HTML • CSS • JavaScript</span></div>
+            <div class="retro-mini-card"><strong>Current focus</strong><span>Interactive galleries + fan hubs</span></div>
+            <div class="retro-mini-card"><strong>Status</strong><span><span class="blink">●</span> Open to collabs</span></div>
           </div>
-          <div class="rounded-2xl border border-gray-200 bg-gradient-to-br from-blue-50 to-amber-50 p-6 shadow-md">
-            <div class="flex items-center gap-5">
-              <img src="https://github.com/FascinatingPistachio.png" alt="GitHub avatar for FascinatingPistachio" class="h-24 w-24 rounded-full border-4 border-white shadow-md" onerror="this.src='https://placehold.co/160x160/e8e6e3/777777?text=Avatar';">
-              <div>
-                <p class="text-sm text-gray-500">GitHub</p>
-                <p class="text-xl font-bold text-gray-800">@FascinatingPistachio</p>
-                <a href="https://github.com/FascinatingPistachio" target="_blank" rel="noopener noreferrer" class="text-blue-600 font-semibold hover:underline">View Profile</a>
-              </div>
-            </div>
-            <div class="mt-6 space-y-3 text-gray-700">
-              <p class="font-semibold">Highlights</p>
-              <ul class="space-y-2 text-sm">
-                <li>• Builds hobby-driven experiences (trains, anime, gaming).</li>
-                <li>• Turns static ideas into polished, deployable sites.</li>
-                <li>• Ships Vercel-ready HTML portfolios.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
 
-        <section id="projects" class="space-y-6">
-          <div class="flex items-center gap-3 text-sm uppercase tracking-[0.3em] text-gray-500">
-            <span class="h-px w-10 bg-gray-300"></span>
-            <span>Projects</span>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            <article class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
-              <h3 class="text-xl font-bold text-gray-800">Steam Train Gallery</h3>
-              <p class="text-gray-600 mt-2">An interactive gallery with custom frames, audio notes, and smooth scroll UX.</p>
-              <div class="mt-4 flex flex-wrap gap-2 text-sm">
-                <span class="rounded-full bg-amber-100 px-3 py-1 text-amber-900">HTML</span>
-                <span class="rounded-full bg-amber-100 px-3 py-1 text-amber-900">Tailwind</span>
-                <span class="rounded-full bg-amber-100 px-3 py-1 text-amber-900">JavaScript</span>
-              </div>
-              <a href="gallery.html" class="mt-4 inline-flex items-center font-semibold text-blue-600 hover:underline">View Gallery →</a>
+        <section class="space-y-5">
+          <h2 class="retro-section-title">Now Loading...</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <article class="retro-card">
+              <h3>🎧 On Repeat</h3>
+              <p>Instrumental and railway-themed ambience while coding late.</p>
             </article>
-            <article class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
-              <h3 class="text-xl font-bold text-gray-800">Anime Watchlist Hub</h3>
-              <p class="text-gray-600 mt-2">A curated landing page for favorite series, with shareable cards and deep links.</p>
-              <div class="mt-4 flex flex-wrap gap-2 text-sm">
-                <span class="rounded-full bg-blue-100 px-3 py-1 text-blue-900">Content Design</span>
-                <span class="rounded-full bg-blue-100 px-3 py-1 text-blue-900">UI</span>
-              </div>
-              <a href="https://bentoroll.vercel.app" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center font-semibold text-blue-600 hover:underline">Live Demo →</a>
+            <article class="retro-card">
+              <h3>🛠️ Building</h3>
+              <p>A polished image-and-audio gallery with dramatic museum vibes.</p>
             </article>
-            <article class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
-              <h3 class="text-xl font-bold text-gray-800">Gaming Wishlist Tracker</h3>
-              <p class="text-gray-600 mt-2">A clean dashboard that highlights upcoming gaming drops and wishlist moments.</p>
-              <div class="mt-4 flex flex-wrap gap-2 text-sm">
-                <span class="rounded-full bg-emerald-100 px-3 py-1 text-emerald-900">UX</span>
-                <span class="rounded-full bg-emerald-100 px-3 py-1 text-emerald-900">Branding</span>
-              </div>
-              <a href="https://fortnite.gg/wishlist?id=518159" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center font-semibold text-blue-600 hover:underline">Wishlist →</a>
+            <article class="retro-card">
+              <h3>📺 Watching</h3>
+              <p>Anime comfort rewatches and new seasonal picks.</p>
             </article>
           </div>
         </section>
 
-        <section id="skills" class="space-y-6">
-          <div class="flex items-center gap-3 text-sm uppercase tracking-[0.3em] text-gray-500">
-            <span class="h-px w-10 bg-gray-300"></span>
-            <span>Skills</span>
+        <section id="projects" class="space-y-5 animated-section">
+          <h2 class="retro-section-title">Projects</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+            <article class="retro-card">
+              <h3>Steam Train Gallery</h3>
+              <p>My personal photo archive with custom frames, plaques, and audio guide vibes.</p>
+              <a href="gallery.html">Enter gallery →</a>
+            </article>
+            <article class="retro-card">
+              <h3>Anime Watchlist Hub</h3>
+              <p>A fan-style homepage where I track favorites and share quick links.</p>
+              <a href="https://bentoroll.vercel.app" target="_blank" rel="noopener noreferrer">Live demo →</a>
+            </article>
+            <article class="retro-card">
+              <h3>Gaming Wishlist Tracker</h3>
+              <p>A snapshot of games and cosmetics I'm currently keeping an eye on.</p>
+              <a href="https://fortnite.gg/wishlist?id=518159" target="_blank" rel="noopener noreferrer">Wishlist →</a>
+            </article>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-              <h3 class="text-lg font-bold text-gray-800">Front-End</h3>
-              <div class="mt-4 flex flex-wrap gap-2 text-sm">
-                <span class="rounded-full bg-gray-100 px-3 py-1 text-gray-700">Semantic HTML</span>
-                <span class="rounded-full bg-gray-100 px-3 py-1 text-gray-700">Tailwind CSS</span>
-                <span class="rounded-full bg-gray-100 px-3 py-1 text-gray-700">Responsive Design</span>
-                <span class="rounded-full bg-gray-100 px-3 py-1 text-gray-700">Accessibility</span>
-              </div>
+        </section>
+
+        <section id="skills" class="space-y-5 animated-section">
+          <h2 class="retro-section-title">Skills.exe</h2>
+          <div class="retro-terminal">
+            <p>&gt; semantic html + css architecture</p>
+            <p>&gt; tailwind + custom component styling</p>
+            <p>&gt; javascript for interactive ui patterns</p>
+            <p>&gt; visual storytelling and curation</p>
+          </div>
+        </section>
+
+        <section id="experience" class="space-y-5 animated-section">
+          <h2 class="retro-section-title">My Timeline</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="retro-card">
+              <h3>2023 — Present</h3>
+              <p>Designing and shipping personal web projects, fan hubs, and hobby galleries.</p>
             </div>
-            <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-              <h3 class="text-lg font-bold text-gray-800">Creative</h3>
-              <div class="mt-4 flex flex-wrap gap-2 text-sm">
-                <span class="rounded-full bg-gray-100 px-3 py-1 text-gray-700">Visual Storytelling</span>
-                <span class="rounded-full bg-gray-100 px-3 py-1 text-gray-700">Content Curation</span>
-                <span class="rounded-full bg-gray-100 px-3 py-1 text-gray-700">Miniature Painting</span>
-                <span class="rounded-full bg-gray-100 px-3 py-1 text-gray-700">Photo Editing</span>
-              </div>
+            <div class="retro-card">
+              <h3>2021 — 2023</h3>
+              <p>Creating community resources, curating media collections, and collaborating online.</p>
             </div>
           </div>
         </section>
 
-        <section id="experience" class="space-y-6">
-          <div class="flex items-center gap-3 text-sm uppercase tracking-[0.3em] text-gray-500">
-            <span class="h-px w-10 bg-gray-300"></span>
-            <span>Experience</span>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-              <p class="text-sm text-gray-500">2023 — Present</p>
-              <h3 class="text-lg font-bold text-gray-800 mt-2">Personal Portfolio Studio</h3>
-              <p class="text-gray-600 mt-2">Designing and shipping custom landing pages, galleries, and hobby showcases.</p>
-            </div>
-            <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-              <p class="text-sm text-gray-500">2021 — 2023</p>
-              <h3 class="text-lg font-bold text-gray-800 mt-2">Community Creator</h3>
-              <p class="text-gray-600 mt-2">Built fan resources, curated media archives, and collaborated with fellow gamers.</p>
-            </div>
-          </div>
-        </section>
-
-        <section id="contact" class="space-y-6">
-          <div class="flex items-center gap-3 text-sm uppercase tracking-[0.3em] text-gray-500">
-            <span class="h-px w-10 bg-gray-300"></span>
-            <span>Contact</span>
-          </div>
-          <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-            <p class="text-gray-700 text-lg">Let’s build something fun together. I’m always open to new collaborations and ideas.</p>
+        <section id="contact" class="space-y-5 animated-section">
+          <h2 class="retro-section-title">Contact + Links</h2>
+          <div class="retro-panel">
+            <p>If you want a homepage with personality (or just want to chat trains/anime), I'm around.</p>
             <div class="mt-4 flex flex-wrap gap-3">
-              <a href="mailto:hello@example.com" class="inline-flex items-center justify-center rounded-full bg-gray-900 text-white px-6 py-2 font-semibold shadow-sm hover:bg-gray-800 transition-colors">Email Me</a>
-              <a href="https://github.com/FascinatingPistachio" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center rounded-full border border-gray-300 bg-white px-6 py-2 font-semibold text-gray-700 hover:bg-gray-100 transition-colors">GitHub</a>
-              <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center rounded-full border border-gray-300 bg-white px-6 py-2 font-semibold text-gray-700 hover:bg-gray-100 transition-colors">Vercel Deploy</a>
+              <a href="mailto:hello@example.com" class="retro-btn">Email Me</a>
+              <a href="https://bentoroll.vercel.app" target="_blank" rel="noopener noreferrer" class="retro-btn alt">Anime Hub</a>
+              <a href="gallery.html" class="retro-btn alt">Train Gallery</a>
             </div>
-            <p class="text-sm text-gray-500 mt-4">Replace the email and links with your own contact info before publishing.</p>
+            <div class="webring mt-5">
+              <a href="#">← prev</a>
+              <span>aaron's pixel webring</span>
+              <a href="#">next →</a>
+            </div>
           </div>
         </section>
       </div>
     </section>
   </main>
 
-  <!-- Footer injected by js/main.js -->
   <script src="js/main.js"></script>
 </body>
 </html>

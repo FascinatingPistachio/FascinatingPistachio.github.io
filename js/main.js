@@ -29,7 +29,7 @@ function initSharedLayout() {
     // --- 2. Inject Navbar (FIXED AT TOP) ---
     // We use 'afterbegin' on body to ensure it's always at the top (Y=0)
     const navHTML = `
-      <nav id="main-nav" class="fixed top-0 left-0 w-full flex justify-center bg-[#f7f7f2]/95 border-b border-[#ccc] p-3 flex-wrap z-50 backdrop-blur-sm shadow-sm transition-colors duration-300">
+      <nav id="main-nav" class="fixed top-0 left-0 w-full flex justify-center bg-[#0f172a]/95 border-b-2 border-[#1d4ed8] p-3 flex-wrap z-50 shadow-[0_3px_0_#020617] transition-colors duration-300">
         <div class="flex items-center gap-2">
             <a href="index.html" class="nav-link relative" data-page="index.html">Home</a>
             <a href="index.html#projects" class="nav-link relative">Projects</a>
@@ -49,9 +49,9 @@ function initSharedLayout() {
     // --- 3. Inject Footer ---
     const currentYear = new Date().getFullYear();
     const footerHTML = `
-      <footer class="text-center p-6 bg-[#f5f5f0] text-[#555] border-t border-[#ccc] text-sm mt-auto">
-        <p>© 2025${currentYear > 2025 ? "–" + currentYear : ""} Aaron Pistachio — Built with ❤️ and deployed on 
-        <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" class="text-[#555] underline">Vercel</a></p>
+      <footer class="text-center p-6 bg-[#0b1120] text-[#bfdbfe] border-t-2 border-[#1d4ed8] text-sm mt-auto">
+        <p>© 2025${currentYear > 2025 ? "–" + currentYear : ""} Aaron — Built with ❤️ and deployed on
+        <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" class="text-[#7dd3fc] underline">Vercel</a></p>
       </footer>
     `;
     document.body.insertAdjacentHTML("beforeend", footerHTML);
@@ -64,15 +64,15 @@ function initSharedLayout() {
       const targetPage = link.getAttribute("data-page");
 
       // Base styles for all links
-      link.classList.add("font-medium", "rounded-full", "px-5", "py-2", "text-sm", "transition-colors");
+      link.classList.add("font-bold", "rounded-none", "px-4", "py-2", "text-sm", "transition-colors", "border-2", "border-transparent");
 
       if (targetPage && targetPage === currentPage) {
-        link.classList.add("active-link", "font-bold", "text-blue-900");
+        link.classList.add("active-link", "font-bold", "text-[#dbeafe]", "border-[#1d4ed8]", "bg-[#1e3a8a]");
         // Add the background "pill" for the active state
         // We use view-transition-name in CSS to animate this specific element moving between pages
-        link.innerHTML += `<span class="absolute inset-0 bg-blue-100 rounded-full -z-10 shadow-sm" style="view-transition-name: active-nav-pill;"></span>`;
+        link.innerHTML += `<span class="absolute inset-0 bg-[#1e3a8a] -z-10" style="view-transition-name: active-nav-pill;"></span>`;
       } else {
-        link.classList.add("text-gray-600", "hover:text-gray-900", "hover:bg-gray-200");
+        link.classList.add("text-[#93c5fd]", "hover:text-[#e0f2fe]", "hover:bg-[#1e293b]", "hover:border-[#2563eb]");
       }
     });
 }
@@ -174,63 +174,63 @@ function initGallery() {
             title: "Henry Oakley",
             caption: "GNR Class C1 \"Henry Oakley\"<br>National Railway Museum",
             src: "https://i.ibb.co/JF5PTXW7/AP1-Gcz-MOO4-MOzy3-V-L7c-Xe-Jsxc-XDgqe9-JDHs-TJK-Qy-Ln-PKVj-Qj-NFBGNHV6-E6i-W-Yw2-H6-JS5s-Lg-exxah-R.jpg",
-            audioSrc: "https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/HenryOakley.mp3",
+            audioSrc: "media/HenryOakley.mp3",
             featured: false
         },
         {
             title: "Mallard",
             caption: "LNER Class A4 \"Mallard\"<br>National Railway Museum",
             src: "https://i.ibb.co/DfCZK7j1/AP1-Gcz-Mf8-Dafp8-KVxh-Onsf-DPhl-YGCd-MPUoc-PJMg-VT4g7sk-AYyx-G-npfou-Xq5-W-WV-CFKm-HHf-DL6x-R5-OYPk.jpg",
-            audioSrc: "https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/Mallard.mp3",
+            audioSrc: "media/Mallard.mp3",
             featured: false
         },
         {
             title: "KF7 Class",
             caption: "Chinese KF7 Class<br>National Railway Museum",
             src: "https://i.ibb.co/NHyxcYM/AP1-Gcz-NSrq-G1-TIW9mj-Hp-X2-JXa-JUUvr6i3-Ze-FOf-NUj-UDBaj-Q-r-Xrs-J9jkl-UPYCto-JBO4t-BABo001-WQ9-Vz.jpg",
-            audioSrc: "https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/KF7.mp3",
+            audioSrc: "media/KF7.mp3",
             featured: false
         },
         {
             title: "Boxhill",
             caption: "LB&SCR A1 Class \"Boxhill\"<br>National Railway Museum",
             src: "https://i.ibb.co/8gwmmyWw/AP1-Gcz-Mwf7-J-j3s11-Fl-Oew-I2-Hmx-Irgm-I-epf5-W3veg-C1-GJin0swi-Mmf-TQKRr-Ab-NX2r-Qa-NOMTx-Xl-M1-n.jpg",
-            audioSrc: "https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/Boxhill.mp3",
+            audioSrc: "media/Boxhill.mp3",
             featured: false
         },
         {
             title: "Stirling Single",
             caption: "GNR Class A2 Stirling Single on the turntable<br>National Railway Museum<br><em>My favorite photo!</em>",
             src: "https://i.ibb.co/mCk6qn9k/AP1-Gcz-MOL-Eg-KBy-KWEQOCvrq-XIZp-Iz-V7-Xn-M72-A2-TC3-S4-M33-GJx-IGgghp-FOy-NBGr9uq-Vn86aqk6-Abq4-DD.jpg",
-            audioSrc: "https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/StirlingSingle.mp3",
+            audioSrc: "media/StirlingSingle.mp3",
             featured: true
         },
         {
             title: "Rocket",
             caption: "Replica of Stephenson's Rocket<br>National Railway Museum",
             src: "https://i.ibb.co/m5Lc5yHv/AP1-Gcz-Pz9p-RHa-U45hk-DB57-Yu4-x6-PT1-J3yw-H1r-Bxo-Cy-AIbi-K-AEps3-XYn1-Jq-W3-NDIJBc-VT08-JD2-MImlp.jpg",
-            audioSrc: "https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/Rocket.mp3",
+            audioSrc: "media/Rocket.mp3",
             featured: false
         },
         {
             title: "Duchess of Hamilton",
             caption: "LMS Coronation Class \"Duchess of Hamilton\"<br>National Railway Museum",
             src: "https://i.ibb.co/9H5VPvyP/AP1-Gcz-NOKveq-nl3qrb-Agl-HBg-Hjf-ROO4pm-Vu-FFgd-Pw3aamruu5q-Gv-JGRzn-Kz-H5a-K7-G4d-P5ypcb2ll-VJVvj.jpg",
-            audioSrc: "https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/DuchessofHamilton.mp3",
+            audioSrc: "media/DuchessofHamilton.mp3",
             featured: false
         },
         {
             title: "James Spooner",
             caption: "\"James Spooner\" Double Fairlie<br>Ffestiniog Railway, Wales",
             src: "https://i.ibb.co/G3pd6j7C/AP1-Gcz-OR04-VD-Zq-GBF005zd-XD2m-Oj-FZZZgv-So-EN3d-UTl-JAs-Ro-Qr-LKw-KQGXMdgw-Pyg-Qm0w-FQw-Wwtx-Je-S.jpg",
-            audioSrc: "https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/JamesSpooner.mp3",
+            audioSrc: "media/JamesSpooner.mp3",
             featured: false
         },
         {
             title: "NGG16 130",
             caption: "NGG16 Class Garratt No. 130<br>Welsh Highland Railway, Wales",
             src: "https://i.ibb.co/q274mKm/1000114673-4025f027-4d92-41ca-81ec-5adc5dc358fb-png.jpg",
-            audioSrc: "https://github.com/FascinatingPistachio/FascinatingPistachio.github.io/raw/refs/heads/main/media/NGG16.mp3",
+            audioSrc: "media/NGG16.mp3",
             featured: false
         }
     ];
@@ -250,7 +250,7 @@ function initGallery() {
 
         artPiece.innerHTML = `
             <div class="frame ${frameStyle}">
-                <img src="${item.src}" alt="${item.title}" loading="lazy" 
+                <img src="${item.src}" alt="${item.title}" loading="lazy"
                      onerror="this.src='https://placehold.co/300x200/4a2a0a/d4af37?text=Image+Unavailable'">
             </div>
             <div class="plaque">
@@ -303,7 +303,7 @@ function initGallery() {
     if (musicBtn) {
         musicBtn.addEventListener('click', () => {
             if (!isMusicPlaying) {
-                bgAudio.volume = 0.4; 
+                bgAudio.volume = 0.4;
                 bgAudio.play().then(() => {
                     isMusicPlaying = true;
                     musicIcon.textContent = "⏸";
