@@ -19,38 +19,35 @@
   --neo-ink: #2c145a;
 }
 
-.retro-hero {
-  background: linear-gradient(130deg, #ffb3df 0%, #9ee7ff 45%, #fff8a3 100%);
-}
-
 .retro-pill {
   display: inline-block;
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   font-weight: 700;
-  background: #ffffff;
-  border: 2px solid #000;
+  background: #0f172a;
+  color: #e2e8f0;
+  border: 2px solid #60a5fa;
   padding: 0.5rem 0.85rem;
-  box-shadow: 3px 3px 0 #000;
+  box-shadow: 3px 3px 0 #020617;
 }
 
 .retro-marquee {
-  background: #190f36;
-  color: #ffe66e;
-  border: 2px dashed #fff;
+  background: #020617;
+  color: #7dd3fc;
+  border: 2px dashed #38bdf8;
   padding: 0.45rem;
   font-weight: 700;
 }
 
 .retro-btn {
-  border: 2px solid #000;
-  background: #ffec70;
-  color: #140b30;
+  border: 2px solid #0f172a;
+  background: #0ea5e9;
+  color: #e0f2fe;
   font-weight: 700;
   padding: 0.55rem 1rem;
-  box-shadow: 3px 3px 0 #000;
+  box-shadow: 3px 3px 0 #020617;
 }
-.retro-btn.alt { background: #bde7ff; }
+.retro-btn.alt { background: #1d4ed8; color: #dbeafe; }
 
 .badge-row {
   display: flex;
@@ -61,14 +58,15 @@
 .badge-row span {
   font-size: 0.7rem;
   font-weight: 700;
-  background: #fff;
-  border: 2px solid #000;
+  background: #111827;
+  color: #bfdbfe;
+  border: 2px solid #1d4ed8;
   padding: 0.2rem 0.5rem;
 }
 
 .retro-panel {
   border: 2px solid #000;
-  background: repeating-linear-gradient(0deg, #fdf7ff, #fdf7ff 26px, #f2edff 26px, #f2edff 52px);
+  background: repeating-linear-gradient(0deg, #0f172a, #0f172a 26px, #111827 26px, #111827 52px);
   padding: 1rem;
   box-shadow: 5px 5px 0 #000;
 }
@@ -77,13 +75,14 @@
   display: inline-block;
   margin-bottom: 0.8rem;
   font-size: 1.4rem;
-  color: var(--neo-ink);
-  border-bottom: 3px dotted #6a46c8;
+  color: #dbeafe;
+  border-bottom: 3px dotted #2563eb;
 }
 
 .retro-mini-card {
-  border: 2px solid #000;
-  background: #fff;
+  border: 2px solid #1e3a8a;
+  background: #0b1120;
+  color: #dbeafe;
   padding: 0.65rem;
   display: flex;
   flex-direction: column;
@@ -91,13 +90,14 @@
 }
 
 .retro-card {
-  border: 2px solid #000;
-  background: #fff;
+  border: 2px solid #1e3a8a;
+  background: #0b1120;
+  color: #dbeafe;
   padding: 1rem;
   box-shadow: 4px 4px 0 #000;
 }
-.retro-card h3 { font-weight: 700; margin-bottom: 0.4rem; color: #2f1367; }
-.retro-card a { color: #4f1bd7; font-weight: 700; text-decoration: underline; }
+.retro-card h3 { font-weight: 700; margin-bottom: 0.4rem; color: #93c5fd; }
+.retro-card a { color: #38bdf8; font-weight: 700; text-decoration: underline; }
 
 .retro-terminal {
   border: 2px solid #000;
@@ -111,8 +111,9 @@
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  border: 2px dashed #000;
-  background: #fef3ff;
+  border: 2px dashed #1d4ed8;
+  background: #0f172a;
+  color: #bfdbfe;
   padding: 0.4rem 0.7rem;
   font-size: 0.9rem;
 }
@@ -123,7 +124,7 @@
 
 /* Upgraded neon-retro effects */
 .animated-grid {
-  background: radial-gradient(circle at 10% 20%, #150530 0%, #2d1266 35%, #12091f 100%);
+  background: radial-gradient(circle at 10% 20%, #020617 0%, #0b1120 35%, #030712 100%);
   position: relative;
 }
 .animated-grid::before {
@@ -140,9 +141,9 @@
 }
 
 .retro-hero {
-  background: linear-gradient(120deg, #ff7fd1 0%, #63d4ff 33%, #8ef88a 66%, #ffe36f 100%);
-  background-size: 240% 240%;
-  animation: heroShift 10s ease infinite;
+  background: linear-gradient(120deg, #0b1023 0%, #14274e 35%, #1f3c88 70%, #0f1d40 100%);
+  background-size: 220% 220%;
+  animation: heroShift 12s ease infinite;
 }
 
 .neon-pop {
@@ -183,7 +184,7 @@
   bottom: -6px;
   width: 100%;
   height: 3px;
-  background: linear-gradient(90deg, #ff49bb, #63d4ff, #7dff74);
+  background: linear-gradient(90deg, #0ea5e9, #2563eb, #1e40af);
   animation: scanline 2.5s linear infinite;
 }
 
@@ -201,9 +202,9 @@
   to { transform: translateY(32px); }
 }
 @keyframes neonFlicker {
-  0%, 100% { text-shadow: 0 0 0 transparent, 0 0 8px rgba(255,255,255,.5); }
-  40% { text-shadow: 0 0 10px #ff8fe3, 0 0 20px #77e6ff, 0 0 26px #ffea8f; }
-  65% { text-shadow: 0 0 5px #fff; }
+  0%, 100% { text-shadow: 0 0 0 transparent, 0 0 8px rgba(125,211,252,.45); }
+  40% { text-shadow: 0 0 10px #38bdf8, 0 0 20px #2563eb, 0 0 26px #1d4ed8; }
+  65% { text-shadow: 0 0 5px #bfdbfe; }
 }
 @keyframes badgePulse {
   0%, 100% { transform: translateY(0); }
@@ -222,9 +223,9 @@
 
 body {
   font-family: 'Lato', sans-serif;
-  background-color: #e8e6e3;
-  color: #222;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  background-color: #030712;
+  color: #dbeafe;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
   overflow-x: hidden;
 }
 
@@ -541,7 +542,7 @@ h1, h2, h3, .serif-font, .plaque p, .caption {
     box-shadow: 0 4px 6px rgba(0,0,0,0.15);
     text-align: center;
     border-radius: 2px;
-    color: #222;
+    color: #dbeafe;
 }
 .art-piece.featured .plaque {
      background: linear-gradient(to bottom, #fffacd 0%, #ffd700 50%, #cfa500 100%);
@@ -569,7 +570,7 @@ h1, h2, h3, .serif-font, .plaque p, .caption {
 }
 .audio-btn:hover {
     background: #d4af37;
-    color: #222;
+    color: #dbeafe;
     transform: scale(1.1);
 }
 

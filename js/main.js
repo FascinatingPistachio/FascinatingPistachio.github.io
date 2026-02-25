@@ -29,7 +29,7 @@ function initSharedLayout() {
     // --- 2. Inject Navbar (FIXED AT TOP) ---
     // We use 'afterbegin' on body to ensure it's always at the top (Y=0)
     const navHTML = `
-      <nav id="main-nav" class="fixed top-0 left-0 w-full flex justify-center bg-[#fff6bd]/95 border-b-2 border-black p-3 flex-wrap z-50 shadow-[0_3px_0_#000] transition-colors duration-300">
+      <nav id="main-nav" class="fixed top-0 left-0 w-full flex justify-center bg-[#0f172a]/95 border-b-2 border-[#1d4ed8] p-3 flex-wrap z-50 shadow-[0_3px_0_#020617] transition-colors duration-300">
         <div class="flex items-center gap-2">
             <a href="index.html" class="nav-link relative" data-page="index.html">Home</a>
             <a href="index.html#projects" class="nav-link relative">Projects</a>
@@ -49,9 +49,9 @@ function initSharedLayout() {
     // --- 3. Inject Footer ---
     const currentYear = new Date().getFullYear();
     const footerHTML = `
-      <footer class="text-center p-6 bg-[#ffd1f2] text-[#3e2258] border-t-2 border-black text-sm mt-auto">
+      <footer class="text-center p-6 bg-[#0b1120] text-[#bfdbfe] border-t-2 border-[#1d4ed8] text-sm mt-auto">
         <p>© 2025${currentYear > 2025 ? "–" + currentYear : ""} Aaron — Built with ❤️ and deployed on
-        <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" class="text-[#555] underline">Vercel</a></p>
+        <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" class="text-[#7dd3fc] underline">Vercel</a></p>
       </footer>
     `;
     document.body.insertAdjacentHTML("beforeend", footerHTML);
@@ -67,12 +67,12 @@ function initSharedLayout() {
       link.classList.add("font-bold", "rounded-none", "px-4", "py-2", "text-sm", "transition-colors", "border-2", "border-transparent");
 
       if (targetPage && targetPage === currentPage) {
-        link.classList.add("active-link", "font-bold", "text-[#201046]", "border-black", "bg-[#a5ebff]");
+        link.classList.add("active-link", "font-bold", "text-[#dbeafe]", "border-[#1d4ed8]", "bg-[#1e3a8a]");
         // Add the background "pill" for the active state
         // We use view-transition-name in CSS to animate this specific element moving between pages
-        link.innerHTML += `<span class="absolute inset-0 bg-[#a5ebff] -z-10" style="view-transition-name: active-nav-pill;"></span>`;
+        link.innerHTML += `<span class="absolute inset-0 bg-[#1e3a8a] -z-10" style="view-transition-name: active-nav-pill;"></span>`;
       } else {
-        link.classList.add("text-[#4f3f70]", "hover:text-black", "hover:bg-[#fff]", "hover:border-black");
+        link.classList.add("text-[#93c5fd]", "hover:text-[#e0f2fe]", "hover:bg-[#1e293b]", "hover:border-[#2563eb]");
       }
     });
 }
